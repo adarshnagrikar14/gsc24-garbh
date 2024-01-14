@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "283851340071",
+    "project_id": "ahara-gsc",
+    "storage_bucket": "ahara-gsc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:283851340071:android:fc288b0d89bd72531c5102",
+        "android_client_info": {
+          "package_name": "com.app.ahara"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDepBb5EilBKjl8FBUSifoXtqpNI8py2EU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
