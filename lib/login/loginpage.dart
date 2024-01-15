@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:garbh/user-type/usertype.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -46,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const Scaffold(),
+            builder: (context) => const UserTypePage(),
           ),
         );
       } else {
@@ -87,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
             repeat: false,
           ),
           const Text(
-            "SIGN UP\nTo continue with Ahara",
+            "SIGN UP\nTo continue with Garbh",
             style: TextStyle(
               fontSize: 23.0,
               fontWeight: FontWeight.bold,

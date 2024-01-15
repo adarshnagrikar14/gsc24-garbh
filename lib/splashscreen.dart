@@ -2,7 +2,8 @@
 
 import 'dart:async';
 
-import 'package:ahara/login/loginpage.dart';
+import 'package:garbh/login/loginpage.dart';
+import 'package:garbh/user-type/usertype.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -38,7 +39,7 @@ class _SplashscreenState extends State<Splashscreen> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const Scaffold(),
+              builder: (context) => const UserTypePage(),
             ),
           );
         } else {
