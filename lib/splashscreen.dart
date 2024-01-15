@@ -24,7 +24,7 @@ class _SplashscreenState extends State<Splashscreen> {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        systemNavigationBarColor: Colors.green,
+        systemNavigationBarColor: Color.fromARGB(255, 249, 76, 102),
       ),
     );
 
@@ -57,7 +57,7 @@ class _SplashscreenState extends State<Splashscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
+      backgroundColor: const Color.fromARGB(255, 249, 76, 102),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -68,7 +68,7 @@ class _SplashscreenState extends State<Splashscreen> {
             child: Padding(
               padding: const EdgeInsets.only(bottom: 10.0),
               child: Text(
-                "Ahara",
+                "Garbh",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 50.0,

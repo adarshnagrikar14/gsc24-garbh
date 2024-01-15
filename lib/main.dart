@@ -18,12 +18,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MaterialColor mySwatchColor = Colors.red;
+
     return MaterialApp(
       title: 'Garbh',
       home: const Splashscreen(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: mySwatchColor,
         textTheme: GoogleFonts.rubikTextTheme(
           Theme.of(context).textTheme,
         ),
