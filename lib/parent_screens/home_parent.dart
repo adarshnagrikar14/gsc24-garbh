@@ -3,9 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreenParent extends StatefulWidget {
-  const HomeScreenParent({
-    super.key,
-  });
+  const HomeScreenParent({super.key});
 
   @override
   State<HomeScreenParent> createState() => _HomeScreenParentState();
