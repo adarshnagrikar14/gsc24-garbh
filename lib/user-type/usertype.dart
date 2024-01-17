@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:garbh/dashboards/parent_dashboard.dart';
 import 'package:garbh/dateselect.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../dashboards/preg_women_dashboard.dart';
 
 class UserTypePage extends StatefulWidget {
   const UserTypePage({super.key});
@@ -11,6 +14,8 @@ class UserTypePage extends StatefulWidget {
 }
 
 class _UserTypePageState extends State<UserTypePage> {
+  late String concDate;
+
   @override
   void initState() {
     super.initState();
@@ -21,6 +26,19 @@ class _UserTypePageState extends State<UserTypePage> {
         systemNavigationBarColor: Colors.white,
       ),
     );
+
+    getDateOfConception();
+  }
+
+  Future<void> getDateOfConception() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? selectedDate = prefs.getString("selectedDate");
+
+    if (selectedDate != null) {
+      setState(() {
+        concDate = selectedDate;
+      });
+    }
   }
 
   @override
@@ -47,13 +65,21 @@ class _UserTypePageState extends State<UserTypePage> {
           Center(
             child: InkWell(
               onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SelecDatePage(),
-                    // builder: (context) => const PregnantWDashboard(),
-                  ),
-                );
+                if (concDate.isEmpty) {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SelecDatePage(),
+                    ),
+                  );
+                } else {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PregnantWDashboard(),
+                    ),
+                  );
+                }
               },
               child: ClipOval(
                 child: Container(

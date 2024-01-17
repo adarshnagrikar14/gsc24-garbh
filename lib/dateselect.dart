@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:garbh/dashboards/preg_women_dashboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SelecDatePage extends StatefulWidget {
@@ -22,7 +24,7 @@ class _SelecDatePageState extends State<SelecDatePage> {
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime currentDate = DateTime.now();
-    final DateTime oneYearAgo = currentDate.subtract(Duration(days: 365));
+    final DateTime oneYearAgo = currentDate.subtract(const Duration(days: 365));
 
     DateTime initialDate = selectedDate.isBefore(oneYearAgo)
         ? oneYearAgo
@@ -35,7 +37,7 @@ class _SelecDatePageState extends State<SelecDatePage> {
       builder: (BuildContext builder) {
         return Container(
           margin: const EdgeInsets.all(
-            10.0,
+            13.0,
           ),
           height: 300.0,
           decoration: BoxDecoration(
@@ -68,15 +70,22 @@ class _SelecDatePageState extends State<SelecDatePage> {
   }
 
   void _updateDateText() {
-    _dateController.text = '${selectedDate.toLocal()}'.split(' ')[0];
+    String formattedDate =
+        '${selectedDate.day}-${selectedDate.month}-${selectedDate.year}';
+    _dateController.text = formattedDate;
   }
 
   Future<void> _saveDate() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('selectedDate', _dateController.text);
 
-    // Navigate to the next activity or page here
-    print('Selected Date: ${_dateController.text}');
+    // ignore: use_build_context_synchronously
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const PregnantWDashboard(),
+      ),
+    );
   }
 
   @override
@@ -94,29 +103,37 @@ class _SelecDatePageState extends State<SelecDatePage> {
               "Select the date of conception",
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: 26.0),
             Row(
               children: [
                 Expanded(
                   child: TextField(
                     controller: _dateController,
                     readOnly: true,
+                    scribbleEnabled: false,
                     decoration: const InputDecoration(
                       labelText: 'Date',
                       suffixIcon: Icon(Icons.calendar_today),
                     ),
                   ),
                 ),
+                const Gap(20),
                 ElevatedButton(
                   onPressed: () => _selectDate(context),
-                  child: const Text('Select'),
+                  child: const Text("Select"),
                 ),
               ],
             ),
+            const Gap(35),
             const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: _saveDate,
-              child: const Text('Save and Navigate'),
+              child: const Text(
+                "Save and Proceed",
+                style: TextStyle(
+                  fontSize: 16.0,
+                ),
+              ),
             ),
           ],
         ),

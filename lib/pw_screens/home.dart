@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreenPW extends StatefulWidget {
   const HomeScreenPW({super.key});
@@ -12,11 +13,14 @@ class _HomeScreenPWState extends State<HomeScreenPW> {
   Color redColor = const Color.fromARGB(255, 249, 76, 102);
 
   late String userName;
+  late String concDate;
 
   @override
   void initState() {
     super.initState();
     getUserDisplayName();
+
+    getDateOfConception();
   }
 
   Future<void> getUserDisplayName() async {
@@ -25,6 +29,17 @@ class _HomeScreenPWState extends State<HomeScreenPW> {
     if (user != null) {
       setState(() {
         userName = user.displayName ?? "Dear User";
+      });
+    }
+  }
+
+  Future<void> getDateOfConception() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? selectedDate = prefs.getString("selectedDate");
+
+    if (selectedDate != null) {
+      setState(() {
+        concDate = selectedDate;
       });
     }
   }
@@ -78,28 +93,28 @@ class _HomeScreenPWState extends State<HomeScreenPW> {
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                   padding: const EdgeInsets.all(16.0),
-                  child: const Column(
+                  child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Card Title',
-                        style: TextStyle(
+                        'Date: $concDate',
+                        style: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 18.0,
                         ),
                       ),
-                      SizedBox(height: 8.0),
-                      Text(
+                      const SizedBox(height: 8.0),
+                      const Text(
                         'Description goes here.',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 16.0,
                         ),
                       ),
-                      SizedBox(height: 8.0),
-                      Text(
+                      const SizedBox(height: 8.0),
+                      const Text(
                         'More details...',
                         style: TextStyle(
                           color: Colors.black,
