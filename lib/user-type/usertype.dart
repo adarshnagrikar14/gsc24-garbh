@@ -27,6 +27,8 @@ class _UserTypePageState extends State<UserTypePage> {
       ),
     );
 
+    concDate = "";
+
     getDateOfConception();
   }
 

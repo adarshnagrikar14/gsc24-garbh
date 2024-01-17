@@ -55,6 +55,7 @@ dependencies:
   line_icons: ^2.0.3
 
   gap: ^3.0.1
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

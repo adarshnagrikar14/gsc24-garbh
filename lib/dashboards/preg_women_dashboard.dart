@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:garbh/pw_screens/home.dart';
+import 'package:garbh/pw_screens/home_pw.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 
@@ -95,7 +95,7 @@ class _PregnantWDashboardState extends State<PregnantWDashboard> {
               ),
               GButton(
                 icon: LineIcons.helpingHands,
-                text: 'Tools',
+                text: 'Progress',
               ),
               GButton(
                 icon: LineIcons.wiredNetwork,
