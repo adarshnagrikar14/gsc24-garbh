@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:garbh/dashboards/parent_dashboard.dart';
-import 'package:garbh/dashboards/preg_women_dashboard.dart';
+import 'package:garbh/dateselect.dart';
 
 class UserTypePage extends StatefulWidget {
   const UserTypePage({super.key});
@@ -50,7 +50,8 @@ class _UserTypePageState extends State<UserTypePage> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const PregnantWDashboard(),
+                    builder: (context) => const SelecDatePage(),
+                    // builder: (context) => const PregnantWDashboard(),
                   ),
                 );
               },

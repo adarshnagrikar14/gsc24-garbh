@@ -26,6 +26,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: mySwatchColor,
+        colorScheme: const ColorScheme.light(
+          primary: Colors.red,
+          background: Colors.white,
+          onPrimary: Colors.white,
+        ),
         textTheme: GoogleFonts.rubikTextTheme(
           Theme.of(context).textTheme,
         ),

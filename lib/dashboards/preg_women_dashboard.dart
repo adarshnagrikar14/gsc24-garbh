@@ -34,13 +34,22 @@ class _PregnantWDashboardState extends State<PregnantWDashboard> {
       const HomeScreenPW(),
     ];
 
+    Color redColor = const Color.fromARGB(255, 249, 76, 102);
+
     return WillPopScope(
       onWillPop: onBackPress,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          toolbarHeight: 60.0,
+          backgroundColor: redColor,
           elevation: 1.0,
-          title: const Text("Garbh"),
+          title: const Text(
+            "Garbh",
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           actions: [
             Padding(
               padding: const EdgeInsets.only(
@@ -85,12 +94,12 @@ class _PregnantWDashboardState extends State<PregnantWDashboard> {
                 text: 'Home',
               ),
               GButton(
-                icon: LineIcons.heart,
-                text: 'Likes',
+                icon: LineIcons.helpingHands,
+                text: 'Tools',
               ),
               GButton(
-                icon: LineIcons.search,
-                text: 'Search',
+                icon: LineIcons.wiredNetwork,
+                text: 'Community',
               ),
             ],
             selectedIndex: _selectedIndex,
