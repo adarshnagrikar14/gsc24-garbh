@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:garbh/reusables/custom_home_cards.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -169,145 +170,23 @@ class _HomeScreenPWState extends State<HomeScreenPW> {
 
               //
               const Gap(15.0),
-              SingleChildScrollView(
+              const SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    Container(
-                      width: 180.0,
-                      height: 220.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.0),
-                        color: Colors.white,
-                      ),
-                      child: Card(
-                        elevation: 4.0,
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              "assets/images/diet.png",
-                              height: 140.0,
-                              width: 130.0,
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(10.0),
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 12.0,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                  10.0,
-                                ),
-                                color: Colors.white,
-                              ),
-                              width: MediaQuery.of(context).size.width,
-                              child: Center(
-                                child: Text(
-                                  "Diet",
-                                  style: TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 1.2,
-                                    color: Colors.grey.shade700,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    CustomCard(
+                      imageName: "diet.png",
+                      text: "Diet",
                     ),
-                    const Gap(12.0),
-                    Container(
-                      width: 180.0,
-                      height: 220.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.0),
-                        color: Colors.white,
-                      ),
-                      child: Card(
-                        elevation: 4.0,
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              "assets/images/exercise.png",
-                              height: 140.0,
-                              width: 120.0,
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(10.0),
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 12.0,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                  10.0,
-                                ),
-                                color: Colors.white,
-                              ),
-                              width: MediaQuery.of(context).size.width,
-                              child: Center(
-                                child: Text(
-                                  "Exercise",
-                                  style: TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 1.2,
-                                    color: Colors.grey.shade700,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    Gap(12.0),
+                    CustomCard(
+                      imageName: "exercise.png",
+                      text: "Exercise",
                     ),
-                    const Gap(12.0),
-                    Container(
-                      width: 180.0,
-                      height: 220.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.0),
-                        color: Colors.white,
-                      ),
-                      child: Card(
-                        elevation: 4.0,
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              "assets/images/mentalhealth.png",
-                              height: 140.0,
-                              width: 130.0,
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(10.0),
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 12.0,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                  10.0,
-                                ),
-                                color: Colors.white,
-                              ),
-                              width: MediaQuery.of(context).size.width,
-                              child: Center(
-                                child: Text(
-                                  "Mental Health",
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 1.2,
-                                    color: Colors.grey.shade700,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    Gap(12.0),
+                    CustomCard(
+                      imageName: "mentalhealth.png",
+                      text: "Mental Health",
                     ),
                   ],
                 ),
@@ -324,104 +203,20 @@ class _HomeScreenPWState extends State<HomeScreenPW> {
               ),
 
               const Gap(15.0),
-              SingleChildScrollView(
+              const SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    Container(
-                      width: 180.0,
-                      height: 220.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.0),
-                        color: Colors.white,
-                      ),
-                      child: Card(
-                        elevation: 4.0,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset(
-                                "assets/images/music_l.png",
-                                height: 130.0,
-                                width: 130.0,
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(10.0),
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 12.0,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                  10.0,
-                                ),
-                                color: Colors.white,
-                              ),
-                              width: MediaQuery.of(context).size.width,
-                              child: Center(
-                                child: Text(
-                                  "Music",
-                                  style: TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 1.2,
-                                    color: Colors.grey.shade700,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    CustomCard(
+                      imageName: "music_l.png",
+                      text: "Music",
                     ),
-                    const Gap(12.0),
-                    Container(
-                      width: 180.0,
-                      height: 220.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.0),
-                        color: Colors.white,
-                      ),
-                      child: Card(
-                        elevation: 4.0,
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              "assets/images/podcast.png",
-                              height: 140.0,
-                              fit: BoxFit.cover,
-                              width: 120.0,
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(10.0),
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 12.0,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                  10.0,
-                                ),
-                                color: Colors.white,
-                              ),
-                              width: MediaQuery.of(context).size.width,
-                              child: Center(
-                                child: Text(
-                                  "Podcast",
-                                  style: TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 1.2,
-                                    color: Colors.grey.shade700,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    Gap(12.0),
+                    CustomCard(
+                      imageName: "podcast.png",
+                      text: "Podcast",
                     ),
-                    const Gap(12.0),
+                    Gap(12.0),
                   ],
                 ),
               ),
