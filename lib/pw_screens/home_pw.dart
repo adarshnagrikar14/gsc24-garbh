@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:garbh/pw_screens/diet_pw.dart';
 import 'package:garbh/reusables/custom_home_cards.dart';
+import 'package:garbh/reusables/custom_home_infocard.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,6 +21,8 @@ class _HomeScreenPWState extends State<HomeScreenPW> {
   late String userName;
   late String concDate;
   late String concDays;
+
+  late int concDaysInt;
 
   @override
   void initState() {
@@ -59,6 +63,7 @@ class _HomeScreenPWState extends State<HomeScreenPW> {
 
     setState(() {
       concDays = daysDifferenceString;
+      concDaysInt = int.parse(concDays);
     });
 
     return daysDifferenceString;
@@ -91,71 +96,9 @@ class _HomeScreenPWState extends State<HomeScreenPW> {
               const Gap(6),
 
               //
-              Card(
-                elevation: 2.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                margin: const EdgeInsets.only(
-                  top: 10.0,
-                ),
-                color: Colors.transparent,
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  // height: 200.0,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.red.shade100,
-                      width: 1.0,
-                    ),
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.white,
-                        // Colors.white,
-                        // Colors.white,
-                        Colors.red.shade100,
-                      ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomRight,
-                      tileMode: TileMode.clamp,
-                    ),
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        "assets/images/strawberry.png",
-                        width: 120.0,
-                        height: 100.0,
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Your fetus is the size of a strawberry at $concDays days.",
-                              style: const TextStyle(
-                                fontSize: 16.0,
-                              ),
-                            ),
-                            const Gap(20.0),
-                            const Text(
-                              "More Details",
-                              style: TextStyle(
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.redAccent,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              CustomInfoCard(
+                imageAsset: "assets/images",
+                concDays: concDaysInt,
               ),
 
               //
@@ -170,21 +113,29 @@ class _HomeScreenPWState extends State<HomeScreenPW> {
 
               //
               const Gap(15.0),
-              const SingleChildScrollView(
+              SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
                     CustomCard(
                       imageName: "diet.png",
                       text: "Diet",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const DietPagePregnantWomen(),
+                          ),
+                        );
+                      },
                     ),
-                    Gap(12.0),
-                    CustomCard(
+                    const Gap(12.0),
+                    const CustomCard(
                       imageName: "exercise.png",
                       text: "Exercise",
                     ),
-                    Gap(12.0),
-                    CustomCard(
+                    const Gap(12.0),
+                    const CustomCard(
                       imageName: "mentalhealth.png",
                       text: "Mental Health",
                     ),
