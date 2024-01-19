@@ -22,7 +22,7 @@ class _HomeScreenPWState extends State<HomeScreenPW> {
   late String concDate;
   late String concDays;
 
-  late int concDaysInt;
+  late int concDaysInt = 0;
 
   @override
   void initState() {

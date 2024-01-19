@@ -1,7 +1,9 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:garbh/pw_screens/community_pw.dart';
 import 'package:garbh/pw_screens/home_pw.dart';
+import 'package:garbh/pw_screens/progress_pw.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 
@@ -30,8 +32,8 @@ class _PregnantWDashboardState extends State<PregnantWDashboard> {
   Widget build(BuildContext context) {
     final List<Widget> widgetOptions = <Widget>[
       const HomeScreenPW(),
-      const HomeScreenPW(),
-      const HomeScreenPW(),
+      const ProgressPWScreen(),
+      const CommunityPW(),
     ];
 
     Color redColor = const Color.fromARGB(255, 249, 76, 102);

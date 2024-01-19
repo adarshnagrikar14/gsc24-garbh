@@ -56,6 +56,7 @@ dependencies:
 
   gap: ^3.0.1
   intl: ^0.17.0
+  fl_chart: ^0.66.0
 
 dev_dependencies:
   flutter_test:
