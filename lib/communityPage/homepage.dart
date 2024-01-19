@@ -5,14 +5,14 @@ import 'dart:async';
 
 import 'package:garbh/communityPage/postcard.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class CommunityHomePage extends StatefulWidget {
+  const CommunityHomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _CommunityHomePageState createState() => _CommunityHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _CommunityHomePageState extends State<CommunityHomePage> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
   bool _isCheckBoxChecked = false;
@@ -59,62 +59,60 @@ class _HomePageState extends State<HomePage> {
     "Stay informed about the changes happening in your body and the development of your baby."
   ];
   final List<String> imagePaths = [
-    "assets/communityAsset/image1.jpg",
-    "assets/communityAsset/image2.jpeg",
-    "assets/communityAsset/image3.jpg",
-    "assets/communityAsset/image4.jpg"
+    "assets/images/strawberry.png",
+    "assets/images/grape.png",
+    "assets/images/kidney_bean.png",
+    "assets/images/music_l.png"
   ];
-
-  int _selectedIndex = 0;
 
   List<Map<String, dynamic>> postData = [
     {
-      'profileImage': 'assets/communityAsset/image1.jpg',
+      'profileImage': 'assets/images/grape.png',
       'username': 'Dr. Priyanka Sharma',
       'timeAgo': '2 hours ago',
       'caption':
           '    Maintain a healthy weight gain as recommended by your healthcare provider.',
-      'imagePath': 'assets/communityAsset/image1.jpg',
+      'imagePath': 'assets/images/grape.png',
     },
     {
-      'profileImage': 'assets/communityAsset/image1.jpg',
+      'profileImage': 'assets/images/grape.png',
       'username': 'Dr. Rakesh Verma',
       'timeAgo': '1 hour ago',
       'caption':
           'Take prenatal vitamins as recommended by your healthcare provider, including folic acid.',
-      'imagePath': 'assets/communityAsset/image2.jpeg',
+      'imagePath': 'assets/images/avocado.png',
     },
     {
-      'profileImage': 'assets/communityAsset/image1.jpg',
+      'profileImage': 'assets/images/apple.png',
       'username': 'Poorvi Verma(Mother)',
       'timeAgo': '2 hours ago',
       'caption':
           'Take prenatal classes to learn about the labor and delivery process, it really helped me a lot',
-      'imagePath': 'assets/communityAsset/image1.jpg',
+      'imagePath': 'assets/images/grape.png',
     },
     {
-      'profileImage': 'assets/communityAsset/image1.jpg',
+      'profileImage': 'assets/images/strawberry.png',
       'username': 'Nitikesh Tiwari',
       'timeAgo': '7d ago',
       'caption':
           'My wife really had a hard period, but we managed to go through it.',
-      'imagePath': 'assets/communityAsset/image2.jpeg',
+      'imagePath': 'assets/images/grape.png',
     },
     {
-      'profileImage': 'assets/communityAsset/image1.jpg',
+      'profileImage': 'assets/images/fig.png',
       'username': 'Aayushi Wankhede',
       'timeAgo': '1 month ago',
       'caption':
           'Invest in comfortable, loose-fitting maternity clothes that accommodate your growing belly.',
-      'imagePath': 'assets/communityAsset/image2.jpeg',
+      'imagePath': 'assets/images/strawberry.png',
     },
     {
-      'profileImage': 'assets/communityAsset/image1.jpg',
+      'profileImage': 'assets/images/apple.png',
       'username': 'Aayushi Wankhede',
       'timeAgo': '1 month ago',
       'caption':
           'Invest in comfortable, loose-fitting maternity clothes that accommodate your growing belly.',
-      'imagePath': 'assets/communityAsset/image2.jpeg',
+      'imagePath': 'assets/images/grape.png',
     },
   ];
 
@@ -208,14 +206,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 100,
-        backgroundColor: const Color.fromARGB(255, 249, 76, 102),
-        title: const Text(
-          "Garbh Community Page",
-          style: TextStyle(color: Colors.white, fontSize: 18),
-        ),
-      ),
       body: Stack(
         children: [
           Container(
@@ -306,32 +296,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color.fromARGB(255, 34, 33, 33),
-        currentIndex: _selectedIndex,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-            ),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.map),
-            label: 'Map',
-          ),
-        ],
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-        selectedItemColor: const Color.fromARGB(255, 249, 76, 102),
       ),
     );
   }
