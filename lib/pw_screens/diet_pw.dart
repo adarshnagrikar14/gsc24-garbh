@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -16,12 +18,206 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
   late String title = "Breakfast";
   late int cardPosition = 0;
 
+  int currentCaloriesBreakfast = 0;
+  int currentCaloriesLunch = 0;
+  int currentCaloriesSnacks = 0;
+  int currentCaloriesDinner = 0;
+
+  List<String> selectedChipsBreakfast = [];
+  List<String> selectedChipsLunch = [];
+  List<String> selectedChipsDinner = [];
+  List<String> selectedChipsSnacks = [];
+
   final List<String> carouselItems = [
     "Breakfast",
     "Lunch",
     "Snacks",
     "Dinner",
   ];
+
+  final List<String> selectionOptionBreakfast = [
+    "Poha",
+    "Upma",
+    "Dosa",
+    "Paratha",
+  ];
+
+  final List<String> selectionOptionLunch = [
+    "Dal",
+    "Rice",
+    "Curry",
+    "Chapati",
+  ];
+
+  final List<String> selectionOptionSnacks = [
+    "Pasta",
+    "Samosa",
+    "Bhel",
+    "Laddoo",
+  ];
+
+  final List<String> selectionOptionDinner = [
+    "Rice",
+    "Vegetable Curry",
+    "Dal",
+    "Chapati",
+  ];
+
+  final List<int> calorieOption = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    calorieOption.add(currentCaloriesBreakfast);
+    calorieOption.add(currentCaloriesLunch);
+    calorieOption.add(currentCaloriesSnacks);
+    calorieOption.add(currentCaloriesDinner);
+  }
+
+  Widget buildMealCard(
+    String mealType,
+    List<String> selectionOptions,
+    List<String> selectedChips,
+    int mealOption,
+  ) {
+    return Card(
+      elevation: 2.0,
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        child: Column(
+          children: [
+            const Gap(60.0),
+            PieChartSample2(
+              title: carouselItems[cardPosition],
+              cardPosition: cardPosition,
+            ),
+            const Gap(30.0),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Card(
+                elevation: 2.0,
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.0),
+                    color: Colors.white,
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Image.asset(
+                          "assets/images/select.png",
+                          width: 50.0,
+                          height: 50.0,
+                        ),
+                      ),
+                      const Gap(12.0),
+                      Expanded(
+                        child: Text(
+                          "Select all that you consumed...",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey.shade800,
+                          ),
+                        ),
+                      ),
+                      const Gap(5.0),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const Gap(15.0),
+            Text(
+              "Current Calories: ${calorieOption[mealOption]} Cal.",
+              style: const TextStyle(
+                fontSize: 16.0,
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+              padding: const EdgeInsets.only(
+                top: 12.0,
+                left: 18,
+                right: 18.0,
+                bottom: 20.0,
+              ),
+              child: LinearProgressIndicator(
+                value: calorieOption[mealOption] / 400,
+                minHeight: 12.0,
+                backgroundColor: Colors.white,
+                borderRadius: BorderRadius.circular(12.0),
+                color: Colors.pink.shade300,
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: List.generate(
+                selectionOptions.length,
+                (index) => Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Card(
+                    elevation: 1.5,
+                    child: ChoiceChip(
+                      label: SizedBox(
+                        width: double.infinity,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              "assets/images/apple.png",
+                              height: 50.0,
+                              width: 50.0,
+                            ),
+                            Text(selectionOptions[index]),
+                          ],
+                        ),
+                      ),
+                      selectedColor: Colors.red.shade100,
+                      checkmarkColor: Colors.pink.shade300,
+                      showCheckmark: false,
+                      backgroundColor: const Color.fromARGB(185, 255, 235, 238),
+                      selected: selectedChips.contains(selectionOptions[index]),
+                      side: selectedChips.isEmpty
+                          ? BorderSide(color: Colors.red.shade100)
+                          : selectedChips.contains(selectionOptions[index])
+                              ? BorderSide(color: Colors.red.shade600)
+                              : BorderSide(color: Colors.red.shade100),
+                      onSelected: (isSelected) {
+                        setState(() {
+                          isSelected
+                              ? selectedChips.add(selectionOptions[index])
+                              : selectedChips.remove(selectionOptions[index]);
+
+                          if (isSelected) {
+                            calorieOption[mealOption] =
+                                calorieOption[mealOption] + 100;
+                          }
+
+                          print("$selectedChips");
+                        });
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,10 +292,9 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
               CarouselSlider(
                 options: CarouselOptions(
                   enableInfiniteScroll: false,
-                  enlargeCenterPage: true,
-                  enlargeFactor: 1.5,
+                  enlargeCenterPage: false,
                   viewportFraction: 1,
-                  aspectRatio: 1,
+                  aspectRatio: 0.4,
                   onPageChanged: (index, reason) {
                     setState(() {
                       title = carouselItems[index];
@@ -110,22 +305,33 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
                 items: carouselItems.map((item) {
                   return Builder(
                     builder: (BuildContext context) {
-                      return Card(
-                        elevation: 2.0,
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 220.0,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          child: Center(
-                            child: PieChartSample2(
-                              title: carouselItems[cardPosition],
-                              cardPosition: cardPosition,
-                            ),
-                          ),
-                        ),
-                      );
+                      return item == "Breakfast"
+                          ? buildMealCard(
+                              "Breakfast",
+                              selectionOptionBreakfast,
+                              selectedChipsBreakfast,
+                              0,
+                            )
+                          : item == "Lunch"
+                              ? buildMealCard(
+                                  "Lunch",
+                                  selectionOptionLunch,
+                                  selectedChipsLunch,
+                                  1,
+                                )
+                              : item == "Snacks"
+                                  ? buildMealCard(
+                                      "Snacks",
+                                      selectionOptionSnacks,
+                                      selectedChipsSnacks,
+                                      2,
+                                    )
+                                  : buildMealCard(
+                                      "Dinner",
+                                      selectionOptionDinner,
+                                      selectedChipsDinner,
+                                      3,
+                                    );
                     },
                   );
                 }).toList(),
@@ -157,17 +363,36 @@ class PieChart2State extends State<PieChartSample2> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 150.0,
-      child: PieChart(
-        PieChartData(
-          sectionsSpace: 5,
-          centerSpaceRadius: 50,
-          startDegreeOffset: widget.cardPosition == 0
-              ? 270
-              : widget.cardPosition == 1
-                  ? 180
-                  : 0,
-          sections: showingSections(),
-        ),
+      child: Stack(
+        children: [
+          PieChart(
+            PieChartData(
+              sectionsSpace: 5,
+              centerSpaceRadius: 50,
+              startDegreeOffset: widget.cardPosition == 0
+                  ? 270
+                  : widget.cardPosition == 1
+                      ? 180
+                      : 0,
+              sections: showingSections(),
+            ),
+          ),
+          Center(
+            child: Text(
+              widget.cardPosition == 0
+                  ? "400 Cal."
+                  : widget.cardPosition == 1
+                      ? "600 Cal."
+                      : widget.cardPosition == 2
+                          ? "250 Cal."
+                          : "600 Cal.",
+              style: const TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -181,8 +406,7 @@ class PieChart2State extends State<PieChartSample2> {
       switch (i) {
         case 0:
           return PieChartSectionData(
-            color: Colors.blue,
-            value: 20,
+            color: Colors.red.shade400,
             title: "",
             radius: cardPos == 0 ? 28.0 : radius,
             badgePositionPercentageOffset: 2,
@@ -202,7 +426,7 @@ class PieChart2State extends State<PieChartSample2> {
           );
         case 1:
           return PieChartSectionData(
-            color: Colors.yellow,
+            color: Colors.red.shade200,
             value: 40,
             title: "",
             radius: cardPos == 1 ? 28.0 : radius,
@@ -223,7 +447,7 @@ class PieChart2State extends State<PieChartSample2> {
           );
         case 2:
           return PieChartSectionData(
-            color: Colors.purple,
+            color: Colors.pink.shade400,
             value: 10,
             title: "",
             radius: cardPos == 2 ? 28.0 : radius,
@@ -244,7 +468,7 @@ class PieChart2State extends State<PieChartSample2> {
           );
         case 3:
           return PieChartSectionData(
-            color: Colors.green,
+            color: Colors.pink.shade200,
             value: 30,
             title: "",
             radius: cardPos == 3 ? 28.0 : radius,
@@ -267,48 +491,5 @@ class PieChart2State extends State<PieChartSample2> {
           throw Error();
       }
     });
-  }
-}
-
-class Indicator extends StatelessWidget {
-  const Indicator({
-    super.key,
-    required this.color,
-    required this.text,
-    required this.isSquare,
-    this.size = 16,
-    this.textColor,
-  });
-  final Color color;
-  final String text;
-  final bool isSquare;
-  final double size;
-  final Color? textColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Container(
-          width: size,
-          height: size,
-          decoration: BoxDecoration(
-            shape: isSquare ? BoxShape.rectangle : BoxShape.circle,
-            color: color,
-          ),
-        ),
-        const SizedBox(
-          width: 4,
-        ),
-        Text(
-          text,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: textColor,
-          ),
-        )
-      ],
-    );
   }
 }
