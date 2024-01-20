@@ -18,7 +18,7 @@ class HomeScreenPW extends StatefulWidget {
 class _HomeScreenPWState extends State<HomeScreenPW> {
   Color redColor = const Color.fromARGB(255, 249, 76, 102);
 
-  late String userName;
+  late String userName = "";
   late String concDate;
   late String concDays;
 

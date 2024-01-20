@@ -12,7 +12,20 @@
           "package_name": "com.app.ahara"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "283851340071-rrljhial354e0umf56co600644htbjte.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.ahara",
+            "certificate_hash": "c5c37fc6464ca8124ddc8e4e863ee3373cc0c81e"
+          }
+        },
+        {
+          "client_id": "283851340071-3bpv25rtcaf2vk8odcpkn22avurkjlkp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDepBb5EilBKjl8FBUSifoXtqpNI8py2EU"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "283851340071-3bpv25rtcaf2vk8odcpkn22avurkjlkp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

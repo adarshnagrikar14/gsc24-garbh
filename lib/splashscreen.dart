@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:garbh/login/loginpage.dart';
 import 'package:garbh/user-type/usertype.dart';
@@ -43,12 +44,21 @@ class _SplashscreenState extends State<Splashscreen> {
             ),
           );
         } else {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const LoginPage(),
-            ),
-          );
+          if (!Platform.isAndroid) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const UserTypePage(),
+              ),
+            );
+          } else {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const LoginPage(),
+              ),
+            );
+          }
         }
       },
     );

@@ -65,6 +65,79 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
 
   final List<int> calorieOption = [];
 
+  List<Map<String, String>> imagedataBreakfast = [
+    {
+      "Poha":
+          "https://www.indianveggiedelight.com/wp-content/uploads/2022/07/poha-recipe-featured.jpg"
+    },
+    {
+      "Upma":
+          "https://www.vegrecipesofindia.com/wp-content/uploads/2009/08/upma-recipe-2-500x500.jpg"
+    },
+    {
+      "Dosa":
+          "https://img.freepik.com/free-photo/delicious-indian-dosa-composition_23-2149086051.jpg"
+    },
+    {
+      "Paratha":
+          "https://www.vegrecipesofindia.com/wp-content/uploads/2010/06/plain-paratha-recipe-1-500x375.jpg"
+    }
+  ];
+
+  List<Map<String, String>> imagedataLunch = [
+    {
+      "Dal":
+          "https://www.indianveggiedelight.com/wp-content/uploads/2022/12/dal-fry-stovetop-featured.jpg"
+    },
+    {
+      "Rice":
+          "https://hips.hearstapps.com/vidthumb/images/delish-u-rice-2-1529079587.jpg"
+    },
+    {
+      "Curry":
+          "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/09/curry-sauce-recipe.jpg"
+    },
+    {
+      "Chapati":
+          "https://www.vegrecipesofindia.com/wp-content/uploads/2010/06/plain-paratha-recipe-1-500x375.jpg"
+    }
+  ];
+
+  List<Map<String, String>> imagedataSnack = [
+    {
+      "Pasta":
+          "https://assets.epicurious.com/photos/5988e3458e3ab375fe3c0caf/1:1/w_3607,h_3607,c_limit/How-to-Make-Chicken-Alfredo-Pasta-hero-02082017.jpg"
+    },
+    {"Samosa": "https://static.toiimg.com/photo/61050397.cms"},
+    {
+      "Bhel":
+          "https://vegecravings.com/wp-content/uploads/2018/06/Bhel-Puri-Recipe-Step-By-Step-Instructions.jpg"
+    },
+    {
+      "Laddoo":
+          "https://static.toiimg.com/thumb/55048059.cms?width=1200&height=900"
+    }
+  ];
+
+  List<Map<String, String>> imagedataDinner = [
+    {
+      "Rice":
+          "https://hips.hearstapps.com/vidthumb/images/delish-u-rice-2-1529079587.jpg"
+    },
+    {
+      "Curry":
+          "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/09/curry-sauce-recipe.jpg"
+    },
+    {
+      "Dal":
+          "https://www.indianveggiedelight.com/wp-content/uploads/2022/12/dal-fry-stovetop-featured.jpg"
+    },
+    {
+      "Chapati":
+          "https://www.vegrecipesofindia.com/wp-content/uploads/2010/06/plain-paratha-recipe-1-500x375.jpg"
+    }
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -79,6 +152,7 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
     String mealType,
     List<String> selectionOptions,
     List<String> selectedChips,
+    List<Map<String, String>> imagedata,
     int mealOption,
   ) {
     return Card(
@@ -95,7 +169,7 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
               title: carouselItems[cardPosition],
               cardPosition: cardPosition,
             ),
-            const Gap(30.0),
+            const Gap(20.0),
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Card(
@@ -173,14 +247,59 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
                         width: double.infinity,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image.asset(
-                              "assets/images/apple.png",
-                              height: 50.0,
-                              width: 50.0,
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Column(
+                                  children: [
+                                    ClipOval(
+                                      child: Image.network(
+                                        imagedata[index].values.first,
+                                        height: 50.0,
+                                        width: 50.0,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    const Gap(8.0),
+                                    SizedBox(
+                                      width: 60.0,
+                                      child: Center(
+                                        child: Text(
+                                          selectionOptions[index],
+                                          style: const TextStyle(
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const Gap(15.0),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 10.0),
+                                        child: Text(
+                                          "Protien: 5gm, Fats 0gm, Carbs 20gm",
+                                          style: TextStyle(
+                                            color: Colors.grey.shade700,
+                                          ),
+                                          softWrap: true,
+                                          maxLines: 4,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
-                            Text(selectionOptions[index]),
                           ],
                         ),
                       ),
@@ -203,9 +322,10 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
                           if (isSelected) {
                             calorieOption[mealOption] =
                                 calorieOption[mealOption] + 100;
+                          } else {
+                            calorieOption[mealOption] =
+                                calorieOption[mealOption] - 100;
                           }
-
-                          print("$selectedChips");
                         });
                       },
                     ),
@@ -294,7 +414,7 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
                   enableInfiniteScroll: false,
                   enlargeCenterPage: false,
                   viewportFraction: 1,
-                  aspectRatio: 0.4,
+                  aspectRatio: 0.380,
                   onPageChanged: (index, reason) {
                     setState(() {
                       title = carouselItems[index];
@@ -310,6 +430,7 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
                               "Breakfast",
                               selectionOptionBreakfast,
                               selectedChipsBreakfast,
+                              imagedataBreakfast,
                               0,
                             )
                           : item == "Lunch"
@@ -317,6 +438,7 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
                                   "Lunch",
                                   selectionOptionLunch,
                                   selectedChipsLunch,
+                                  imagedataLunch,
                                   1,
                                 )
                               : item == "Snacks"
@@ -324,12 +446,14 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
                                       "Snacks",
                                       selectionOptionSnacks,
                                       selectedChipsSnacks,
+                                      imagedataSnack,
                                       2,
                                     )
                                   : buildMealCard(
                                       "Dinner",
                                       selectionOptionDinner,
                                       selectedChipsDinner,
+                                      imagedataDinner,
                                       3,
                                     );
                     },
