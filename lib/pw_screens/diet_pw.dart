@@ -23,10 +23,10 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
   List<int> currentCalories = [0, 0, 0, 0];
 
   List<List<String>> selectionOptions = [
-    ["Poha", "Upma", "Dosa", "Paratha"],
-    ["Dal", "Rice", "Curry", "Chapati"],
-    ["Pasta", "Samosa", "Bhel", "Laddoo"],
-    ["Rice", "Vegetable Curry", "Dal", "Chapati"],
+    ["Poha", "Upma", "Dosa", "Paratha", "Random", "Random2"],
+    ["Dal", "Rice", "Curry", "Chapati", "Random", "Random2"],
+    ["Pasta", "Samosa", "Bhel", "Laddoo", "Random", "Random2"],
+    ["Rice", "Vegetable Curry", "Dal", "Chapati", "Random", "Random2"],
   ];
 
   List<List<Map<String, String>>> imagedata = [
@@ -46,6 +46,14 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
       {
         "Paratha":
             "https://www.vegrecipesofindia.com/wp-content/uploads/2010/06/plain-paratha-recipe-1-500x375.jpg"
+      },
+      {
+        "Paratha":
+            "https://www.vegrecipesofindia.com/wp-content/uploads/2010/06/plain-paratha-recipe-1-500x375.jpg"
+      },
+      {
+        "Chapati":
+            "https://www.vegrecipesofindia.com/wp-content/uploads/2010/06/plain-paratha-recipe-1-500x375.jpg"
       }
     ],
     [
@@ -60,6 +68,14 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
       {
         "Curry":
             "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/09/curry-sauce-recipe.jpg"
+      },
+      {
+        "Chapati":
+            "https://www.vegrecipesofindia.com/wp-content/uploads/2010/06/plain-paratha-recipe-1-500x375.jpg"
+      },
+      {
+        "Paratha":
+            "https://www.vegrecipesofindia.com/wp-content/uploads/2010/06/plain-paratha-recipe-1-500x375.jpg"
       },
       {
         "Chapati":
@@ -79,6 +95,14 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
       {
         "Laddoo":
             "https://static.toiimg.com/thumb/55048059.cms?width=1200&height=900"
+      },
+      {
+        "Paratha":
+            "https://www.vegrecipesofindia.com/wp-content/uploads/2010/06/plain-paratha-recipe-1-500x375.jpg"
+      },
+      {
+        "Chapati":
+            "https://www.vegrecipesofindia.com/wp-content/uploads/2010/06/plain-paratha-recipe-1-500x375.jpg"
       }
     ],
     [
@@ -97,11 +121,19 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
       {
         "Chapati":
             "https://www.vegrecipesofindia.com/wp-content/uploads/2010/06/plain-paratha-recipe-1-500x375.jpg"
+      },
+      {
+        "Paratha":
+            "https://www.vegrecipesofindia.com/wp-content/uploads/2010/06/plain-paratha-recipe-1-500x375.jpg"
+      },
+      {
+        "Chapati":
+            "https://www.vegrecipesofindia.com/wp-content/uploads/2010/06/plain-paratha-recipe-1-500x375.jpg"
       }
     ],
   ];
 
-  List<List<String>> selectedChips = [[], [], [], []];
+  List<List<String>> selectedChips = [[], [], [], [], [], []];
 
   final List<String> carouselItems = ["Breakfast", "Lunch", "Snacks", "Dinner"];
 
@@ -116,7 +148,7 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
   void loadSavedValues() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    String? caloriesString = prefs.getString("currentCalories2");
+    String? caloriesString = prefs.getString("currentCalories");
     if (caloriesString != null) {
       List<String> caloriesList = caloriesString.split(',');
       setState(() {
@@ -124,7 +156,7 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
       });
     }
 
-    String? selectedChipsString = prefs.getString("selectedChips2");
+    String? selectedChipsString = prefs.getString("selectedChips");
     if (selectedChipsString != null) {
       List<List<String>> loadedChips =
           (json.decode(selectedChipsString) as List)
@@ -146,14 +178,14 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String caloriesString = currentCalories.join(',');
-    prefs.setString('currentCalories2', caloriesString);
+    prefs.setString("currentCalories", caloriesString);
   }
 
   void saveSelectedChips() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String selectedChipsString = json.encode(selectedChips);
-    prefs.setString("selectedChips2", selectedChipsString);
+    prefs.setString("selectedChips", selectedChipsString);
   }
 
   @override
@@ -232,7 +264,7 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
               ),
               const Gap(20.0),
               SizedBox(
-                height: MediaQuery.of(context).size.height + 100,
+                height: MediaQuery.of(context).size.height + 350,
                 child: PageView(
                   controller: _pageController,
                   onPageChanged: (index) {
