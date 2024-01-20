@@ -1,9 +1,11 @@
 // ignore_for_file: avoid_print
 
-import 'package:fl_chart/fl_chart.dart';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:gap/gap.dart';
+import 'package:garbh/reusables/piechart2.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DietPagePregnantWomen extends StatefulWidget {
   const DietPagePregnantWomen({super.key});
@@ -18,134 +20,262 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
   late String title = "Breakfast";
   late int cardPosition = 0;
 
-  int currentCaloriesBreakfast = 0;
-  int currentCaloriesLunch = 0;
-  int currentCaloriesSnacks = 0;
-  int currentCaloriesDinner = 0;
+  List<int> currentCalories = [0, 0, 0, 0];
 
-  List<String> selectedChipsBreakfast = [];
-  List<String> selectedChipsLunch = [];
-  List<String> selectedChipsDinner = [];
-  List<String> selectedChipsSnacks = [];
-
-  final List<String> carouselItems = [
-    "Breakfast",
-    "Lunch",
-    "Snacks",
-    "Dinner",
+  List<List<String>> selectionOptions = [
+    ["Poha", "Upma", "Dosa", "Paratha"],
+    ["Dal", "Rice", "Curry", "Chapati"],
+    ["Pasta", "Samosa", "Bhel", "Laddoo"],
+    ["Rice", "Vegetable Curry", "Dal", "Chapati"],
   ];
 
-  final List<String> selectionOptionBreakfast = [
-    "Poha",
-    "Upma",
-    "Dosa",
-    "Paratha",
+  List<List<Map<String, String>>> imagedata = [
+    [
+      {
+        "Poha":
+            "https://www.indianveggiedelight.com/wp-content/uploads/2022/07/poha-recipe-featured.jpg"
+      },
+      {
+        "Upma":
+            "https://www.vegrecipesofindia.com/wp-content/uploads/2009/08/upma-recipe-2-500x500.jpg"
+      },
+      {
+        "Dosa":
+            "https://img.freepik.com/free-photo/delicious-indian-dosa-composition_23-2149086051.jpg"
+      },
+      {
+        "Paratha":
+            "https://www.vegrecipesofindia.com/wp-content/uploads/2010/06/plain-paratha-recipe-1-500x375.jpg"
+      }
+    ],
+    [
+      {
+        "Dal":
+            "https://www.indianveggiedelight.com/wp-content/uploads/2022/12/dal-fry-stovetop-featured.jpg"
+      },
+      {
+        "Rice":
+            "https://hips.hearstapps.com/vidthumb/images/delish-u-rice-2-1529079587.jpg"
+      },
+      {
+        "Curry":
+            "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/09/curry-sauce-recipe.jpg"
+      },
+      {
+        "Chapati":
+            "https://www.vegrecipesofindia.com/wp-content/uploads/2010/06/plain-paratha-recipe-1-500x375.jpg"
+      }
+    ],
+    [
+      {
+        "Pasta":
+            "https://assets.epicurious.com/photos/5988e3458e3ab375fe3c0caf/1:1/w_3607,h_3607,c_limit/How-to-Make-Chicken-Alfredo-Pasta-hero-02082017.jpg"
+      },
+      {"Samosa": "https://static.toiimg.com/photo/61050397.cms"},
+      {
+        "Bhel":
+            "https://vegecravings.com/wp-content/uploads/2018/06/Bhel-Puri-Recipe-Step-By-Step-Instructions.jpg"
+      },
+      {
+        "Laddoo":
+            "https://static.toiimg.com/thumb/55048059.cms?width=1200&height=900"
+      }
+    ],
+    [
+      {
+        "Rice":
+            "https://hips.hearstapps.com/vidthumb/images/delish-u-rice-2-1529079587.jpg"
+      },
+      {
+        "Curry":
+            "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/09/curry-sauce-recipe.jpg"
+      },
+      {
+        "Dal":
+            "https://www.indianveggiedelight.com/wp-content/uploads/2022/12/dal-fry-stovetop-featured.jpg"
+      },
+      {
+        "Chapati":
+            "https://www.vegrecipesofindia.com/wp-content/uploads/2010/06/plain-paratha-recipe-1-500x375.jpg"
+      }
+    ],
   ];
 
-  final List<String> selectionOptionLunch = [
-    "Dal",
-    "Rice",
-    "Curry",
-    "Chapati",
-  ];
+  List<List<String>> selectedChips = [[], [], [], []];
 
-  final List<String> selectionOptionSnacks = [
-    "Pasta",
-    "Samosa",
-    "Bhel",
-    "Laddoo",
-  ];
+  final List<String> carouselItems = ["Breakfast", "Lunch", "Snacks", "Dinner"];
 
-  final List<String> selectionOptionDinner = [
-    "Rice",
-    "Vegetable Curry",
-    "Dal",
-    "Chapati",
-  ];
-
-  final List<int> calorieOption = [];
-
-  List<Map<String, String>> imagedataBreakfast = [
-    {
-      "Poha":
-          "https://www.indianveggiedelight.com/wp-content/uploads/2022/07/poha-recipe-featured.jpg"
-    },
-    {
-      "Upma":
-          "https://www.vegrecipesofindia.com/wp-content/uploads/2009/08/upma-recipe-2-500x500.jpg"
-    },
-    {
-      "Dosa":
-          "https://img.freepik.com/free-photo/delicious-indian-dosa-composition_23-2149086051.jpg"
-    },
-    {
-      "Paratha":
-          "https://www.vegrecipesofindia.com/wp-content/uploads/2010/06/plain-paratha-recipe-1-500x375.jpg"
-    }
-  ];
-
-  List<Map<String, String>> imagedataLunch = [
-    {
-      "Dal":
-          "https://www.indianveggiedelight.com/wp-content/uploads/2022/12/dal-fry-stovetop-featured.jpg"
-    },
-    {
-      "Rice":
-          "https://hips.hearstapps.com/vidthumb/images/delish-u-rice-2-1529079587.jpg"
-    },
-    {
-      "Curry":
-          "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/09/curry-sauce-recipe.jpg"
-    },
-    {
-      "Chapati":
-          "https://www.vegrecipesofindia.com/wp-content/uploads/2010/06/plain-paratha-recipe-1-500x375.jpg"
-    }
-  ];
-
-  List<Map<String, String>> imagedataSnack = [
-    {
-      "Pasta":
-          "https://assets.epicurious.com/photos/5988e3458e3ab375fe3c0caf/1:1/w_3607,h_3607,c_limit/How-to-Make-Chicken-Alfredo-Pasta-hero-02082017.jpg"
-    },
-    {"Samosa": "https://static.toiimg.com/photo/61050397.cms"},
-    {
-      "Bhel":
-          "https://vegecravings.com/wp-content/uploads/2018/06/Bhel-Puri-Recipe-Step-By-Step-Instructions.jpg"
-    },
-    {
-      "Laddoo":
-          "https://static.toiimg.com/thumb/55048059.cms?width=1200&height=900"
-    }
-  ];
-
-  List<Map<String, String>> imagedataDinner = [
-    {
-      "Rice":
-          "https://hips.hearstapps.com/vidthumb/images/delish-u-rice-2-1529079587.jpg"
-    },
-    {
-      "Curry":
-          "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/09/curry-sauce-recipe.jpg"
-    },
-    {
-      "Dal":
-          "https://www.indianveggiedelight.com/wp-content/uploads/2022/12/dal-fry-stovetop-featured.jpg"
-    },
-    {
-      "Chapati":
-          "https://www.vegrecipesofindia.com/wp-content/uploads/2010/06/plain-paratha-recipe-1-500x375.jpg"
-    }
-  ];
+  final PageController _pageController = PageController();
 
   @override
   void initState() {
     super.initState();
+    loadSavedValues();
+  }
 
-    calorieOption.add(currentCaloriesBreakfast);
-    calorieOption.add(currentCaloriesLunch);
-    calorieOption.add(currentCaloriesSnacks);
-    calorieOption.add(currentCaloriesDinner);
+  void loadSavedValues() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String? caloriesString = prefs.getString("currentCalories2");
+    if (caloriesString != null) {
+      List<String> caloriesList = caloriesString.split(',');
+      setState(() {
+        currentCalories = caloriesList.map(int.parse).toList();
+      });
+    }
+
+    String? selectedChipsString = prefs.getString("selectedChips2");
+    if (selectedChipsString != null) {
+      List<List<String>> loadedChips =
+          (json.decode(selectedChipsString) as List)
+              .map((item) => List<String>.from(item))
+              .toList();
+
+      if (loadedChips.length == 4) {
+        setState(() {
+          selectedChips = loadedChips;
+        });
+      } else {
+        print("Unexpected structure for selectedChips. Resetting values.");
+        resetValues();
+      }
+    }
+  }
+
+  void saveCurrentCalories() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String caloriesString = currentCalories.join(',');
+    prefs.setString('currentCalories2', caloriesString);
+  }
+
+  void saveSelectedChips() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String selectedChipsString = json.encode(selectedChips);
+    prefs.setString("selectedChips2", selectedChipsString);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Diet Schedule",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: redColor,
+        toolbarHeight: 60.0,
+        foregroundColor: Colors.white,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Card(
+                elevation: 2.0,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.all(5.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "assets/images/progress_track.png",
+                        width: 90.0,
+                      ),
+                      const Gap(12.0),
+                      Expanded(
+                        child: Text(
+                          "Keep track of your Diet here. Select the options you consumed under specific tabs.",
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.grey.shade800,
+                          ),
+                        ),
+                      ),
+                      const Gap(5.0),
+                    ],
+                  ),
+                ),
+              ),
+              const Gap(20.0),
+              Text(
+                "\t$title",
+                style: const TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(
+                  left: 5.0,
+                  top: 7.0,
+                ),
+                child: Text(
+                  "The required meal for the day is given after this chart.",
+                  style: TextStyle(
+                    fontSize: 14.0,
+                  ),
+                ),
+              ),
+              const Gap(20.0),
+              SizedBox(
+                height: MediaQuery.of(context).size.height + 100,
+                child: PageView(
+                  controller: _pageController,
+                  onPageChanged: (index) {
+                    setState(() {
+                      title = carouselItems[index];
+                      cardPosition = index;
+                    });
+                  },
+                  children: carouselItems.map((item) {
+                    int mealOption = carouselItems.indexOf(item);
+                    return buildMealCard(
+                      item,
+                      selectionOptions[mealOption],
+                      selectedChips[mealOption],
+                      imagedata[mealOption],
+                      mealOption,
+                    );
+                  }).toList(),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 20.0,
+                  bottom: 50.0,
+                ),
+                child: ElevatedButton(
+                  onPressed: () => resetValues(),
+                  child: Container(
+                    padding: const EdgeInsets.all(15.0),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: const Center(
+                      child: Text(
+                        "Clear All",
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Widget buildMealCard(
@@ -158,7 +288,7 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
     return Card(
       elevation: 2.0,
       child: Container(
-        width: double.infinity,
+        width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12.0),
         ),
@@ -166,7 +296,7 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
           children: [
             const Gap(60.0),
             PieChartSample2(
-              title: carouselItems[cardPosition],
+              title: mealType,
               cardPosition: cardPosition,
             ),
             const Gap(20.0),
@@ -175,7 +305,7 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
               child: Card(
                 elevation: 2.0,
                 child: Container(
-                  width: double.infinity,
+                  width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
                     color: Colors.white,
@@ -211,7 +341,7 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
             ),
             const Gap(15.0),
             Text(
-              "Current Calories: ${calorieOption[mealOption]} Cal.",
+              "Current Calories: ${currentCalories[mealOption]} Cal.",
               style: const TextStyle(
                 fontSize: 16.0,
               ),
@@ -227,7 +357,7 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
                 bottom: 20.0,
               ),
               child: LinearProgressIndicator(
-                value: calorieOption[mealOption] / 400,
+                value: currentCalories[mealOption] / 400,
                 minHeight: 12.0,
                 backgroundColor: Colors.white,
                 borderRadius: BorderRadius.circular(12.0),
@@ -314,19 +444,19 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
                               ? BorderSide(color: Colors.red.shade600)
                               : BorderSide(color: Colors.red.shade100),
                       onSelected: (isSelected) {
-                        setState(() {
-                          isSelected
-                              ? selectedChips.add(selectionOptions[index])
-                              : selectedChips.remove(selectionOptions[index]);
-
-                          if (isSelected) {
-                            calorieOption[mealOption] =
-                                calorieOption[mealOption] + 100;
-                          } else {
-                            calorieOption[mealOption] =
-                                calorieOption[mealOption] - 100;
-                          }
-                        });
+                        setState(
+                          () {
+                            if (isSelected) {
+                              selectedChips.add(selectionOptions[index]);
+                              currentCalories[mealOption] =
+                                  currentCalories[mealOption] + 100;
+                            } else {
+                              selectedChips.remove(selectionOptions[index]);
+                              currentCalories[mealOption] =
+                                  currentCalories[mealOption] - 100;
+                            }
+                          },
+                        );
                       },
                     ),
                   ),
@@ -339,281 +469,21 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Diet Schedule",
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: redColor,
-        toolbarHeight: 60.0,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //
-              Card(
-                elevation: 2.0,
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.all(5.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      12.0,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        "assets/images/progress_track.png",
-                        width: 90.0,
-                      ),
-                      const Gap(12.0),
-                      Expanded(
-                        child: Text(
-                          "Keep track of your Diet here. Select the options you consumed under specific tabs.",
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.grey.shade800,
-                          ),
-                        ),
-                      ),
-                      const Gap(5.0),
-                    ],
-                  ),
-                ),
-              ),
-
-              const Gap(20.0),
-              //
-              Text(
-                "\t$title",
-                style: const TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const Gap(20.0),
-
-              //
-              CarouselSlider(
-                options: CarouselOptions(
-                  enableInfiniteScroll: false,
-                  enlargeCenterPage: false,
-                  viewportFraction: 1,
-                  aspectRatio: 0.380,
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      title = carouselItems[index];
-                      cardPosition = index;
-                    });
-                  },
-                ),
-                items: carouselItems.map((item) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return item == "Breakfast"
-                          ? buildMealCard(
-                              "Breakfast",
-                              selectionOptionBreakfast,
-                              selectedChipsBreakfast,
-                              imagedataBreakfast,
-                              0,
-                            )
-                          : item == "Lunch"
-                              ? buildMealCard(
-                                  "Lunch",
-                                  selectionOptionLunch,
-                                  selectedChipsLunch,
-                                  imagedataLunch,
-                                  1,
-                                )
-                              : item == "Snacks"
-                                  ? buildMealCard(
-                                      "Snacks",
-                                      selectionOptionSnacks,
-                                      selectedChipsSnacks,
-                                      imagedataSnack,
-                                      2,
-                                    )
-                                  : buildMealCard(
-                                      "Dinner",
-                                      selectionOptionDinner,
-                                      selectedChipsDinner,
-                                      imagedataDinner,
-                                      3,
-                                    );
-                    },
-                  );
-                }).toList(),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class PieChartSample2 extends StatefulWidget {
-  final String title;
-  final int cardPosition;
-
-  const PieChartSample2({
-    super.key,
-    required this.title,
-    required this.cardPosition,
-  });
-
-  @override
-  State<StatefulWidget> createState() => PieChart2State();
-}
-
-class PieChart2State extends State<PieChartSample2> {
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 150.0,
-      child: Stack(
-        children: [
-          PieChart(
-            PieChartData(
-              sectionsSpace: 5,
-              centerSpaceRadius: 50,
-              startDegreeOffset: widget.cardPosition == 0
-                  ? 270
-                  : widget.cardPosition == 1
-                      ? 180
-                      : 0,
-              sections: showingSections(),
-            ),
-          ),
-          Center(
-            child: Text(
-              widget.cardPosition == 0
-                  ? "400 Cal."
-                  : widget.cardPosition == 1
-                      ? "600 Cal."
-                      : widget.cardPosition == 2
-                          ? "250 Cal."
-                          : "600 Cal.",
-              style: const TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  List<PieChartSectionData> showingSections() {
-    int cardPos = widget.cardPosition;
-
-    return List.generate(4, (i) {
-      const radius = 20.0;
-
-      switch (i) {
-        case 0:
-          return PieChartSectionData(
-            color: Colors.red.shade400,
-            title: "",
-            radius: cardPos == 0 ? 28.0 : radius,
-            badgePositionPercentageOffset: 2,
-            badgeWidget: cardPos == 0
-                ? Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        50.0,
-                      ),
-                      border: Border.all(),
-                      color: Colors.white,
-                    ),
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("${widget.title} 20%"),
-                  )
-                : const Center(),
-          );
-        case 1:
-          return PieChartSectionData(
-            color: Colors.red.shade200,
-            value: 40,
-            title: "",
-            radius: cardPos == 1 ? 28.0 : radius,
-            badgePositionPercentageOffset: 1.5,
-            badgeWidget: cardPos == 1
-                ? Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        50.0,
-                      ),
-                      border: Border.all(),
-                      color: Colors.white,
-                    ),
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("${widget.title} 40%"),
-                  )
-                : const Center(),
-          );
-        case 2:
-          return PieChartSectionData(
-            color: Colors.pink.shade400,
-            value: 10,
-            title: "",
-            radius: cardPos == 2 ? 28.0 : radius,
-            badgePositionPercentageOffset: 1.5,
-            badgeWidget: cardPos == 2
-                ? Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        50.0,
-                      ),
-                      border: Border.all(),
-                      color: Colors.white,
-                    ),
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("${widget.title} 10%"),
-                  )
-                : const Center(),
-          );
-        case 3:
-          return PieChartSectionData(
-            color: Colors.pink.shade200,
-            value: 30,
-            title: "",
-            radius: cardPos == 3 ? 28.0 : radius,
-            badgePositionPercentageOffset: 1.5,
-            badgeWidget: cardPos == 3
-                ? Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        50.0,
-                      ),
-                      border: Border.all(),
-                      color: Colors.white,
-                    ),
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("${widget.title} 30%"),
-                  )
-                : const Center(),
-          );
-        default:
-          throw Error();
-      }
+  void resetValues() {
+    setState(() {
+      currentCalories = [0, 0, 0, 0];
+      selectedChips = [[], [], [], []];
     });
+
+    saveCurrentCalories();
+    saveSelectedChips();
+  }
+
+  @override
+  void dispose() {
+    saveCurrentCalories();
+    saveSelectedChips();
+    _pageController.dispose();
+    super.dispose();
   }
 }
