@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:garbh/dashboards/parent_dashboard.dart';
-import 'package:garbh/dateselect.dart';
+import 'package:garbh/childdateselect.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../dashboards/preg_women_dashboard.dart';
@@ -15,6 +15,7 @@ class UserTypePage extends StatefulWidget {
 
 class _UserTypePageState extends State<UserTypePage> {
   late String concDate;
+  late String childmonth;
 
   @override
   void initState() {
@@ -28,8 +29,10 @@ class _UserTypePageState extends State<UserTypePage> {
     );
 
     concDate = "";
+    childmonth = "";
 
     getDateOfConception();
+    getDateOfBirthOfChild();
   }
 
   Future<void> getDateOfConception() async {
@@ -39,6 +42,17 @@ class _UserTypePageState extends State<UserTypePage> {
     if (selectedDate != null) {
       setState(() {
         concDate = selectedDate;
+      });
+    }
+  }
+
+  Future<void> getDateOfBirthOfChild() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? selectedDate = prefs.getString("selectedDateChild");
+
+    if (selectedDate != null) {
+      setState(() {
+        childmonth = selectedDate;
       });
     }
   }
@@ -120,12 +134,21 @@ class _UserTypePageState extends State<UserTypePage> {
           Center(
             child: InkWell(
               onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ParentDashboard(),
-                  ),
-                );
+                if (childmonth.isEmpty) {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SelecDatePage(),
+                    ),
+                  );
+                } else {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ParentDashboard(),
+                    ),
+                  );
+                }
               },
               child: ClipOval(
                 child: Container(
