@@ -301,7 +301,6 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
   }
 
   Widget buildChoiceChip(Map<String, List<String>> option, int mealOption) {
-    // String selectionOption = option.keys.first;
     List<String> optionDetails = option.values.first;
 
     return Padding(
@@ -348,7 +347,7 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(top: 10.0),
+                            padding: const EdgeInsets.only(top: 7.0),
                             child: Text(
                               optionDetails[2],
                               style: TextStyle(
@@ -356,6 +355,18 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
                               ),
                               softWrap: true,
                               maxLines: 4,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 8.0,
+                            ),
+                            child: Text(
+                              "Cal. : ${optionDetails[3]}",
+                              style: TextStyle(
+                                color: Colors.grey.shade700,
+                              ),
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
@@ -381,10 +392,10 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
             setState(() {
               if (isSelected) {
                 selectedChips[mealOption].add(optionDetails[1]);
-                currentCalories[mealOption] += 100;
+                currentCalories[mealOption] += int.parse(optionDetails[3]);
               } else {
                 selectedChips[mealOption].remove(optionDetails[1]);
-                currentCalories[mealOption] -= 100;
+                currentCalories[mealOption] -= int.parse(optionDetails[3]);
               }
             });
           },

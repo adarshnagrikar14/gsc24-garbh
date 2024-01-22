@@ -1,164 +1,79 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class PieChartSample3 extends StatefulWidget {
-  const PieChartSample3({super.key});
+class CustomizablePieChart extends StatefulWidget {
+  final String title1;
+  final double progress1;
+
+  const CustomizablePieChart({
+    required this.title1,
+    required this.progress1,
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => PieChartSample3State();
+  _CustomizablePieChartState createState() => _CustomizablePieChartState();
 }
 
-class PieChartSample3State extends State {
-  int touchedIndex = 0;
-
+class _CustomizablePieChartState extends State<CustomizablePieChart> {
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1.3,
-      child: PieChart(
-        PieChartData(
-          sectionsSpace: 5,
-          centerSpaceRadius: 20,
-          sections: showingSections(),
-          centerSpaceColor: Colors.red.shade50,
+    return Column(
+      children: [
+        AspectRatio(
+          aspectRatio: 1,
+          child: PieChart(
+            PieChartData(
+              sectionsSpace: 5,
+              centerSpaceRadius: 15,
+              sections: showingSections(),
+              startDegreeOffset: 270,
+              centerSpaceColor: Colors.red.shade50,
+            ),
+          ),
         ),
-      ),
+        Text(
+          widget.title1,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16.0,
+          ),
+        )
+      ],
     );
   }
 
   List<PieChartSectionData> showingSections() {
-    return List.generate(4, (i) {
-      const shadows = [Shadow(color: Colors.grey, blurRadius: 2)];
-      const radius = 120.0;
-      const fontSize = 16.0;
-      const widgetSize = 50.0;
+    final double progress2 = 100 - widget.progress1;
 
-      switch (i) {
-        case 0:
-          return PieChartSectionData(
-            color: Colors.red.shade400,
-            value: 39,
-            title: '39%',
-            radius: radius,
-            titleStyle: const TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              shadows: shadows,
-            ),
-            badgeWidget: const _Badge(
-              'assets/images/apple.png',
-              size: widgetSize,
-              borderColor: Colors.black,
-            ),
-            badgePositionPercentageOffset: .98,
-          );
-        case 1:
-          return PieChartSectionData(
-            color: Colors.red.shade200,
-            value: 30,
-            title: '30%',
-            radius: radius,
-            titleStyle: const TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              shadows: shadows,
-            ),
-            badgeWidget: const _Badge(
-              'assets/images/strawberry.png',
-              size: widgetSize,
-              borderColor: Colors.black,
-            ),
-            badgePositionPercentageOffset: .98,
-          );
-        case 2:
-          return PieChartSectionData(
-            color: Colors.pink.shade400,
-            value: 16,
-            title: '16%',
-            radius: radius,
-            titleStyle: const TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              shadows: shadows,
-            ),
-            badgeWidget: const _Badge(
-              'assets/images/lime.png',
-              size: widgetSize,
-              borderColor: Colors.black,
-            ),
-            badgePositionPercentageOffset: .98,
-          );
-        case 3:
-          return PieChartSectionData(
-            color: Colors.pink.shade200,
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: const TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              shadows: shadows,
-            ),
-            badgeWidget: const _Badge(
-              'assets/images/grape.png',
-              size: widgetSize,
-              borderColor: Colors.black,
-            ),
-            badgePositionPercentageOffset: .98,
-          );
-        default:
-          throw Exception("Exception");
-      }
-    });
-  }
-}
-
-class _Badge extends StatelessWidget {
-  const _Badge(
-    this.svgAsset, {
-    required this.size,
-    required this.borderColor,
-  });
-  final String svgAsset;
-  final double size;
-  final Color borderColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(
-        seconds: 3,
-      ),
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        shape: BoxShape.circle,
-        border: Border.all(
-          color: borderColor,
-          width: 1,
-        ),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.red.withOpacity(.4),
-            offset: const Offset(3, 3),
-            blurRadius: 2,
-          ),
-        ],
-      ),
-      padding: EdgeInsets.all(size * 0.1),
-      child: Center(
-        child: Image(
-          image: AssetImage(
-            svgAsset,
-          ),
-          fit: BoxFit.cover,
+    return [
+      PieChartSectionData(
+        color: Colors.red.shade400,
+        value: widget.progress1,
+        radius: 60,
+        title: "${widget.progress1}%",
+        titlePositionPercentageOffset: 0.6,
+        titleStyle: const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+          shadows: [Shadow(color: Colors.grey, blurRadius: 2)],
         ),
       ),
-    );
+      PieChartSectionData(
+        color: Colors.red.shade200,
+        value: progress2,
+        radius: 48,
+        title: "",
+        titleStyle: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+          shadows: [Shadow(color: Colors.grey, blurRadius: 2)],
+        ),
+      ),
+    ];
   }
 }
