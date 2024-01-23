@@ -5,19 +5,18 @@ class PostContainer extends StatefulWidget {
   final String timeAgo;
   final String caption;
   final String imagePath;
-  final String profileImagePath; // New parameter for profile image
+  final String profileImagePath;
 
   const PostContainer({
-    super.key,
+    Key? key,
     required this.username,
     required this.timeAgo,
     required this.caption,
     required this.imagePath,
-    required this.profileImagePath, // Pass the profile image path
-  });
+    required this.profileImagePath,
+  }) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _PostContainerState createState() => _PostContainerState();
 }
 
@@ -50,8 +49,7 @@ class _PostContainerState extends State<PostContainer> {
             children: [
               CircleAvatar(
                 radius: 20,
-                backgroundImage: AssetImage(widget.profileImagePath),
-                // Use the profile image path provided
+                backgroundImage: NetworkImage(widget.profileImagePath),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -85,7 +83,7 @@ class _PostContainerState extends State<PostContainer> {
             style: const TextStyle(fontSize: 16),
           ),
           const SizedBox(height: 10),
-          Image.asset(
+          Image.network(
             widget.imagePath,
             height: 200,
             width: double.infinity,
