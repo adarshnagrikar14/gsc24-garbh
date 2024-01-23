@@ -55,7 +55,7 @@ dependencies:
   line_icons: ^2.0.3
 
   gap: ^3.0.1
-  intl: ^0.17.0
+  intl: ^0.18.1
   fl_chart: ^0.66.0
 
   carousel_slider: ^4.2.1

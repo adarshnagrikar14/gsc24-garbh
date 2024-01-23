@@ -1,8 +1,5 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
-import 'dart:async';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:garbh/communityPage/postcard.dart';
 
 class CommunityHomePage extends StatefulWidget {
@@ -14,8 +11,11 @@ class CommunityHomePage extends StatefulWidget {
 
 class _CommunityHomePageState extends State<CommunityHomePage> {
   final PageController _pageController = PageController();
-  int _currentPage = 0;
-  bool _isCheckBoxChecked = false;
+  late FirebaseFirestore _firestore;
+  late CollectionReference _postCollection;
+
+  late List<String> imageUrls;
+  late List<String> textInContainer;
 
   final List<LinearGradient> containerGradients = [
     const LinearGradient(
@@ -52,6 +52,7 @@ class _CommunityHomePageState extends State<CommunityHomePage> {
     ),
   ];
 
+<<<<<<< HEAD
   final List<String> textInContainer = [
     "    Ensure you get adequate rest and sleep. Pregnancy can be tiring, so listen to your body and rest when needed.",
     "Eat a well-balanced diet that includes a variety of fruits, vegetables, whole grains, lean proteins, and dairy.",
@@ -115,26 +116,55 @@ class _CommunityHomePageState extends State<CommunityHomePage> {
       'imagePath': 'assets/images/grape.png',
     },
   ];
+=======
+  int _selectedIndex = 0;
+>>>>>>> 0864e7f (Community)
 
   @override
   void initState() {
     super.initState();
+    _firestore = FirebaseFirestore.instance;
+    _postCollection = _firestore.collection('posts');
 
-    Timer.periodic(const Duration(seconds: 3), (Timer timer) {
-      if (_currentPage < containerGradients.length - 1) {
-        _currentPage++;
-      } else {
-        _currentPage = 0;
-      }
-      _pageController.animateToPage(
-        _currentPage,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
-    });
-    Future.delayed(Duration.zero, () {
-      _showWelcomePopup();
-    });
+    // Initialize imageUrls with placeholder URLs
+    imageUrls = List.generate(
+        containerGradients.length,
+        (index) =>
+            'https://placehold.it/300x300'); // Default image if URL is null
+
+    // Initialize textInContainer as an empty list
+    textInContainer = [];
+
+    _fetchImageUrls();
+    _fetchTips();
+  }
+
+  void _fetchTips() async {
+    try {
+      QuerySnapshot tipsSnapshot = await _firestore.collection('tips').get();
+      List<String> tips =
+          tipsSnapshot.docs.map((doc) => doc['content'] as String).toList();
+
+      setState(() {
+        textInContainer = tips;
+      });
+    } catch (e) {
+      print('Error fetching tips: $e');
+    }
+  }
+
+  void _fetchImageUrls() async {
+    try {
+      QuerySnapshot snapshot = await _firestore.collection('images').get();
+      List<String> urls =
+          snapshot.docs.map((doc) => doc['imageUrl'] as String).toList();
+
+      setState(() {
+        imageUrls = urls;
+      });
+    } catch (e) {
+      print('Error fetching image URLs: $e');
+    }
   }
 
   @override
@@ -143,69 +173,10 @@ class _CommunityHomePageState extends State<CommunityHomePage> {
     super.dispose();
   }
 
-  void _showWelcomePopup() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return Dialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text(
-                      "Welcome to the Garbh community!",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    const Text(
-                      "Make sure you follow the guidelines related to the community.",
-                      style: TextStyle(fontWeight: FontWeight.normal),
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      children: [
-                        Checkbox(
-                          value: _isCheckBoxChecked,
-                          onChanged: (value) {
-                            setState(() {
-                              _isCheckBoxChecked = value!;
-                            });
-                          },
-                        ),
-                        const Text("I agree"),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: _isCheckBoxChecked
-                          ? () {
-                              Navigator.of(context).pop();
-                            }
-                          : null,
-                      child: const Text("OK"),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+<<<<<<< HEAD
       body: Stack(
         children: [
           Container(
@@ -213,89 +184,124 @@ class _CommunityHomePageState extends State<CommunityHomePage> {
               image: DecorationImage(
                 image: AssetImage(
                   "assets/communityAsset/background.jpg",
+=======
+      appBar: AppBar(
+        elevation: 100,
+        backgroundColor: const Color.fromARGB(255, 249, 76, 102),
+        title: const Text(
+          "Garbh Community Page",
+          style: TextStyle(color: Colors.white, fontSize: 18),
+        ),
+      ),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: _postCollection.snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator();
+          }
+
+          var postData = snapshot.data!.docs
+              .map((doc) => doc.data() as Map<String, dynamic>)
+              .toList();
+
+          return Stack(
+            children: [
+              Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                      "assets/communityAsset/background.jpg",
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+>>>>>>> 0864e7f (Community)
                 ),
-                fit: BoxFit.cover,
               ),
-            ),
-          ),
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 1.5,
-                  child: PageView.builder(
-                    controller: _pageController,
-                    itemCount: containerGradients.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin:
-                            const EdgeInsets.only(left: 10, right: 10, top: 20),
-                        decoration: BoxDecoration(
-                          gradient: containerGradients[index],
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Text(
-                              "Top Tips by the community",
-                              style: TextStyle(
-                                fontSize: 25,
-                                color: Colors.white,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                textInContainer[index],
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.grey,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 150,
-                              width: 150,
-                              child: ClipRRect(
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 1.5,
+                      child: PageView.builder(
+                        controller: _pageController,
+                        itemCount: containerGradients.length,
+                        itemBuilder: (context, index) {
+                          if (index < textInContainer.length) {
+                            return Container(
+                              width: MediaQuery.of(context).size.width,
+                              margin: const EdgeInsets.only(
+                                  left: 10, right: 10, top: 20),
+                              decoration: BoxDecoration(
+                                gradient: containerGradients[index],
                                 borderRadius: BorderRadius.circular(20),
-                                child: Image.asset(
-                                  imagePaths[index],
-                                  fit: BoxFit.cover,
-                                ),
                               ),
-                            ),
-                            const SizedBox(height: 10),
-                            ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                foregroundColor: Colors.black,
-                                backgroundColor: Colors.white,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    "Top Tips by the community",
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                      color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      textInContainer[index],
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.grey,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 150,
+                                    width: 150,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: Image.network(
+                                        imageUrls[index],
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  ElevatedButton(
+                                    onPressed: () {},
+                                    style: ElevatedButton.styleFrom(
+                                      foregroundColor: Colors.black,
+                                      backgroundColor: Colors.white,
+                                    ),
+                                    child: const Text('Learn More'),
+                                  ),
+                                ],
                               ),
-                              child: const Text('Learn More'),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                            );
+                          } else {
+                            // Handle the case when the index is out of range
+                            return Container(); // Or some default widget or an empty container
+                          }
+                        },
+                      ),
+                    ),
+                    for (var post in postData)
+                      PostContainer(
+                        profileImagePath: post['profileImage'],
+                        username: post['username'],
+                        timeAgo: post['timeAgo'],
+                        caption: post['caption'],
+                        imagePath: post['imagePath'],
+                      ),
+                  ],
                 ),
-                for (var post in postData)
-                  PostContainer(
-                    profileImagePath: post['profileImage']!,
-                    username: post['username'],
-                    timeAgo: post['timeAgo'],
-                    caption: post['caption'],
-                    imagePath: post['imagePath'],
-                  ),
-              ],
-            ),
-          ),
-        ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }
