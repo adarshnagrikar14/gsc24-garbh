@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:garbh/reusables/custom_home_cards.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,15 +13,25 @@ class HomeScreenParent extends StatefulWidget {
 }
 
 class _HomeScreenParentState extends State<HomeScreenParent> {
-  late String childmonth;
+  late String childmonth = "";
+  late String userName = "";
 
   @override
   void initState() {
     super.initState();
 
-    childmonth = "";
-
+    getUserDisplayName();
     getDateOfBirthOfChild();
+  }
+
+  Future<void> getUserDisplayName() async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      setState(() {
+        userName = user.displayName ?? "Dear User";
+      });
+    }
   }
 
   Future<void> getDateOfBirthOfChild() async {
@@ -43,6 +56,88 @@ class _HomeScreenParentState extends State<HomeScreenParent> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(
+                "Hey $userName,",
+                style: const TextStyle(
+                  fontSize: 18.0,
+                ),
+              ),
+              const Gap(5.0),
+              Text(
+                "Find diet trackers, community tips, medicine reminders and more for your $childmonth month(s) old baby.",
+                style: const TextStyle(
+                  fontSize: 15.0,
+                ),
+              ),
+
+              //
+              const Gap(22.0),
+              const Text(
+                "Track child's growth...",
+                style: TextStyle(
+                  fontSize: 17.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              //
+              const Gap(15.0),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    CustomCard(
+                      imageName: "height_tr.png",
+                      text: "Height",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Scaffold(),
+                          ),
+                        );
+                      },
+                    ),
+                    const Gap(12.0),
+                    const CustomCard(
+                      imageName: "weight_tr.png",
+                      text: "Weight",
+                    ),
+                    const Gap(12.0),
+                  ],
+                ),
+              ),
+
+              //
+              const Gap(22.0),
+              const Text(
+                "Refresh them with...",
+                style: TextStyle(
+                  fontSize: 17.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              const Gap(15.0),
+              const SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    CustomCard(
+                      imageName: "lullaby.png",
+                      text: "Lullaby",
+                    ),
+                    Gap(12.0),
+                    CustomCard(
+                      imageName: "alpha.png",
+                      text: "\u03B1 Sound",
+                    ),
+                    Gap(12.0),
+                  ],
+                ),
+              ),
+
+              //
               Padding(
                 padding: const EdgeInsets.only(
                   top: 60.0,
@@ -51,7 +146,6 @@ class _HomeScreenParentState extends State<HomeScreenParent> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(childmonth),
                     Text(
                       "Live\nParenting",
                       style: TextStyle(

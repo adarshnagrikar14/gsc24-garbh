@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:garbh/dashboards/parent_dashboard.dart';
-import 'package:garbh/childdateselect.dart';
+// ignore: library_prefixes
+import 'package:garbh/childdateselect.dart' as childSelect;
+import 'package:garbh/dateselect.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../dashboards/preg_women_dashboard.dart';
@@ -138,7 +141,7 @@ class _UserTypePageState extends State<UserTypePage> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const SelecDatePage(),
+                      builder: (context) => const childSelect.SelecDatePage(),
                     ),
                   );
                 } else {
