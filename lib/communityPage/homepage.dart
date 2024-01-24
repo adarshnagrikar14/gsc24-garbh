@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -133,16 +133,6 @@ class _HomePageState extends State<CommunityHomePage> {
 
           return Stack(
             children: [
-              Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(
-                      "assets/communityAsset/background.jpg",
-                    ),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
               SingleChildScrollView(
                 child: Column(
                   children: [
