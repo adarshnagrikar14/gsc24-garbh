@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:garbh/pw_screens/diet_pw.dart';
 import 'package:garbh/pw_screens/exercise_pw.dart';
+import 'package:garbh/pw_screens/meditation_pw.dart';
 import 'package:garbh/reusables/custom_home_cards.dart';
 import 'package:garbh/reusables/custom_home_infocard.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -146,9 +147,19 @@ class _HomeScreenPWState extends State<HomeScreenPW> {
                       ),
                     ),
                     const Gap(12.0),
-                    const CustomCard(
-                      imageName: "mentalhealth.png",
-                      text: "Mental Health",
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MeditationScreen(),
+                          ),
+                        );
+                      },
+                      child: const CustomCard(
+                        imageName: "mentalhealth.png",
+                        text: "Meditation",
+                      ),
                     ),
                   ],
                 ),
