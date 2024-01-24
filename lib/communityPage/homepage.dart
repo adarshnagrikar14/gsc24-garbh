@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:garbh/communityPage/postcard.dart';
@@ -52,87 +54,17 @@ class _CommunityHomePageState extends State<CommunityHomePage> {
     ),
   ];
 
-<<<<<<< HEAD
-  final List<String> textInContainer = [
-    "    Ensure you get adequate rest and sleep. Pregnancy can be tiring, so listen to your body and rest when needed.",
-    "Eat a well-balanced diet that includes a variety of fruits, vegetables, whole grains, lean proteins, and dairy.",
-    "Practice good hygiene to prevent infections,Avoid exposure to harmful chemicals and toxins.",
-    "Stay informed about the changes happening in your body and the development of your baby."
-  ];
-  final List<String> imagePaths = [
-    "assets/images/strawberry.png",
-    "assets/images/grape.png",
-    "assets/images/kidney_bean.png",
-    "assets/images/music_l.png"
-  ];
-
-  List<Map<String, dynamic>> postData = [
-    {
-      'profileImage': 'assets/images/grape.png',
-      'username': 'Dr. Priyanka Sharma',
-      'timeAgo': '2 hours ago',
-      'caption':
-          '    Maintain a healthy weight gain as recommended by your healthcare provider.',
-      'imagePath': 'assets/images/grape.png',
-    },
-    {
-      'profileImage': 'assets/images/grape.png',
-      'username': 'Dr. Rakesh Verma',
-      'timeAgo': '1 hour ago',
-      'caption':
-          'Take prenatal vitamins as recommended by your healthcare provider, including folic acid.',
-      'imagePath': 'assets/images/avocado.png',
-    },
-    {
-      'profileImage': 'assets/images/apple.png',
-      'username': 'Poorvi Verma(Mother)',
-      'timeAgo': '2 hours ago',
-      'caption':
-          'Take prenatal classes to learn about the labor and delivery process, it really helped me a lot',
-      'imagePath': 'assets/images/grape.png',
-    },
-    {
-      'profileImage': 'assets/images/strawberry.png',
-      'username': 'Nitikesh Tiwari',
-      'timeAgo': '7d ago',
-      'caption':
-          'My wife really had a hard period, but we managed to go through it.',
-      'imagePath': 'assets/images/grape.png',
-    },
-    {
-      'profileImage': 'assets/images/fig.png',
-      'username': 'Aayushi Wankhede',
-      'timeAgo': '1 month ago',
-      'caption':
-          'Invest in comfortable, loose-fitting maternity clothes that accommodate your growing belly.',
-      'imagePath': 'assets/images/strawberry.png',
-    },
-    {
-      'profileImage': 'assets/images/apple.png',
-      'username': 'Aayushi Wankhede',
-      'timeAgo': '1 month ago',
-      'caption':
-          'Invest in comfortable, loose-fitting maternity clothes that accommodate your growing belly.',
-      'imagePath': 'assets/images/grape.png',
-    },
-  ];
-=======
-  int _selectedIndex = 0;
->>>>>>> 0864e7f (Community)
-
   @override
   void initState() {
     super.initState();
     _firestore = FirebaseFirestore.instance;
     _postCollection = _firestore.collection('posts');
 
-    // Initialize imageUrls with placeholder URLs
     imageUrls = List.generate(
-        containerGradients.length,
-        (index) =>
-            'https://placehold.it/300x300'); // Default image if URL is null
+      containerGradients.length,
+      (index) => 'https://placehold.it/300x300',
+    );
 
-    // Initialize textInContainer as an empty list
     textInContainer = [];
 
     _fetchImageUrls();
@@ -176,28 +108,13 @@ class _CommunityHomePageState extends State<CommunityHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-<<<<<<< HEAD
-      body: Stack(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(
-                  "assets/communityAsset/background.jpg",
-=======
-      appBar: AppBar(
-        elevation: 100,
-        backgroundColor: const Color.fromARGB(255, 249, 76, 102),
-        title: const Text(
-          "Garbh Community Page",
-          style: TextStyle(color: Colors.white, fontSize: 18),
-        ),
-      ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _postCollection.snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return CircularProgressIndicator();
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
 
           var postData = snapshot.data!.docs
@@ -206,17 +123,6 @@ class _CommunityHomePageState extends State<CommunityHomePage> {
 
           return Stack(
             children: [
-              Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(
-                      "assets/communityAsset/background.jpg",
-                    ),
-                    fit: BoxFit.cover,
-                  ),
->>>>>>> 0864e7f (Community)
-                ),
-              ),
               SingleChildScrollView(
                 child: Column(
                   children: [
@@ -282,8 +188,7 @@ class _CommunityHomePageState extends State<CommunityHomePage> {
                               ),
                             );
                           } else {
-                            // Handle the case when the index is out of range
-                            return Container(); // Or some default widget or an empty container
+                            return Container();
                           }
                         },
                       ),

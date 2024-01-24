@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:garbh/pw_screens/diet_pw.dart';
+import 'package:garbh/pw_screens/exercise_pw.dart';
 import 'package:garbh/reusables/custom_home_cards.dart';
 import 'package:garbh/reusables/custom_home_infocard.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -130,9 +131,19 @@ class _HomeScreenPWState extends State<HomeScreenPW> {
                       },
                     ),
                     const Gap(12.0),
-                    const CustomCard(
-                      imageName: "exercise.png",
-                      text: "Exercise",
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ExerciseScreen(),
+                          ),
+                        );
+                      },
+                      child: const CustomCard(
+                        imageName: "exercise.png",
+                        text: "Exercise",
+                      ),
                     ),
                     const Gap(12.0),
                     const CustomCard(

@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:garbh/parent_screens/community_parent.dart';
+import 'package:garbh/communityPage/homepage.dart';
 import 'package:garbh/parent_screens/discover_parent.dart';
 import 'package:garbh/parent_screens/home_parent.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -32,7 +32,7 @@ class _ParentDashboardState extends State<ParentDashboard> {
   Widget build(BuildContext context) {
     final List<Widget> widgetOptions = <Widget>[
       const HomeScreenParent(),
-      const ParentCommunityScreen(),
+      const CommunityHomePage(),
       const ParentDiscoverScreen(),
     ];
 
