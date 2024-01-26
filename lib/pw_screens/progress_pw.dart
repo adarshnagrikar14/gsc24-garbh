@@ -1,13 +1,12 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
-
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:garbh/data/meal_data.dart';
 import 'package:garbh/pw_screens/diet_pw.dart';
 import 'package:garbh/reusables/piechart3.dart';
+import 'package:garbh/reusables/piechart4.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,7 +26,7 @@ class _ProgressPWScreenState extends State<ProgressPWScreen> {
     [], //dinner
   ];
 
-  int totalExerciseCalBurn = 0;
+  late int totalExerciseCalBurn = 1;
 
   @override
   void initState() {
@@ -53,8 +52,11 @@ class _ProgressPWScreenState extends State<ProgressPWScreen> {
         exerciseHistory[i + 1],
       ]);
     }
-
     print(formattedExerciseHistory);
+
+    setState(() {
+      totalExerciseCalBurn = totalExerciseCalBurn - 1;
+    });
 
     return formattedExerciseHistory;
   }
@@ -130,6 +132,53 @@ class _ProgressPWScreenState extends State<ProgressPWScreen> {
                         ),
                       ),
                       const Gap(5.0),
+                    ],
+                  ),
+                ),
+              ),
+
+              //
+              const Gap(22.0),
+              const Text(
+                "\tExercise Track",
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Gap(5.0),
+              const Text(
+                "\tCalorie burnt for the day after performing\n\texercises",
+                style: TextStyle(
+                  fontSize: 16.0,
+                ),
+              ),
+
+              //
+              const Gap(15.0),
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(
+                    12.0,
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: CustomExercisePieChart(
+                          totalExerciseCalBurn: totalExerciseCalBurn / 1,
+                        ),
+                      ),
+                      const Expanded(
+                        flex: 4,
+                        child: Text(
+                          "The Exercises you perform will be shown and calorie burn will be calculated accordingly.",
+                          style: TextStyle(
+                            fontSize: 15.0,
+                          ),
+                          softWrap: true,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -271,94 +320,11 @@ class _ProgressPWScreenState extends State<ProgressPWScreen> {
                   ),
                 ),
               ),
-
-              //
-              const Gap(22.0),
-              const Text(
-                "\tExercise Track",
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const Gap(5.0),
-              const Text(
-                "\tCalorie burnt for the day after performing\n\texercises",
-                style: TextStyle(
-                  fontSize: 16.0,
-                ),
-              ),
-
-              //
-              const Gap(15.0),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(
-                    12.0,
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 3,
-                        child: AspectRatio(
-                          aspectRatio: 1.1,
-                          child: PieChart(
-                            PieChartData(
-                              sectionsSpace: 5,
-                              centerSpaceRadius: 15,
-                              sections: showingSections2(),
-                              startDegreeOffset: 270,
-                              centerSpaceColor: Colors.red.shade50,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const Expanded(
-                        flex: 4,
-                        child: Text(
-                          "The Exercises you perform will be shown and calorie burn will be calculated accordingly.",
-                          style: TextStyle(
-                            fontSize: 15.0,
-                          ),
-                          softWrap: true,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
             ],
           ),
         ),
       ),
     );
-  }
-
-  List<PieChartSectionData> showingSections2() {
-    final double progress2 = 100 - totalExerciseCalBurn / 1;
-
-    return [
-      PieChartSectionData(
-        color: Colors.pink.shade400,
-        value: totalExerciseCalBurn / 1,
-        radius: 50,
-        title: "",
-        titlePositionPercentageOffset: 0.8,
-      ),
-      PieChartSectionData(
-        color: Colors.pink.shade200,
-        value: progress2,
-        radius: 38,
-        titlePositionPercentageOffset: 0.4,
-        title: "$totalExerciseCalBurn Cal.",
-        titleStyle: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-          shadows: [Shadow(color: Colors.grey, blurRadius: 2)],
-        ),
-      ),
-    ];
   }
 }
 

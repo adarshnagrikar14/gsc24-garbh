@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:garbh/data/med_exercise_data.dart';
@@ -171,12 +172,22 @@ class _PerformExerciseState extends State<PerformExercise> {
   late int duration;
   late int currentSeconds;
   late Timer timer;
+  late AudioPlayer audioPlayer;
 
   @override
   void initState() {
     super.initState();
     duration = int.parse(widget.exerciseData[4]);
     currentSeconds = duration;
+    audioPlayer = AudioPlayer();
+    playBackgroundMusic();
+  }
+
+  void playBackgroundMusic() async {
+    await audioPlayer.play(
+      AssetSource("raw/med_music.mp3"),
+      volume: 100.0,
+    );
   }
 
   void startExercise() {
@@ -187,6 +198,7 @@ class _PerformExerciseState extends State<PerformExercise> {
         } else {
           timer.cancel();
           showCompletionDialog();
+          audioPlayer.stop();
         }
       });
     });
@@ -216,6 +228,7 @@ class _PerformExerciseState extends State<PerformExercise> {
   @override
   void dispose() {
     timer.cancel();
+    audioPlayer.dispose();
     super.dispose();
   }
 

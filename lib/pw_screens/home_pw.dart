@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:garbh/pw_screens/diet_pw.dart';
 import 'package:garbh/pw_screens/exercise_pw.dart';
 import 'package:garbh/pw_screens/meditation_pw.dart';
+import 'package:garbh/pw_screens/music_pw.dart';
 import 'package:garbh/reusables/custom_home_cards.dart';
 import 'package:garbh/reusables/custom_home_infocard.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -176,20 +177,30 @@ class _HomeScreenPWState extends State<HomeScreenPW> {
               ),
 
               const Gap(15.0),
-              const SingleChildScrollView(
+              SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    CustomCard(
-                      imageName: "music_l.png",
-                      text: "Music",
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MusicListeningScreen(),
+                          ),
+                        );
+                      },
+                      child: const CustomCard(
+                        imageName: "music_l.png",
+                        text: "Relaxing Music",
+                      ),
                     ),
-                    Gap(12.0),
-                    CustomCard(
+                    const Gap(12.0),
+                    const CustomCard(
                       imageName: "podcast.png",
                       text: "Podcast",
                     ),
-                    Gap(12.0),
+                    const Gap(12.0),
                   ],
                 ),
               ),
