@@ -171,6 +171,7 @@ class _HeightChartState extends State<HeightChart> {
         return AlertDialog(
           title: const Text('Enter Height and Weight'),
           content: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
                 decoration:
