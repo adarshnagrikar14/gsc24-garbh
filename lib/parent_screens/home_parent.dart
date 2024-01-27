@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:garbh/parent_screens/height_weight.dart';
 import 'package:garbh/reusables/custom_home_cards.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -93,15 +94,23 @@ class _HomeScreenParentState extends State<HomeScreenParent> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Scaffold(),
+                            builder: (context) => const HeightChart(),
                           ),
                         );
                       },
                     ),
                     const Gap(12.0),
-                    const CustomCard(
+                    CustomCard(
                       imageName: "weight_tr.png",
                       text: "Weight",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Scaffold(),
+                          ),
+                        );
+                      },
                     ),
                     const Gap(12.0),
                   ],

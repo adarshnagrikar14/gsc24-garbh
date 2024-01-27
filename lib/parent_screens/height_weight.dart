@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gap/gap.dart';
 
 class HeightChart extends StatefulWidget {
   const HeightChart({Key? key}) : super(key: key);
@@ -16,12 +15,11 @@ class _HeightChartState extends State<HeightChart> {
   List<FlSpot> heightSpots = [];
   List<FlSpot> weightSpots = [];
   List<String> imageUrls = [];
+  Color redColor = const Color.fromARGB(255, 249, 76, 102);
 
   @override
   void initState() {
     super.initState();
-
-    Firebase.initializeApp();
 
     fetchImageUrls();
   }
@@ -30,7 +28,7 @@ class _HeightChartState extends State<HeightChart> {
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection("HWimages").get();
 
-    querySnapshot.docs.forEach((document) {
+    for (var document in querySnapshot.docs) {
       var data = document.data() as Map<String, dynamic>?;
 
       if (data != null && data.containsKey('imageUrl')) {
@@ -38,42 +36,34 @@ class _HeightChartState extends State<HeightChart> {
           imageUrls.add(data['imageUrl']);
         });
       }
-    });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 238, 125, 154),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 216, 79, 79),
-        title: const Text('Height & Weight Chart'),
+        title: const Text(
+          "Meditation",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: redColor,
+        toolbarHeight: 60.0,
+        foregroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            if (imageUrls.isNotEmpty)
-              CarouselSlider(
-                options: CarouselOptions(
-                  autoPlay: true,
-                  aspectRatio: 2.0,
-                  enlargeCenterPage: true,
-                ),
-                items: imageUrls.map((url) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return Image.network(url, fit: BoxFit.cover);
-                    },
-                  );
-                }).toList(),
-              ),
             const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () => _showDataInputDialog(context),
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('Enter Height and Weight'),
             ),
@@ -81,7 +71,7 @@ class _HeightChartState extends State<HeightChart> {
             ElevatedButton(
               onPressed: () => _showPreviousData(),
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('View Previous Data'),
             ),
@@ -95,19 +85,36 @@ class _HeightChartState extends State<HeightChart> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('Analyze Data'),
             ),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: 30.0),
             if (heightSpots.isNotEmpty && weightSpots.isNotEmpty)
               Expanded(
                 child: LayoutBuilder(
                   builder: (context, constraints) {
                     return LineChart(
                       LineChartData(
-                        gridData: FlGridData(show: false),
-                        titlesData: FlTitlesData(show: false),
+                        gridData: const FlGridData(
+                          show: false,
+                        ),
+                        titlesData: FlTitlesData(
+                          show: true,
+                          rightTitles: const AxisTitles(),
+                          topTitles: const AxisTitles(),
+                          leftTitles: AxisTitles(
+                            axisNameSize: 20.0,
+                            sideTitles: SideTitles(
+                              showTitles: true,
+                              // interval: 1,
+                              getTitlesWidget: (value, meta) {
+                                return Text("$value");
+                              },
+                              reservedSize: 50.0,
+                            ),
+                          ),
+                        ),
                         borderData: FlBorderData(
                           show: true,
                           border: Border.all(
@@ -124,7 +131,8 @@ class _HeightChartState extends State<HeightChart> {
                             spots: heightSpots,
                             isCurved: true,
                             color: Colors.blue,
-                            dotData: FlDotData(show: false),
+                            show: true,
+                            dotData: const FlDotData(show: false),
                             belowBarData: BarAreaData(show: false),
                             isStrokeCapRound: true,
                             barWidth: 6,
@@ -133,7 +141,7 @@ class _HeightChartState extends State<HeightChart> {
                             spots: weightSpots,
                             isCurved: true,
                             color: Colors.red,
-                            dotData: FlDotData(show: false),
+                            dotData: const FlDotData(show: false),
                             belowBarData: BarAreaData(show: false),
                             isStrokeCapRound: true,
                             barWidth: 6,
@@ -144,6 +152,7 @@ class _HeightChartState extends State<HeightChart> {
                   },
                 ),
               ),
+            const Gap(20.0),
           ],
         ),
       ),
@@ -268,11 +277,15 @@ class _HeightChartState extends State<HeightChart> {
         return AlertDialog(
           title: const Text('Previous Data'),
           content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: dataPoints
-                .map((dataPoint) => ListTile(
-                      title: Text(
-                          'Weeks: ${dataPoint.weeks}, Height: ${dataPoint.height}, Weight: ${dataPoint.weight}'),
-                    ))
+                .map(
+                  (dataPoint) => ListTile(
+                    title: Text(
+                        'Weeks: ${dataPoint.weeks}, Height: ${dataPoint.height}, Weight: ${dataPoint.weight}'),
+                  ),
+                )
                 .toList(),
           ),
           actions: [
