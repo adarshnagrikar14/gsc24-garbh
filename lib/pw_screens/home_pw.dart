@@ -5,6 +5,7 @@ import 'package:garbh/pw_screens/diet_pw.dart';
 import 'package:garbh/pw_screens/exercise_pw.dart';
 import 'package:garbh/pw_screens/meditation_pw.dart';
 import 'package:garbh/pw_screens/music_pw.dart';
+import 'package:garbh/pw_screens/podcast_pw.dart';
 import 'package:garbh/reusables/custom_home_cards.dart';
 import 'package:garbh/reusables/custom_home_infocard.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -196,9 +197,17 @@ class _HomeScreenPWState extends State<HomeScreenPW> {
                       ),
                     ),
                     const Gap(12.0),
-                    const CustomCard(
+                    CustomCard(
                       imageName: "podcast.png",
                       text: "Podcast",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PodcastPage(),
+                          ),
+                        );
+                      },
                     ),
                     const Gap(12.0),
                   ],

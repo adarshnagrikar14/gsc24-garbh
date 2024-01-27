@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:garbh/data/music_data.dart';
@@ -94,63 +95,76 @@ class _MusicListeningScreenState extends State<MusicListeningScreen> {
   }
 
   void _showBottomSheet(BuildContext context, List<String> musicData) {
+    AudioPlayer audioPlayer = AudioPlayer();
+    String isPlaying = "";
+
     showModalBottomSheet(
       context: context,
       barrierColor: Colors.red.shade50,
       backgroundColor: Colors.red.shade50,
       useRootNavigator: true,
       builder: (BuildContext context) {
-        return Container(
-          padding: const EdgeInsets.all(20.0),
-          margin: const EdgeInsets.all(12),
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(
-              20,
-            ),
-            color: Colors.white,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                "${musicData[0]} 🎵",
-                style: const TextStyle(
-                  fontSize: 22.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Container(
+              padding: const EdgeInsets.all(20.0),
+              margin: const EdgeInsets.all(12),
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.white,
               ),
-              const Gap(20.0),
-              Card(
-                child: Image.asset(
-                  "assets/images/music_l.png",
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  height: 150.0,
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "${musicData[0]} 🎵",
+                    style: const TextStyle(
+                      fontSize: 22.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 20.0),
+                  Card(
+                    child: Image.asset(
+                      "assets/images/music_l.png",
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      height: 150.0,
+                    ),
+                  ),
+                  const Gap(15.0),
+                  Text(isPlaying),
+                  const SizedBox(height: 20.0),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 30.0),
+                    child: LinearProgressIndicator(),
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      await audioPlayer.play(
+                        AssetSource(musicData[1]),
+                      );
+
+                      setState(
+                        () {
+                          isPlaying = "Playing...";
+                        },
+                      );
+                    },
+                    child: const Text("Play Music"),
+                  ),
+                  const SizedBox(height: 20.0),
+                ],
               ),
-              const Gap(20.0),
-              const Padding(
-                padding: EdgeInsets.only(
-                  left: 18.0,
-                  right: 18.0,
-                  top: 30.0,
-                  bottom: 30.0,
-                ),
-                child: LinearProgressIndicator(),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text("Play Music"),
-              ),
-              const Gap(20.0),
-            ],
-          ),
+            );
+          },
         );
       },
-    );
+    ).whenComplete(() {
+      audioPlayer.stop();
+      audioPlayer.dispose();
+    });
   }
 }
