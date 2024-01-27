@@ -1,12 +1,12 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:garbh/data/meal_data.dart';
 import 'package:garbh/pw_screens/diet_pw.dart';
 import 'package:garbh/reusables/piechart3.dart';
+import 'package:garbh/reusables/piechart4.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,10 +26,39 @@ class _ProgressPWScreenState extends State<ProgressPWScreen> {
     [], //dinner
   ];
 
+  late int totalExerciseCalBurn = 1;
+
   @override
   void initState() {
     super.initState();
     loadSavedValues();
+    loadExerciseHistory();
+  }
+
+  Future<List<List<String>>> loadExerciseHistory() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    List<String>? exerciseHistory = prefs.getStringList("exerciseHistory");
+
+    if (exerciseHistory == null) {
+      return [];
+    }
+
+    List<List<String>> formattedExerciseHistory = [];
+    for (int i = 0; i < exerciseHistory.length; i += 2) {
+      totalExerciseCalBurn += int.parse(exerciseHistory[i + 1]);
+      formattedExerciseHistory.add([
+        exerciseHistory[i],
+        exerciseHistory[i + 1],
+      ]);
+    }
+    print(formattedExerciseHistory);
+
+    setState(() {
+      totalExerciseCalBurn = totalExerciseCalBurn - 1;
+    });
+
+    return formattedExerciseHistory;
   }
 
   void loadSavedValues() async {
@@ -103,6 +132,53 @@ class _ProgressPWScreenState extends State<ProgressPWScreen> {
                         ),
                       ),
                       const Gap(5.0),
+                    ],
+                  ),
+                ),
+              ),
+
+              //
+              const Gap(22.0),
+              const Text(
+                "\tExercise Track",
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Gap(5.0),
+              const Text(
+                "\tCalorie burnt for the day after performing\n\texercises",
+                style: TextStyle(
+                  fontSize: 16.0,
+                ),
+              ),
+
+              //
+              const Gap(15.0),
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(
+                    12.0,
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: CustomExercisePieChart(
+                          totalExerciseCalBurn: totalExerciseCalBurn / 1,
+                        ),
+                      ),
+                      const Expanded(
+                        flex: 4,
+                        child: Text(
+                          "The Exercises you perform will be shown and calorie burn will be calculated accordingly.",
+                          style: TextStyle(
+                            fontSize: 15.0,
+                          ),
+                          softWrap: true,
+                        ),
+                      ),
                     ],
                   ),
                 ),

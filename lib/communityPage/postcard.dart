@@ -73,7 +73,9 @@ class _PostContainerState extends State<PostContainer> {
               ),
               IconButton(
                 icon: const Icon(Icons.more_vert),
-                onPressed: () {},
+                onPressed: () {
+                  // Add functionality for more options if needed
+                },
               ),
             ],
           ),
@@ -108,7 +110,9 @@ class _PostContainerState extends State<PostContainer> {
               ),
               IconButton(
                 icon: const Icon(Icons.share),
-                onPressed: () {},
+                onPressed: () {
+                  // Add functionality for sharing
+                },
               ),
               IconButton(
                 icon: const Icon(Icons.comment),

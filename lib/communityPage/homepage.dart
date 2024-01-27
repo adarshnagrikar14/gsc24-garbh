@@ -12,7 +12,6 @@ class CommunityHomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<CommunityHomePage> {
-  final PageController _pageController = PageController();
   late FirebaseFirestore _firestore;
   late CollectionReference _postCollection;
 
@@ -53,8 +52,6 @@ class _HomePageState extends State<CommunityHomePage> {
       end: Alignment.bottomRight,
     ),
   ];
-
-  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -102,22 +99,8 @@ class _HomePageState extends State<CommunityHomePage> {
   }
 
   @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 100,
-        backgroundColor: const Color.fromARGB(255, 249, 76, 102),
-        title: const Text(
-          "Garbh Community Page",
-          style: TextStyle(color: Colors.white, fontSize: 18),
-        ),
-      ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _postCollection.snapshots(),
         builder: (context, snapshot) {
@@ -139,7 +122,6 @@ class _HomePageState extends State<CommunityHomePage> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 1.5,
                       child: PageView.builder(
-                        controller: _pageController,
                         itemCount: containerGradients.length,
                         itemBuilder: (context, index) {
                           if (index < textInContainer.length) {
@@ -217,32 +199,6 @@ class _HomePageState extends State<CommunityHomePage> {
             ],
           );
         },
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color.fromARGB(255, 34, 33, 33),
-        currentIndex: _selectedIndex,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-            ),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.map),
-            label: 'Map',
-          ),
-        ],
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-        selectedItemColor: const Color.fromARGB(255, 249, 76, 102),
       ),
     );
   }
