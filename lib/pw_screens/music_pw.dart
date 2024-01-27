@@ -111,24 +111,42 @@ class _MusicListeningScreenState extends State<MusicListeningScreen> {
             color: Colors.white,
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                musicData[0],
+                "${musicData[0]} 🎵",
                 style: const TextStyle(
-                  fontSize: 18.0,
+                  fontSize: 22.0,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ),
               ),
-              const SizedBox(height: 16.0),
+              const Gap(20.0),
+              Card(
+                child: Image.asset(
+                  "assets/images/music_l.png",
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  height: 150.0,
+                ),
+              ),
+              const Gap(20.0),
+              const Padding(
+                padding: EdgeInsets.only(
+                  left: 18.0,
+                  right: 18.0,
+                  top: 30.0,
+                  bottom: 30.0,
+                ),
+                child: LinearProgressIndicator(),
+              ),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
                 child: const Text("Play Music"),
               ),
+              const Gap(20.0),
             ],
           ),
         );

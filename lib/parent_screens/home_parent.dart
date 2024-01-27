@@ -138,6 +138,34 @@ class _HomeScreenParentState extends State<HomeScreenParent> {
               ),
 
               //
+              const Gap(22.0),
+              const Text(
+                "Reminders",
+                style: TextStyle(
+                  fontSize: 17.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Gap(20.0),
+              const SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    CustomCard(
+                      imageName: "medicine.png",
+                      text: "Medicines",
+                    ),
+                    Gap(12.0),
+                    CustomCard(
+                      imageName: "injection.png",
+                      text: "Injections",
+                    ),
+                    Gap(12.0),
+                  ],
+                ),
+              ),
+
+              //
               Padding(
                 padding: const EdgeInsets.only(
                   top: 60.0,

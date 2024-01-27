@@ -180,7 +180,6 @@ class _PerformExerciseState extends State<PerformExercise> {
     duration = int.parse(widget.exerciseData[4]);
     currentSeconds = duration;
     audioPlayer = AudioPlayer();
-    playBackgroundMusic();
   }
 
   void playBackgroundMusic() async {
@@ -191,6 +190,8 @@ class _PerformExerciseState extends State<PerformExercise> {
   }
 
   void startExercise() {
+    playBackgroundMusic();
+
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (currentSeconds > 0) {
@@ -228,6 +229,7 @@ class _PerformExerciseState extends State<PerformExercise> {
   @override
   void dispose() {
     timer.cancel();
+    audioPlayer.stop();
     audioPlayer.dispose();
     super.dispose();
   }

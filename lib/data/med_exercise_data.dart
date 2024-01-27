@@ -5,7 +5,7 @@ List<Map<String, List<String>>> meditationData = [
       "1. Sit comfortably with your back straight and shoulders relaxed.\n2. Close your eyes and focus on your breath.\n3. Inhale and exhale slowly, clearing your mind.\n4. Repeat for a calming meditation experience.",
       "This meditation helps in achieving mental clarity and reducing stress.",
       "Calories Burn: N/A",
-      "15",
+      "15", // time
       "https://www.arogyayogaschool.com/blog/wp-content/uploads/2017/04/Sukhasana-Help-Reduce-Your-Blood-Pressure.jpg",
     ]
   },
