@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:garbh/parent_screens/height_weight.dart';
+import 'package:garbh/parent_screens/Height.dart';
+import 'package:garbh/parent_screens/weight.dart';
 import 'package:garbh/reusables/custom_home_cards.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -107,7 +108,7 @@ class _HomeScreenParentState extends State<HomeScreenParent> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Scaffold(),
+                            builder: (context) => const WeightChart(),
                           ),
                         );
                       },
