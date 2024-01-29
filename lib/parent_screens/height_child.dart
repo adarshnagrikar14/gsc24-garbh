@@ -12,6 +12,8 @@ class _HeightChartState extends State<HeightChart> {
   List<DataPoint> dataPoints = [];
   List<FlSpot> heightSpots = [];
 
+  Color redColor = const Color.fromARGB(255, 249, 76, 102);
+
   @override
   void initState() {
     super.initState();
@@ -20,10 +22,18 @@ class _HeightChartState extends State<HeightChart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 235, 214, 219),
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 253, 244, 244),
-        title: const Text('Height Chart'),
+        title: const Text(
+          "Height Chart",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: redColor,
+        toolbarHeight: 60.0,
+        foregroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -34,7 +44,7 @@ class _HeightChartState extends State<HeightChart> {
             ElevatedButton(
               onPressed: () => _showDataInputDialog(context),
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('Enter Height'),
             ),
@@ -42,7 +52,7 @@ class _HeightChartState extends State<HeightChart> {
             ElevatedButton(
               onPressed: () => _showPreviousData(),
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('View Previous Data'),
             ),
@@ -56,7 +66,7 @@ class _HeightChartState extends State<HeightChart> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('Analyze Data'),
             ),
@@ -67,8 +77,8 @@ class _HeightChartState extends State<HeightChart> {
                   builder: (context, constraints) {
                     return LineChart(
                       LineChartData(
-                        gridData: FlGridData(show: false),
-                        titlesData: FlTitlesData(show: false),
+                        gridData: const FlGridData(show: false),
+                        titlesData: const FlTitlesData(show: false),
                         borderData: FlBorderData(
                           show: true,
                           border: Border.all(
@@ -85,7 +95,7 @@ class _HeightChartState extends State<HeightChart> {
                             spots: heightSpots,
                             isCurved: true,
                             color: Colors.blue,
-                            dotData: FlDotData(show: false),
+                            dotData: const FlDotData(show: false),
                             belowBarData: BarAreaData(show: false),
                             isStrokeCapRound: true,
                             barWidth: 6,

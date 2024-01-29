@@ -20,9 +20,9 @@ class _WeightChartState extends State<WeightChart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 235, 214, 219),
+      // backgroundColor: const Color.fromARGB(255, 235, 214, 219),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 253, 244, 244),
+        backgroundColor: const Color.fromARGB(255, 253, 244, 244),
         title: const Text('Weight Chart'),
       ),
       body: Padding(
@@ -34,7 +34,7 @@ class _WeightChartState extends State<WeightChart> {
             ElevatedButton(
               onPressed: () => _showDataInputDialog(context),
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('Enter Weight'),
             ),
@@ -42,7 +42,7 @@ class _WeightChartState extends State<WeightChart> {
             ElevatedButton(
               onPressed: () => _showPreviousData(),
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('View Previous Data'),
             ),
@@ -56,7 +56,7 @@ class _WeightChartState extends State<WeightChart> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('Analyze Data'),
             ),
@@ -67,8 +67,8 @@ class _WeightChartState extends State<WeightChart> {
                   builder: (context, constraints) {
                     return LineChart(
                       LineChartData(
-                        gridData: FlGridData(show: false),
-                        titlesData: FlTitlesData(show: false),
+                        gridData: const FlGridData(show: false),
+                        titlesData: const FlTitlesData(show: false),
                         borderData: FlBorderData(
                           show: true,
                           border: Border.all(
@@ -86,7 +86,7 @@ class _WeightChartState extends State<WeightChart> {
                             spots: weightSpots,
                             isCurved: true,
                             color: Colors.blue,
-                            dotData: FlDotData(show: false),
+                            dotData: const FlDotData(show: false),
                             belowBarData: BarAreaData(show: false),
                             isStrokeCapRound: true,
                             barWidth: 6,
