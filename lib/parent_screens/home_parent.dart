@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:garbh/parent_screens/alpha_music_child.dart';
+import 'package:garbh/parent_screens/growth_child.dart';
 import 'package:garbh/parent_screens/height_child.dart';
+import 'package:garbh/parent_screens/lullaby_child.dart';
 import 'package:garbh/parent_screens/weight_child.dart';
 import 'package:garbh/reusables/custom_home_cards.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -114,6 +117,19 @@ class _HomeScreenParentState extends State<HomeScreenParent> {
                       },
                     ),
                     const Gap(12.0),
+                    CustomCard(
+                      imageName: "child_growth.png",
+                      text: "Child Growth",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const GrowthTrackerPage(),
+                          ),
+                        );
+                      },
+                    ),
+                    const Gap(12.0),
                   ],
                 ),
               ),
@@ -129,20 +145,36 @@ class _HomeScreenParentState extends State<HomeScreenParent> {
               ),
 
               const Gap(15.0),
-              const SingleChildScrollView(
+              SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
                     CustomCard(
                       imageName: "lullaby.png",
                       text: "Lullaby",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LullabyPage(),
+                          ),
+                        );
+                      },
                     ),
-                    Gap(12.0),
+                    const Gap(12.0),
                     CustomCard(
                       imageName: "alpha.png",
                       text: "\u03B1 Sound",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AlphaMusicPage(),
+                          ),
+                        );
+                      },
                     ),
-                    Gap(12.0),
+                    const Gap(12.0),
                   ],
                 ),
               ),
@@ -168,7 +200,7 @@ class _HomeScreenParentState extends State<HomeScreenParent> {
                     Gap(12.0),
                     CustomCard(
                       imageName: "injection.png",
-                      text: "Injections",
+                      text: "Vaccination",
                     ),
                     Gap(12.0),
                   ],
