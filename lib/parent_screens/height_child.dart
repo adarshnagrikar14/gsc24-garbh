@@ -70,6 +70,9 @@ class _HeightChartState extends State<HeightChart> {
               ),
               child: const Text('Analyze Data'),
             ),
+            const SizedBox(
+              height: 10,
+            ),
             const SizedBox(height: 16.0),
             if (heightSpots.isNotEmpty)
               Expanded(
