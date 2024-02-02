@@ -48,9 +48,9 @@ class _HeightChartState extends State<HeightChart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 235, 214, 219),
+      backgroundColor: const Color.fromARGB(255, 235, 214, 219),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 253, 244, 244),
+        backgroundColor: const Color.fromARGB(255, 253, 244, 244),
         title: const Text('Height Chart'),
       ),
       body: Padding(
@@ -62,7 +62,7 @@ class _HeightChartState extends State<HeightChart> {
             ElevatedButton(
               onPressed: () => _showDataInputDialog(context),
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('Enter Height'),
             ),
@@ -70,7 +70,7 @@ class _HeightChartState extends State<HeightChart> {
             ElevatedButton(
               onPressed: () => _showPreviousData(),
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('View Previous Data'),
             ),
@@ -84,7 +84,7 @@ class _HeightChartState extends State<HeightChart> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('Analyze Data'),
             ),
@@ -113,7 +113,7 @@ class _HeightChartState extends State<HeightChart> {
                             spots: heightSpots,
                             isCurved: true,
                             color: Colors.blue,
-                            dotData: FlDotData(show: false),
+                            dotData: const FlDotData(show: false),
                             belowBarData: BarAreaData(show: false),
                             isStrokeCapRound: true,
                             barWidth: 6,
