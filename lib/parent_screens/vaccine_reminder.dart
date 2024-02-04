@@ -1,7 +1,14 @@
+// ignore_for_file: library_private_types_in_public_api
+
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gap/gap.dart';
 import 'package:garbh/data/vaccine_data.dart';
+import 'package:garbh/services/notif_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class VaccineReminder extends StatefulWidget {
@@ -14,6 +21,15 @@ class VaccineReminder extends StatefulWidget {
 class _VaccineReminderState extends State<VaccineReminder> {
   Color redColor = const Color.fromARGB(255, 249, 76, 102);
   String selectedDuration = '1 Week';
+
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+
+  @override
+  void initState() {
+    super.initState();
+    requestPermission();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,6 +136,15 @@ class _VaccineReminderState extends State<VaccineReminder> {
       ),
     );
   }
+
+  void requestPermission() async {
+    if (Platform.isAndroid) {
+      flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>()
+          ?.requestPermission();
+    }
+  }
 }
 
 class VaccineCard extends StatefulWidget {
@@ -166,6 +191,49 @@ class _VaccineCardState extends State<VaccineCard> {
     return markedVaccines.contains(vaccineName);
   }
 
+  void scheduleCustomReminder(DateTime selectedDate) {
+    NotificationService().scheduleNotification(
+      title: widget.name,
+      body: "Vaccine Reminder",
+      scheduledNotificationDateTime: selectedDate,
+    );
+  }
+
+  void showCustomReminderDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Set Custom Reminder"),
+          content: DatePickerWidget(
+            onDateSelected: (DateTime selectedDate) {
+              if (selectedDate == DateTime.now()) {
+                scheduleCustomReminder(
+                  selectedDate.add(
+                    const Duration(
+                      seconds: 5,
+                    ),
+                  ),
+                );
+              } else {
+                scheduleCustomReminder(selectedDate);
+              }
+              Navigator.of(context).pop();
+            },
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Cancel"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     //
@@ -199,8 +267,8 @@ class _VaccineCardState extends State<VaccineCard> {
               ),
               TextButton(
                 onPressed: () {
-                  Fluttertoast.showToast(msg: 'Set custom reminder');
-                  Navigator.of(context).pop();
+                  Navigator.pop(context);
+                  showCustomReminderDialog(context);
                 },
                 child: const Text(
                   "Set custom reminder",
@@ -299,6 +367,59 @@ class _VaccineCardState extends State<VaccineCard> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class DatePickerWidget extends StatefulWidget {
+  final ValueChanged<DateTime> onDateSelected;
+
+  const DatePickerWidget({
+    Key? key,
+    required this.onDateSelected,
+  }) : super(key: key);
+
+  @override
+  _DatePickerWidgetState createState() => _DatePickerWidgetState();
+}
+
+class _DatePickerWidgetState extends State<DatePickerWidget> {
+  late DateTime _selectedDate;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedDate = DateTime.now();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Text("Select Date"),
+        const SizedBox(height: 10),
+        SizedBox(
+          height: 200,
+          child: CupertinoDatePicker(
+            mode: CupertinoDatePickerMode.dateAndTime,
+            minimumDate: _selectedDate,
+            initialDateTime: _selectedDate,
+            onDateTimeChanged: (DateTime newDate) {
+              setState(() {
+                _selectedDate = newDate;
+              });
+            },
+          ),
+        ),
+        const SizedBox(height: 10),
+        ElevatedButton(
+          onPressed: () {
+            widget.onDateSelected(_selectedDate);
+          },
+          child: const Text("Set Reminder"),
+        ),
+      ],
     );
   }
 }
