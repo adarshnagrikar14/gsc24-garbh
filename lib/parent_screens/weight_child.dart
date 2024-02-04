@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class WeightChart extends StatefulWidget {
   const WeightChart({Key? key}) : super(key: key);
@@ -15,14 +18,35 @@ class _WeightChartState extends State<WeightChart> {
   @override
   void initState() {
     super.initState();
+    _loadData();
+  }
+
+  Future<void> _loadData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? serializedData = prefs.getStringList('weightDataPoints');
+    if (serializedData != null) {
+      setState(() {
+        dataPoints = serializedData
+            .map((jsonString) => DataPoint.fromJson(jsonString))
+            .toList();
+        weightSpots = _getWeightFlSpots();
+      });
+    }
+  }
+
+  Future<void> _saveData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> serializedData =
+        dataPoints.map((dataPoint) => dataPoint.toJson()).toList();
+    prefs.setStringList('weightDataPoints', serializedData);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: const Color.fromARGB(255, 235, 214, 219),
+      backgroundColor: Color.fromARGB(255, 235, 214, 219),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 253, 244, 244),
+        backgroundColor: Color.fromARGB(255, 253, 244, 244),
         title: const Text('Weight Chart'),
       ),
       body: Padding(
@@ -34,7 +58,7 @@ class _WeightChartState extends State<WeightChart> {
             ElevatedButton(
               onPressed: () => _showDataInputDialog(context),
               style: ElevatedButton.styleFrom(
-                textStyle: const TextStyle(fontSize: 16.0),
+                textStyle: TextStyle(fontSize: 16.0),
               ),
               child: const Text('Enter Weight'),
             ),
@@ -42,7 +66,7 @@ class _WeightChartState extends State<WeightChart> {
             ElevatedButton(
               onPressed: () => _showPreviousData(),
               style: ElevatedButton.styleFrom(
-                textStyle: const TextStyle(fontSize: 16.0),
+                textStyle: TextStyle(fontSize: 16.0),
               ),
               child: const Text('View Previous Data'),
             ),
@@ -56,7 +80,7 @@ class _WeightChartState extends State<WeightChart> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                textStyle: const TextStyle(fontSize: 16.0),
+                textStyle: TextStyle(fontSize: 16.0),
               ),
               child: const Text('Analyze Data'),
             ),
@@ -67,8 +91,25 @@ class _WeightChartState extends State<WeightChart> {
                   builder: (context, constraints) {
                     return LineChart(
                       LineChartData(
-                        gridData: const FlGridData(show: false),
-                        titlesData: const FlTitlesData(show: false),
+                        gridData: FlGridData(
+                          show: true,
+                          drawVerticalLine: true,
+                          drawHorizontalLine: true,
+                          verticalInterval: 1,
+                          horizontalInterval: 20,
+                          getDrawingHorizontalLine: (value) {
+                            return FlLine(
+                              color: const Color(0xff37434d),
+                              strokeWidth: 0.5,
+                            );
+                          },
+                          getDrawingVerticalLine: (value) {
+                            return FlLine(
+                              color: const Color(0xff37434d),
+                              strokeWidth: 0.5,
+                            );
+                          },
+                        ),
                         borderData: FlBorderData(
                           show: true,
                           border: Border.all(
@@ -79,14 +120,13 @@ class _WeightChartState extends State<WeightChart> {
                         minX: 0,
                         maxX: weightSpots.length.toDouble() - 1,
                         minY: 0,
-                        maxY:
-                            150, // You can adjust the maximum Y value as needed
+                        maxY: 150,
                         lineBarsData: [
                           LineChartBarData(
                             spots: weightSpots,
                             isCurved: true,
                             color: Colors.blue,
-                            dotData: const FlDotData(show: false),
+                            dotData: FlDotData(show: false),
                             belowBarData: BarAreaData(show: false),
                             isStrokeCapRound: true,
                             barWidth: 6,
@@ -156,6 +196,7 @@ class _WeightChartState extends State<WeightChart> {
                     ));
                   });
                   Navigator.pop(context);
+                  _saveData();
                 }
               },
               child: const Text('Add'),
@@ -196,6 +237,7 @@ class _WeightChartState extends State<WeightChart> {
     setState(() {
       weightSpots = _getWeightFlSpots();
     });
+    _saveData();
   }
 
   void _showPreviousData() {
@@ -232,4 +274,19 @@ class DataPoint {
   final int weeks;
 
   DataPoint({required this.weight, required this.weeks});
+
+  factory DataPoint.fromJson(String jsonString) {
+    Map<String, dynamic> json = jsonDecode(jsonString);
+    return DataPoint(
+      weight: json['weight'],
+      weeks: json['weeks'],
+    );
+  }
+
+  String toJson() {
+    return jsonEncode({
+      'weight': weight,
+      'weeks': weeks,
+    });
+  }
 }

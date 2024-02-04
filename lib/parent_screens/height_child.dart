@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HeightChart extends StatefulWidget {
   const HeightChart({Key? key}) : super(key: key);
@@ -11,29 +13,45 @@ class HeightChart extends StatefulWidget {
 class _HeightChartState extends State<HeightChart> {
   List<DataPoint> dataPoints = [];
   List<FlSpot> heightSpots = [];
-
-  Color redColor = const Color.fromARGB(255, 249, 76, 102);
+  final String dataKey = 'height_chart_data';
 
   @override
   void initState() {
     super.initState();
+    _loadData();
+  }
+
+  @override
+  void dispose() {
+    _saveData();
+    super.dispose();
+  }
+
+  Future<void> _loadData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(dataKey);
+
+    if (jsonData != null) {
+      setState(() {
+        dataPoints = DataPointsListExtension.fromJsonList(jsonData);
+        heightSpots = _getHeightFlSpots();
+      });
+    }
+  }
+
+  Future<void> _saveData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = DataPointsListExtension(dataPoints).toJsonList();
+    prefs.setString(dataKey, jsonData);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(255, 235, 214, 219),
       appBar: AppBar(
-        title: const Text(
-          "Height Chart",
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: redColor,
-        toolbarHeight: 60.0,
-        foregroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(255, 253, 244, 244),
+        title: const Text('Height Chart'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -44,7 +62,7 @@ class _HeightChartState extends State<HeightChart> {
             ElevatedButton(
               onPressed: () => _showDataInputDialog(context),
               style: ElevatedButton.styleFrom(
-                textStyle: const TextStyle(fontSize: 16.0),
+                textStyle: TextStyle(fontSize: 16.0),
               ),
               child: const Text('Enter Height'),
             ),
@@ -52,7 +70,7 @@ class _HeightChartState extends State<HeightChart> {
             ElevatedButton(
               onPressed: () => _showPreviousData(),
               style: ElevatedButton.styleFrom(
-                textStyle: const TextStyle(fontSize: 16.0),
+                textStyle: TextStyle(fontSize: 16.0),
               ),
               child: const Text('View Previous Data'),
             ),
@@ -66,7 +84,7 @@ class _HeightChartState extends State<HeightChart> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                textStyle: const TextStyle(fontSize: 16.0),
+                textStyle: TextStyle(fontSize: 16.0),
               ),
               child: const Text('Analyze Data'),
             ),
@@ -77,8 +95,8 @@ class _HeightChartState extends State<HeightChart> {
                   builder: (context, constraints) {
                     return LineChart(
                       LineChartData(
-                        gridData: const FlGridData(show: false),
-                        titlesData: const FlTitlesData(show: false),
+                        gridData: const FlGridData(
+                            show: true, drawVerticalLine: true),
                         borderData: FlBorderData(
                           show: true,
                           border: Border.all(
@@ -89,13 +107,13 @@ class _HeightChartState extends State<HeightChart> {
                         minX: 0,
                         maxX: heightSpots.length.toDouble() - 1,
                         minY: 0,
-                        maxY: 150,
+                        maxY: 200,
                         lineBarsData: [
                           LineChartBarData(
                             spots: heightSpots,
                             isCurved: true,
                             color: Colors.blue,
-                            dotData: const FlDotData(show: false),
+                            dotData: FlDotData(show: false),
                             belowBarData: BarAreaData(show: false),
                             isStrokeCapRound: true,
                             barWidth: 6,
@@ -242,5 +260,38 @@ class DataPoint {
   final double weight;
   final int weeks;
 
-  DataPoint({required this.height, required this.weight, required this.weeks});
+  DataPoint({
+    required this.height,
+    required this.weight,
+    required this.weeks,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'height': height,
+      'weight': weight,
+      'weeks': weeks,
+    };
+  }
+
+  static DataPoint fromJson(Map<String, dynamic> json) {
+    return DataPoint(
+      height: json['height'],
+      weight: json['weight'],
+      weeks: json['weeks'],
+    );
+  }
+}
+
+extension DataPointsListExtension on List<DataPoint> {
+  String toJsonList() {
+    final List<Map<String, dynamic>> dataList =
+        map((dataPoint) => dataPoint.toJson()).toList();
+    return json.encode(dataList);
+  }
+
+  static List<DataPoint> fromJsonList(String jsonList) {
+    final List<dynamic> dataList = json.decode(jsonList);
+    return dataList.map((json) => DataPoint.fromJson(json)).toList();
+  }
 }
