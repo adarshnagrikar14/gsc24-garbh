@@ -89,6 +89,40 @@ class _HeightChartState extends State<HeightChart> {
               child: const Text('Analyze Data'),
             ),
             const SizedBox(height: 16.0),
+            Container(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 20,
+                        height: 20,
+                        color: Colors.blue, // Blue line color
+                      ),
+                      const SizedBox(width: 8),
+                      const Text('Your child height growth',
+                          style: TextStyle(fontSize: 16)),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 20,
+                        height: 20,
+                        color: Colors.red, // Red line color
+                      ),
+                      const SizedBox(width: 8),
+                      const Text('Ideal baby\'s height growth',
+                          style: TextStyle(fontSize: 16)),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
             if (heightSpots.isNotEmpty)
               Expanded(
                 child: LayoutBuilder(
@@ -118,6 +152,16 @@ class _HeightChartState extends State<HeightChart> {
                             isStrokeCapRound: true,
                             barWidth: 6,
                           ),
+                          // Red graph (hardcoded data)
+                          LineChartBarData(
+                            spots: _getRedGraphPoints(),
+                            isCurved: true,
+                            color: Colors.red,
+                            dotData: FlDotData(show: false),
+                            belowBarData: BarAreaData(show: false),
+                            isStrokeCapRound: true,
+                            barWidth: 6,
+                          ),
                         ],
                       ),
                     );
@@ -128,6 +172,20 @@ class _HeightChartState extends State<HeightChart> {
         ),
       ),
     );
+  }
+
+  List<FlSpot> _getRedGraphPoints() {
+    // Hardcoded red graph points
+    return [
+      FlSpot(0, 0),
+      FlSpot(1, 49.5),
+      FlSpot(2, 50.8),
+      FlSpot(3, 52.1),
+      FlSpot(4, 54.6),
+      FlSpot(4, 54.6),
+      FlSpot(5, 56.5),
+      FlSpot(6, 58.0),
+    ];
   }
 
   List<FlSpot> _getHeightFlSpots() {

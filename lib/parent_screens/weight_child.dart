@@ -85,6 +85,40 @@ class _WeightChartState extends State<WeightChart> {
               child: const Text('Analyze Data'),
             ),
             const SizedBox(height: 16.0),
+            Container(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 20,
+                        height: 20,
+                        color: Colors.blue, // Blue line color
+                      ),
+                      const SizedBox(width: 8),
+                      const Text('Your child weight growth',
+                          style: TextStyle(fontSize: 16)),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 20,
+                        height: 20,
+                        color: Colors.red, // Red line color
+                      ),
+                      const SizedBox(width: 8),
+                      const Text('Ideal baby\'s weight growth',
+                          style: TextStyle(fontSize: 16)),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16.0),
             if (weightSpots.isNotEmpty)
               Expanded(
                 child: LayoutBuilder(
@@ -120,12 +154,21 @@ class _WeightChartState extends State<WeightChart> {
                         minX: 0,
                         maxX: weightSpots.length.toDouble() - 1,
                         minY: 0,
-                        maxY: 150,
+                        maxY: _calculateMaxWeight().ceilToDouble(),
                         lineBarsData: [
                           LineChartBarData(
                             spots: weightSpots,
                             isCurved: true,
                             color: Colors.blue,
+                            dotData: FlDotData(show: false),
+                            belowBarData: BarAreaData(show: false),
+                            isStrokeCapRound: true,
+                            barWidth: 6,
+                          ),
+                          LineChartBarData(
+                            spots: _getRedGraphPoints(),
+                            isCurved: true,
+                            color: Colors.red,
                             dotData: FlDotData(show: false),
                             belowBarData: BarAreaData(show: false),
                             isStrokeCapRound: true,
@@ -141,6 +184,27 @@ class _WeightChartState extends State<WeightChart> {
         ),
       ),
     );
+  }
+
+  List<FlSpot> _getRedGraphPoints() {
+    return [
+      FlSpot(0, 3.2), // Week 1
+      FlSpot(1, 3.8), // Week 2
+      FlSpot(2, 4.5), // Week 3
+      FlSpot(3, 5.1), // Week 4
+      FlSpot(4, 5.9), // Week 5
+      FlSpot(5, 6.5), // Week 6
+    ];
+  }
+
+  double _calculateMaxWeight() {
+    double maxWeight = 0;
+    for (int i = 0; i < dataPoints.length; i++) {
+      if (dataPoints[i].weight > maxWeight) {
+        maxWeight = dataPoints[i].weight;
+      }
+    }
+    return maxWeight;
   }
 
   List<FlSpot> _getWeightFlSpots() {
