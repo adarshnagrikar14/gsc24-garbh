@@ -5,6 +5,8 @@ import 'package:garbh/parent_screens/alpha_music_child.dart';
 import 'package:garbh/parent_screens/growth_child.dart';
 import 'package:garbh/parent_screens/height_child.dart';
 import 'package:garbh/parent_screens/lullaby_child.dart';
+import 'package:garbh/parent_screens/medicine_reminder.dart';
+import 'package:garbh/parent_screens/vaccine_reminder.dart';
 import 'package:garbh/parent_screens/weight_child.dart';
 import 'package:garbh/reusables/custom_home_cards.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -189,20 +191,36 @@ class _HomeScreenParentState extends State<HomeScreenParent> {
                 ),
               ),
               const Gap(20.0),
-              const SingleChildScrollView(
+              SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
                     CustomCard(
                       imageName: "medicine.png",
                       text: "Medicines",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MedicineReminder(),
+                          ),
+                        );
+                      },
                     ),
-                    Gap(12.0),
+                    const Gap(12.0),
                     CustomCard(
                       imageName: "injection.png",
                       text: "Vaccination",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const VaccineReminder(),
+                          ),
+                        );
+                      },
                     ),
-                    Gap(12.0),
+                    const Gap(12.0),
                   ],
                 ),
               ),
