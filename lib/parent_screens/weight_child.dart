@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -85,38 +87,36 @@ class _WeightChartState extends State<WeightChart> {
               child: const Text('Analyze Data'),
             ),
             const SizedBox(height: 16.0),
-            Container(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 20,
-                        height: 20,
-                        color: Colors.blue, // Blue line color
-                      ),
-                      const SizedBox(width: 8),
-                      const Text('Your child weight growth',
-                          style: TextStyle(fontSize: 16)),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 20,
-                        height: 20,
-                        color: Colors.red, // Red line color
-                      ),
-                      const SizedBox(width: 8),
-                      const Text('Ideal baby\'s weight growth',
-                          style: TextStyle(fontSize: 16)),
-                    ],
-                  ),
-                ],
-              ),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 20,
+                      height: 20,
+                      color: Colors.blue, // Blue line color
+                    ),
+                    const SizedBox(width: 8),
+                    const Text('Your child weight growth',
+                        style: TextStyle(fontSize: 16)),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 20,
+                      height: 20,
+                      color: Colors.red, // Red line color
+                    ),
+                    const SizedBox(width: 8),
+                    const Text('Ideal baby\'s weight growth',
+                        style: TextStyle(fontSize: 16)),
+                  ],
+                ),
+              ],
             ),
             const SizedBox(height: 16.0),
             if (weightSpots.isNotEmpty)

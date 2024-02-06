@@ -10,6 +10,6 @@ class GrowthTrackerPage extends StatefulWidget {
 class _GrowthTrackerPageState extends State<GrowthTrackerPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }
