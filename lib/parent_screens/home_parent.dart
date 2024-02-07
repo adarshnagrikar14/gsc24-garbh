@@ -139,6 +139,50 @@ class _HomeScreenParentState extends State<HomeScreenParent> {
               //
               const Gap(22.0),
               const Text(
+                "Reminders",
+                style: TextStyle(
+                  fontSize: 17.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Gap(20.0),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    CustomCard(
+                      imageName: "medicine.png",
+                      text: "Medicines",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MedicineReminder(),
+                          ),
+                        );
+                      },
+                    ),
+                    const Gap(12.0),
+                    CustomCard(
+                      imageName: "injection.png",
+                      text: "Vaccination",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const VaccineReminder(),
+                          ),
+                        );
+                      },
+                    ),
+                    const Gap(12.0),
+                  ],
+                ),
+              ),
+
+              //
+              const Gap(22.0),
+              const Text(
                 "Refresh them with...",
                 style: TextStyle(
                   fontSize: 17.0,
@@ -172,50 +216,6 @@ class _HomeScreenParentState extends State<HomeScreenParent> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => const AlphaMusicPage(),
-                          ),
-                        );
-                      },
-                    ),
-                    const Gap(12.0),
-                  ],
-                ),
-              ),
-
-              //
-              const Gap(22.0),
-              const Text(
-                "Reminders",
-                style: TextStyle(
-                  fontSize: 17.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const Gap(20.0),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    CustomCard(
-                      imageName: "medicine.png",
-                      text: "Medicines",
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MedicineReminder(),
-                          ),
-                        );
-                      },
-                    ),
-                    const Gap(12.0),
-                    CustomCard(
-                      imageName: "injection.png",
-                      text: "Vaccination",
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const VaccineReminder(),
                           ),
                         );
                       },

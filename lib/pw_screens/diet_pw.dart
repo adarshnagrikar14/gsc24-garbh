@@ -4,7 +4,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:garbh/data/meal_data.dart';
+import 'package:garbh/actual_data/meal_data.dart';
+// import 'package:garbh/data/meal_data.dart';
 import 'package:garbh/reusables/piechart2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -162,7 +163,7 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
               ),
               const Gap(20.0),
               SizedBox(
-                height: MediaQuery.of(context).size.height + 100,
+                height: MediaQuery.of(context).size.height + 450,
                 child: PageView(
                   controller: _pageController,
                   onPageChanged: (index) {

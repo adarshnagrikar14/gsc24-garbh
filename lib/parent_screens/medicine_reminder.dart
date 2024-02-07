@@ -175,7 +175,11 @@ class _MedicineReminderState extends State<MedicineReminder> {
                     selectedFrequency = value!;
                   });
                 },
-                items: ['Once', 'Twice', 'Thrice'].map((frequency) {
+                items: [
+                  'Once',
+                  'Twice',
+                  'Thrice',
+                ].map((frequency) {
                   return DropdownMenuItem<String>(
                     value: frequency,
                     child: Text(frequency),

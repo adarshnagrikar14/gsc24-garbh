@@ -3,7 +3,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:garbh/data/meal_data.dart';
+import 'package:garbh/actual_data/meal_data.dart';
+// import 'package:garbh/data/meal_data.dart';
 import 'package:garbh/pw_screens/diet_pw.dart';
 import 'package:garbh/reusables/piechart3.dart';
 import 'package:garbh/reusables/piechart4.dart';

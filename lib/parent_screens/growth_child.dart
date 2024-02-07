@@ -29,7 +29,7 @@ class _GrowthTrackerPageState extends State<GrowthTrackerPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Track Child Growth",
+          "Child Growth Statistics",
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -249,17 +249,17 @@ class CustomListTile extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-          subtitle: Column(
-            children: [
-              const Gap(10.0),
-              Text(
-                subtitle,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              const Gap(5.0),
-            ],
-          ),
+          // subtitle: Column(
+          //   children: [
+          //     const Gap(10.0),
+          //     Text(
+          //       subtitle,
+          //       maxLines: 1,
+          //       overflow: TextOverflow.ellipsis,
+          //     ),
+          //     const Gap(5.0),
+          //   ],
+          // ),
           trailing: const Icon(
             Icons.arrow_forward_ios_outlined,
           ),
