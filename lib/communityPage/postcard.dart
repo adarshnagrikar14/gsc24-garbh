@@ -38,7 +38,7 @@ class _PostContainerState extends State<PostContainer> {
             spreadRadius: 2,
             blurRadius: 5,
             offset: const Offset(0, 3),
-          ),  
+          ),
         ],
       ),
       child: Column(
