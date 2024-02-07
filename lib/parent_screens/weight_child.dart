@@ -91,15 +91,18 @@ class _BoysWeightState extends State<BoysWeight> {
   }
 
   List<FlSpot> _getRedGraphPoints() {
-    return [
-      FlSpot(0, 0),
-      FlSpot(1, 49.5),
-      FlSpot(2, 50.8),
-      FlSpot(3, 52.1),
-      FlSpot(4, 54.6),
-      FlSpot(5, 56.5),
-      FlSpot(6, 58.0),
+    List<FlSpot> fl_spot = [
+      const FlSpot(0, 0),
+      const FlSpot(1, 40.0),
+      const FlSpot(2, 50.8),
+      const FlSpot(3, 52.1),
+      const FlSpot(4, 54.6),
+      const FlSpot(4, 54.6),
+      const FlSpot(5, 56.5),
+      const FlSpot(6, 58.0),
     ];
+
+    return fl_spot.sublist(0, dataPoints.length);
   }
 
   List<FlSpot> _getWeightFlSpots() {
@@ -449,15 +452,18 @@ class _GirlsWeightState extends State<GirlsWeight> {
   }
 
   List<FlSpot> _getRedGraphPoints() {
-    return [
-      FlSpot(0, 0),
-      FlSpot(1, 49.5),
-      FlSpot(2, 50.8),
-      FlSpot(3, 52.1),
-      FlSpot(4, 54.6),
-      FlSpot(5, 56.5),
-      FlSpot(6, 58.0),
+    List<FlSpot> fl_spot = [
+      const FlSpot(0, 0),
+      const FlSpot(1, 40.0),
+      const FlSpot(2, 50.8),
+      const FlSpot(3, 52.1),
+      const FlSpot(4, 54.6),
+      const FlSpot(4, 54.6),
+      const FlSpot(5, 56.5),
+      const FlSpot(6, 58.0),
     ];
+
+    return fl_spot.sublist(0, dataPoints.length);
   }
 
   List<FlSpot> _getWeightFlSpots() {
