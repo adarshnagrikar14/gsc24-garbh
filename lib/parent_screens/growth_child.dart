@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:garbh/data/podcast_data.dart';
-import 'package:garbh/reusables/custom_pod_card.dart';
+import 'package:garbh/data/child_growth_data.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -124,20 +123,8 @@ class _GrowthTrackerPageState extends State<GrowthTrackerPage> {
                 ),
               ),
               const Gap(10.0),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: podcastDatas.length,
-                itemBuilder: (context, index) {
-                  var podcast = podcastDatas[index].values.first;
-                  return CustomCard(
-                    imageUrl: podcast[2],
-                    title: podcast[0],
-                    channelName: podcast[1],
-                    onTap: () {},
-                  );
-                },
-              ),
+
+              ChildDevelopmentList(childDatas: childDatas),
             ],
           ),
         ),
@@ -152,6 +139,87 @@ class _GrowthTrackerPageState extends State<GrowthTrackerPage> {
     )) {
       throw Exception('Could not launch $url');
     }
+  }
+}
+
+class ChildDevelopmentList extends StatelessWidget {
+  final List<Map<String, List<Map<String, List<String>>>>> childDatas;
+
+  const ChildDevelopmentList({Key? key, required this.childDatas})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: childDatas.length,
+      itemBuilder: (context, index) {
+        final data = childDatas[index];
+        final title = data.keys.first;
+        final milestones = data.values.first;
+
+        return Padding(
+          padding: const EdgeInsets.all(6.0),
+          child: Card(
+            elevation: 4.0,
+            margin: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 15.0,
+                    left: 12.0,
+                  ),
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8.0),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16.0),
+                        child: Image.network(
+                          "https://www.choc.org/wp/wp-content/uploads/2021/06/CHOC3016_AgesStages_600x400_1-6.png",
+                          height: 180,
+                          width: MediaQuery.of(context).size.width,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: milestones.map((milestone) {
+                        final aspect = milestone.keys.first;
+                        final details = milestone.values.first;
+
+                        return ExpansionTile(
+                          title: Text(aspect),
+                          children: details.map((detail) {
+                            return ListTile(
+                              title: Text(detail),
+                            );
+                          }).toList(),
+                        );
+                      }).toList(),
+                    ),
+                    const Gap(10.0),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }
 
