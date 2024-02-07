@@ -1,11 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:garbh/pw_screens/ayurveda_pw.dart';
+import 'package:garbh/pw_screens/bmi_pw.dart';
 import 'package:garbh/pw_screens/diet_pw.dart';
 import 'package:garbh/pw_screens/exercise_pw.dart';
 import 'package:garbh/pw_screens/meditation_pw.dart';
 import 'package:garbh/pw_screens/music_pw.dart';
 import 'package:garbh/pw_screens/podcast_pw.dart';
+import 'package:garbh/pw_screens/selfnote_pw.dart';
 import 'package:garbh/reusables/custom_home_cards.dart';
 import 'package:garbh/reusables/custom_home_infocard.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -161,6 +164,68 @@ class _HomeScreenPWState extends State<HomeScreenPW> {
                       child: const CustomCard(
                         imageName: "mentalhealth.png",
                         text: "Meditation",
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              //
+              const Gap(22.0),
+              const Text(
+                "My Wellness",
+                style: TextStyle(
+                  fontSize: 17.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              //
+              const Gap(15.0),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    CustomCard(
+                      imageName: "bmi.png",
+                      text: "BMI Check",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const BMITracker(),
+                          ),
+                        );
+                      },
+                    ),
+                    const Gap(12.0),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AyurvedaPage(),
+                          ),
+                        );
+                      },
+                      child: const CustomCard(
+                        imageName: "ayurved.png",
+                        text: "Ayurveda",
+                      ),
+                    ),
+                    const Gap(12.0),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SelfNotesPage(),
+                          ),
+                        );
+                      },
+                      child: const CustomCard(
+                        imageName: "selfnote.png",
+                        text: "Self Notes",
                       ),
                     ),
                   ],

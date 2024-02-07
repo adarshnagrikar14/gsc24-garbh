@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -85,38 +87,36 @@ class _WeightChartState extends State<WeightChart> {
               child: const Text('Analyze Data'),
             ),
             const SizedBox(height: 16.0),
-            Container(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 20,
-                        height: 20,
-                        color: Colors.blue, // Blue line color
-                      ),
-                      const SizedBox(width: 8),
-                      const Text('Your child weight growth',
-                          style: TextStyle(fontSize: 16)),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 20,
-                        height: 20,
-                        color: Colors.red, // Red line color
-                      ),
-                      const SizedBox(width: 8),
-                      const Text('Ideal baby\'s weight growth',
-                          style: TextStyle(fontSize: 16)),
-                    ],
-                  ),
-                ],
-              ),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 20,
+                      height: 20,
+                      color: Colors.blue, // Blue line color
+                    ),
+                    const SizedBox(width: 8),
+                    const Text('Your child weight growth',
+                        style: TextStyle(fontSize: 16)),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 20,
+                      height: 20,
+                      color: Colors.red, // Red line color
+                    ),
+                    const SizedBox(width: 8),
+                    const Text('Ideal baby\'s weight growth',
+                        style: TextStyle(fontSize: 16)),
+                  ],
+                ),
+              ],
             ),
             const SizedBox(height: 16.0),
             if (weightSpots.isNotEmpty)
@@ -169,7 +169,7 @@ class _WeightChartState extends State<WeightChart> {
                             spots: _getRedGraphPoints(),
                             isCurved: true,
                             color: Colors.red,
-                            dotData: FlDotData(show: false),
+                            dotData: const FlDotData(show: false),
                             belowBarData: BarAreaData(show: false),
                             isStrokeCapRound: true,
                             barWidth: 6,
@@ -188,12 +188,12 @@ class _WeightChartState extends State<WeightChart> {
 
   List<FlSpot> _getRedGraphPoints() {
     return [
-      FlSpot(0, 3.2), // Week 1
-      FlSpot(1, 3.8), // Week 2
-      FlSpot(2, 4.5), // Week 3
-      FlSpot(3, 5.1), // Week 4
-      FlSpot(4, 5.9), // Week 5
-      FlSpot(5, 6.5), // Week 6
+      const FlSpot(0, 3.2), // Week 1
+      const FlSpot(1, 3.8), // Week 2
+      const FlSpot(2, 4.5), // Week 3
+      const FlSpot(3, 5.1), // Week 4
+      const FlSpot(4, 5.9), // Week 5
+      const FlSpot(5, 6.5), // Week 6
     ];
   }
 

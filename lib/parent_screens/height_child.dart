@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -89,38 +91,36 @@ class _HeightChartState extends State<HeightChart> {
               child: const Text('Analyze Data'),
             ),
             const SizedBox(height: 16.0),
-            Container(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 20,
-                        height: 20,
-                        color: Colors.blue, // Blue line color
-                      ),
-                      const SizedBox(width: 8),
-                      const Text('Your child height growth',
-                          style: TextStyle(fontSize: 16)),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 20,
-                        height: 20,
-                        color: Colors.red, // Red line color
-                      ),
-                      const SizedBox(width: 8),
-                      const Text('Ideal baby\'s height growth',
-                          style: TextStyle(fontSize: 16)),
-                    ],
-                  ),
-                ],
-              ),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 20,
+                      height: 20,
+                      color: Colors.blue, // Blue line color
+                    ),
+                    const SizedBox(width: 8),
+                    const Text('Your child height growth',
+                        style: TextStyle(fontSize: 16)),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 20,
+                      height: 20,
+                      color: Colors.red, // Red line color
+                    ),
+                    const SizedBox(width: 8),
+                    const Text('Ideal baby\'s height growth',
+                        style: TextStyle(fontSize: 16)),
+                  ],
+                ),
+              ],
             ),
             const SizedBox(height: 10),
             if (heightSpots.isNotEmpty)
@@ -157,7 +157,7 @@ class _HeightChartState extends State<HeightChart> {
                             spots: _getRedGraphPoints(),
                             isCurved: true,
                             color: Colors.red,
-                            dotData: FlDotData(show: false),
+                            dotData: const FlDotData(show: false),
                             belowBarData: BarAreaData(show: false),
                             isStrokeCapRound: true,
                             barWidth: 6,
@@ -175,17 +175,18 @@ class _HeightChartState extends State<HeightChart> {
   }
 
   List<FlSpot> _getRedGraphPoints() {
-    // Hardcoded red graph points
-    return [
-      FlSpot(0, 0),
-      FlSpot(1, 49.5),
-      FlSpot(2, 50.8),
-      FlSpot(3, 52.1),
-      FlSpot(4, 54.6),
-      FlSpot(4, 54.6),
-      FlSpot(5, 56.5),
-      FlSpot(6, 58.0),
+    List<FlSpot> flSpot = [
+      const FlSpot(0, 0),
+      const FlSpot(1, 40.0),
+      const FlSpot(2, 50.8),
+      const FlSpot(3, 52.1),
+      const FlSpot(4, 54.6),
+      const FlSpot(4, 54.6),
+      const FlSpot(5, 56.5),
+      const FlSpot(6, 58.0),
     ];
+
+    return flSpot.sublist(0, dataPoints.length);
   }
 
   List<FlSpot> _getHeightFlSpots() {
