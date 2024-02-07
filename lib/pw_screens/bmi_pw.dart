@@ -160,7 +160,84 @@ class _BMITrackerState extends State<BMITracker> {
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
+              const Gap(20.0),
+              const Text(
+                'Below Data is for women pregnant with Twins*',
+                style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  right: 5.0,
+                  top: 8.0,
+                ),
+                child: DataTable(
+                  columnSpacing: 16.0,
+                  border: TableBorder.all(),
+                  columns: const [
+                    DataColumn(
+                      label: Expanded(
+                        child: Text(
+                          'BMI Before pregnancy',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    DataColumn(
+                      label: Expanded(
+                        child: Text(
+                          'Recommended\nweight Gain',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ],
+                  rows: const [
+                    DataRow(cells: [
+                      DataCell(Text(
+                        'Underweight: BMI less than 18.5',
+                        textAlign: TextAlign.start,
+                      )),
+                      DataCell(Text(
+                        '23-28 kg',
+                        textAlign: TextAlign.start,
+                      )),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text(
+                        'Normal Weight: BMI 18.5-24.9',
+                        textAlign: TextAlign.start,
+                      )),
+                      DataCell(Text(
+                        '17-25 kg',
+                        textAlign: TextAlign.start,
+                      )),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text(
+                        'Overweight: BMI 25.0-29.9',
+                        textAlign: TextAlign.start,
+                      )),
+                      DataCell(Text(
+                        '14-23 kg',
+                        textAlign: TextAlign.start,
+                      )),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text(
+                        'Obese: BMI greater than or equal to 30.0',
+                        textAlign: TextAlign.start,
+                      )),
+                      DataCell(Text(
+                        '11-19 kg',
+                        textAlign: TextAlign.start,
+                      )),
+                    ]),
+                  ],
+                ),
+              ),
+              const Gap(20.0),
               const Text(
                 'Source: Institute of Medicine and National Research Council',
                 style: TextStyle(
