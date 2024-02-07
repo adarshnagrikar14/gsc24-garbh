@@ -1,7 +1,6 @@
-// ignore_for_file: library_private_types_in_public_api, avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 import 'package:garbh/communityPage/postcard.dart';
 
 class CommunityHomePage extends StatefulWidget {
@@ -11,9 +10,12 @@ class CommunityHomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<CommunityHomePage> {
+class _HomePageState extends State<CommunityHomePage>
+    with SingleTickerProviderStateMixin {
   late FirebaseFirestore _firestore;
   late CollectionReference _postCollection;
+  late AnimationController _shakeController;
+  late Animation<double> _shakeAnimation;
 
   late List<String> imageUrls;
   late List<String> textInContainer;
@@ -68,6 +70,20 @@ class _HomePageState extends State<CommunityHomePage> {
 
     _fetchImageUrls();
     _fetchTips();
+
+    _shakeController = AnimationController(
+      duration: Duration(milliseconds: 500),
+      vsync: this,
+    );
+
+    _shakeAnimation = Tween<double>(begin: -5, end: 5).animate(
+      CurvedAnimation(
+        parent: _shakeController,
+        curve: Curves.easeInOut,
+      ),
+    );
+
+    _shakeController.repeat(reverse: true);
   }
 
   void _fetchTips() async {
@@ -96,6 +112,16 @@ class _HomePageState extends State<CommunityHomePage> {
     } catch (e) {
       print('Error fetching image URLs: $e');
     }
+  }
+
+  void _startHapticFeedback() {
+    HapticFeedback.vibrate();
+  }
+
+  @override
+  void dispose() {
+    _shakeController.dispose();
+    super.dispose();
   }
 
   @override
@@ -142,9 +168,11 @@ class _HomePageState extends State<CommunityHomePage> {
                                     style: TextStyle(
                                       fontSize: 25,
                                       color: Colors.white,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                     textAlign: TextAlign.center,
                                   ),
+                                  const SizedBox(height: 10),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
@@ -171,8 +199,15 @@ class _HomePageState extends State<CommunityHomePage> {
                                   ElevatedButton(
                                     onPressed: () {},
                                     style: ElevatedButton.styleFrom(
-                                      foregroundColor: Colors.black,
-                                      backgroundColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 10,
+                                        horizontal: 20,
+                                      ),
+                                      primary: Colors.white,
+                                      onPrimary: Colors.black,
                                     ),
                                     child: const Text('Learn More'),
                                   ),
@@ -194,6 +229,35 @@ class _HomePageState extends State<CommunityHomePage> {
                         imagePath: post['imagePath'],
                       ),
                   ],
+                ),
+              ),
+              Positioned(
+                bottom: 20,
+                right: 20,
+                child: GestureDetector(
+                  onLongPress: () {
+                    _startHapticFeedback();
+                  },
+                  onTap: () {
+                    _shakeController.stop();
+                    // Handle the action when the FAB is tapped
+                  },
+                  child: AnimatedBuilder(
+                    animation: _shakeController,
+                    builder: (context, child) {
+                      return Transform.translate(
+                        offset: Offset(_shakeAnimation.value, 0),
+                        child: FloatingActionButton(
+                          onPressed: () {
+                            _shakeController.stop();
+                            // Handle the action when the FAB is pressed
+                          },
+                          backgroundColor: Colors.pink,
+                          child: Icon(Icons.add),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ],
