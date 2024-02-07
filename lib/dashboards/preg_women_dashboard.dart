@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:garbh/communityPage/homepage.dart';
+import 'package:garbh/communityPage/homepage_community.dart';
 import 'package:garbh/pw_screens/home_pw.dart';
 import 'package:garbh/pw_screens/progress_pw.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';

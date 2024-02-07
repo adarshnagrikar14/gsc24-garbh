@@ -113,7 +113,7 @@ class _HomeScreenParentState extends State<HomeScreenParent> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const WeightChart(),
+                            builder: (context) => const BoysWeight(),
                           ),
                         );
                       },
