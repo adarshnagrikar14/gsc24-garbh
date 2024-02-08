@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -87,7 +89,7 @@ class _BoysHeightState extends State<HeightChart> {
   }
 
   List<FlSpot> _getRedGraphPoints() {
-    List<FlSpot> fl_spot = [
+    List<FlSpot> flSpot = [
       const FlSpot(0, 0),
       const FlSpot(1, 40.0),
       const FlSpot(2, 50.8),
@@ -98,7 +100,7 @@ class _BoysHeightState extends State<HeightChart> {
       const FlSpot(6, 58.0),
     ];
 
-    return fl_spot.sublist(0, dataPoints.length);
+    return flSpot.sublist(0, dataPoints.length);
   }
 
   List<FlSpot> _getHeightFlSpots() {
@@ -211,7 +213,7 @@ class _BoysHeightState extends State<HeightChart> {
                       'Weeks: ${dataPoint.weeks}, Height: ${dataPoint.height}',
                     ),
                     trailing: IconButton(
-                      icon: Icon(Icons.delete),
+                      icon: const Icon(Icons.delete),
                       onPressed: () {
                         _deleteDataPoint(dataPoint);
                         Navigator.pop(context);
@@ -244,16 +246,16 @@ class _BoysHeightState extends State<HeightChart> {
   void _navigateToGirlsHeight() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => GirlsHeight()),
+      MaterialPageRoute(builder: (context) => const GirlsHeight()),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 235, 214, 219),
+      backgroundColor: const Color.fromARGB(255, 235, 214, 219),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 253, 244, 244),
+        backgroundColor: const Color.fromARGB(255, 253, 244, 244),
         title: const Text('Boy Baby Height Chart'),
         actions: [
           DropdownButton<String>(
@@ -288,7 +290,7 @@ class _BoysHeightState extends State<HeightChart> {
             ElevatedButton(
               onPressed: () => _showDataInputDialog(context),
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('Enter Height'),
             ),
@@ -296,7 +298,7 @@ class _BoysHeightState extends State<HeightChart> {
             ElevatedButton(
               onPressed: () => _showPreviousData(),
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('View Previous Data'),
             ),
@@ -310,7 +312,7 @@ class _BoysHeightState extends State<HeightChart> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('Analyze Data'),
             ),
@@ -373,7 +375,7 @@ class _BoysHeightState extends State<HeightChart> {
                             spots: heightSpots,
                             isCurved: true,
                             color: Colors.blue,
-                            dotData: FlDotData(show: false),
+                            dotData: const FlDotData(show: false),
                             belowBarData: BarAreaData(show: false),
                             isStrokeCapRound: true,
                             barWidth: 6,
@@ -382,7 +384,7 @@ class _BoysHeightState extends State<HeightChart> {
                             spots: _getRedGraphPoints(),
                             isCurved: true,
                             color: Colors.red,
-                            dotData: FlDotData(show: false),
+                            dotData: const FlDotData(show: false),
                             belowBarData: BarAreaData(show: false),
                             isStrokeCapRound: true,
                             barWidth: 6,
@@ -447,7 +449,7 @@ class _GirlsHeightState extends State<GirlsHeight> {
   }
 
   List<FlSpot> _getRedGraphPoints() {
-    List<FlSpot> fl_spot = [
+    List<FlSpot> flSpot = [
       const FlSpot(0, 0),
       const FlSpot(1, 40.0),
       const FlSpot(2, 50.8),
@@ -458,7 +460,7 @@ class _GirlsHeightState extends State<GirlsHeight> {
       const FlSpot(6, 58.0),
     ];
 
-    return fl_spot.sublist(0, dataPoints.length);
+    return flSpot.sublist(0, dataPoints.length);
   }
 
   List<FlSpot> _getHeightFlSpots() {
@@ -547,7 +549,7 @@ class _GirlsHeightState extends State<GirlsHeight> {
   void _showGraph() {
     dataPoints.sort((a, b) => a.weeks.compareTo(b.weeks));
 
-    for (int i = 0; dataPoints.length > 0 && i < dataPoints.length; i++) {
+    for (int i = 0; dataPoints.isNotEmpty && i < dataPoints.length; i++) {
       print(
           'DataPoint $i - Weeks: ${dataPoints[i].weeks}, Height: ${dataPoints[i].height}');
     }
@@ -571,7 +573,7 @@ class _GirlsHeightState extends State<GirlsHeight> {
                       'Weeks: ${dataPoint.weeks}, Height: ${dataPoint.height}',
                     ),
                     trailing: IconButton(
-                      icon: Icon(Icons.delete),
+                      icon: const Icon(Icons.delete),
                       onPressed: () {
                         _deleteDataPoint(dataPoint);
                         Navigator.pop(context);
@@ -604,16 +606,16 @@ class _GirlsHeightState extends State<GirlsHeight> {
   void _navigateToBoysHeight() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => HeightChart()),
+      MaterialPageRoute(builder: (context) => const HeightChart()),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 235, 214, 219),
+      backgroundColor: const Color.fromARGB(255, 235, 214, 219),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 253, 244, 244),
+        backgroundColor: const Color.fromARGB(255, 253, 244, 244),
         title: const Text('Girl Baby Height Chart'),
         actions: [
           DropdownButton<String>(
@@ -645,7 +647,7 @@ class _GirlsHeightState extends State<GirlsHeight> {
             ElevatedButton(
               onPressed: () => _showDataInputDialog(context),
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('Enter Height'),
             ),
@@ -653,7 +655,7 @@ class _GirlsHeightState extends State<GirlsHeight> {
             ElevatedButton(
               onPressed: () => _showPreviousData(),
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('View Previous Data'),
             ),
@@ -667,7 +669,7 @@ class _GirlsHeightState extends State<GirlsHeight> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('Analyze Data'),
             ),
@@ -730,7 +732,7 @@ class _GirlsHeightState extends State<GirlsHeight> {
                             spots: heightSpots,
                             isCurved: true,
                             color: Colors.blue,
-                            dotData: FlDotData(show: false),
+                            dotData: const FlDotData(show: false),
                             belowBarData: BarAreaData(show: false),
                             isStrokeCapRound: true,
                             barWidth: 6,
@@ -739,7 +741,7 @@ class _GirlsHeightState extends State<GirlsHeight> {
                             spots: _getRedGraphPoints(),
                             isCurved: true,
                             color: Colors.red,
-                            dotData: FlDotData(show: false),
+                            dotData: const FlDotData(show: false),
                             belowBarData: BarAreaData(show: false),
                             isStrokeCapRound: true,
                             barWidth: 6,

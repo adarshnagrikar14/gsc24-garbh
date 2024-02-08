@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -91,7 +93,7 @@ class _BoysWeightState extends State<BoysWeight> {
   }
 
   List<FlSpot> _getRedGraphPoints() {
-    List<FlSpot> fl_spot = [
+    List<FlSpot> flSpot = [
       const FlSpot(0, 0),
       const FlSpot(1, 40.0),
       const FlSpot(2, 50.8),
@@ -102,7 +104,7 @@ class _BoysWeightState extends State<BoysWeight> {
       const FlSpot(6, 58.0),
     ];
 
-    return fl_spot.sublist(0, dataPoints.length);
+    return flSpot.sublist(0, dataPoints.length);
   }
 
   List<FlSpot> _getWeightFlSpots() {
@@ -216,7 +218,7 @@ class _BoysWeightState extends State<BoysWeight> {
                       'Weeks: ${dataPoint.weeks}, Weight: ${dataPoint.weight}',
                     ),
                     trailing: IconButton(
-                      icon: Icon(Icons.delete),
+                      icon: const Icon(Icons.delete),
                       onPressed: () {
                         _deleteDataPoint(dataPoint);
                         Navigator.pop(context);
@@ -249,16 +251,16 @@ class _BoysWeightState extends State<BoysWeight> {
   void _navigateToGirlsWeight() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => GirlsWeight()),
+      MaterialPageRoute(builder: (context) => const GirlsWeight()),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 235, 214, 219),
+      backgroundColor: const Color.fromARGB(255, 235, 214, 219),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 253, 244, 244),
+        backgroundColor: const Color.fromARGB(255, 253, 244, 244),
         title: const Text('Boy Baby Weight Chart'),
         actions: [
           DropdownButton<String>(
@@ -293,7 +295,7 @@ class _BoysWeightState extends State<BoysWeight> {
             ElevatedButton(
               onPressed: () => _showDataInputDialog(context),
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('Enter Weight'),
             ),
@@ -301,7 +303,7 @@ class _BoysWeightState extends State<BoysWeight> {
             ElevatedButton(
               onPressed: () => _showPreviousData(),
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('View Previous Data'),
             ),
@@ -315,43 +317,41 @@ class _BoysWeightState extends State<BoysWeight> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('Analyze Data'),
             ),
             const SizedBox(height: 16.0),
-            Container(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 20,
-                        height: 20,
-                        color: Colors.blue,
-                      ),
-                      const SizedBox(width: 8),
-                      const Text('Your child weight growth',
-                          style: TextStyle(fontSize: 16)),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 20,
-                        height: 20,
-                        color: Colors.red,
-                      ),
-                      const SizedBox(width: 8),
-                      const Text('Ideal baby\'s weight growth',
-                          style: TextStyle(fontSize: 16)),
-                    ],
-                  ),
-                ],
-              ),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 20,
+                      height: 20,
+                      color: Colors.blue,
+                    ),
+                    const SizedBox(width: 8),
+                    const Text('Your child weight growth',
+                        style: TextStyle(fontSize: 16)),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 20,
+                      height: 20,
+                      color: Colors.red,
+                    ),
+                    const SizedBox(width: 8),
+                    const Text('Ideal baby\'s weight growth',
+                        style: TextStyle(fontSize: 16)),
+                  ],
+                ),
+              ],
             ),
             const SizedBox(height: 10),
             if (weightSpots.isNotEmpty)
@@ -378,7 +378,7 @@ class _BoysWeightState extends State<BoysWeight> {
                             spots: weightSpots,
                             isCurved: true,
                             color: Colors.blue,
-                            dotData: FlDotData(show: false),
+                            dotData: const FlDotData(show: false),
                             belowBarData: BarAreaData(show: false),
                             isStrokeCapRound: true,
                             barWidth: 6,
@@ -387,7 +387,7 @@ class _BoysWeightState extends State<BoysWeight> {
                             spots: _getRedGraphPoints(),
                             isCurved: true,
                             color: Colors.red,
-                            dotData: FlDotData(show: false),
+                            dotData: const FlDotData(show: false),
                             belowBarData: BarAreaData(show: false),
                             isStrokeCapRound: true,
                             barWidth: 6,
@@ -452,7 +452,7 @@ class _GirlsWeightState extends State<GirlsWeight> {
   }
 
   List<FlSpot> _getRedGraphPoints() {
-    List<FlSpot> fl_spot = [
+    List<FlSpot> flSpot = [
       const FlSpot(0, 0),
       const FlSpot(1, 40.0),
       const FlSpot(2, 50.8),
@@ -463,7 +463,7 @@ class _GirlsWeightState extends State<GirlsWeight> {
       const FlSpot(6, 58.0),
     ];
 
-    return fl_spot.sublist(0, dataPoints.length);
+    return flSpot.sublist(0, dataPoints.length);
   }
 
   List<FlSpot> _getWeightFlSpots() {
@@ -553,7 +553,7 @@ class _GirlsWeightState extends State<GirlsWeight> {
   void _showGraph() {
     dataPoints.sort((a, b) => a.weeks.compareTo(b.weeks));
 
-    for (int i = 0; dataPoints.length > 0 && i < dataPoints.length; i++) {
+    for (int i = 0; dataPoints.isNotEmpty && i < dataPoints.length; i++) {
       print(
           'DataPoint $i - Weeks: ${dataPoints[i].weeks}, Weight: ${dataPoints[i].weight}');
     }
@@ -577,7 +577,7 @@ class _GirlsWeightState extends State<GirlsWeight> {
                       'Weeks: ${dataPoint.weeks}, Weight: ${dataPoint.weight}',
                     ),
                     trailing: IconButton(
-                      icon: Icon(Icons.delete),
+                      icon: const Icon(Icons.delete),
                       onPressed: () {
                         _deleteDataPoint(dataPoint);
                         Navigator.pop(context);
@@ -610,16 +610,16 @@ class _GirlsWeightState extends State<GirlsWeight> {
   void _navigateToBoysWeight() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => BoysWeight()),
+      MaterialPageRoute(builder: (context) => const BoysWeight()),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 235, 214, 219),
+      backgroundColor: const Color.fromARGB(255, 235, 214, 219),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 253, 244, 244),
+        backgroundColor: const Color.fromARGB(255, 253, 244, 244),
         title: const Text('Girl Baby Weight Chart'),
         actions: [
           DropdownButton<String>(
@@ -651,7 +651,7 @@ class _GirlsWeightState extends State<GirlsWeight> {
             ElevatedButton(
               onPressed: () => _showDataInputDialog(context),
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('Enter Weight'),
             ),
@@ -659,7 +659,7 @@ class _GirlsWeightState extends State<GirlsWeight> {
             ElevatedButton(
               onPressed: () => _showPreviousData(),
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('View Previous Data'),
             ),
@@ -673,43 +673,41 @@ class _GirlsWeightState extends State<GirlsWeight> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 16.0),
+                textStyle: const TextStyle(fontSize: 16.0),
               ),
               child: const Text('Analyze Data'),
             ),
             const SizedBox(height: 16.0),
-            Container(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 20,
-                        height: 20,
-                        color: Colors.blue,
-                      ),
-                      const SizedBox(width: 8),
-                      const Text('Your child weight growth',
-                          style: TextStyle(fontSize: 16)),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 20,
-                        height: 20,
-                        color: Colors.red,
-                      ),
-                      const SizedBox(width: 8),
-                      const Text('Ideal baby\'s weight growth',
-                          style: TextStyle(fontSize: 16)),
-                    ],
-                  ),
-                ],
-              ),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 20,
+                      height: 20,
+                      color: Colors.blue,
+                    ),
+                    const SizedBox(width: 8),
+                    const Text('Your child weight growth',
+                        style: TextStyle(fontSize: 16)),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 20,
+                      height: 20,
+                      color: Colors.red,
+                    ),
+                    const SizedBox(width: 8),
+                    const Text('Ideal baby\'s weight growth',
+                        style: TextStyle(fontSize: 16)),
+                  ],
+                ),
+              ],
             ),
             const SizedBox(height: 10),
             if (weightSpots.isNotEmpty)
@@ -736,7 +734,7 @@ class _GirlsWeightState extends State<GirlsWeight> {
                             spots: weightSpots,
                             isCurved: true,
                             color: Colors.blue,
-                            dotData: FlDotData(show: false),
+                            dotData: const FlDotData(show: false),
                             belowBarData: BarAreaData(show: false),
                             isStrokeCapRound: true,
                             barWidth: 6,
@@ -745,7 +743,7 @@ class _GirlsWeightState extends State<GirlsWeight> {
                             spots: _getRedGraphPoints(),
                             isCurved: true,
                             color: Colors.red,
-                            dotData: FlDotData(show: false),
+                            dotData: const FlDotData(show: false),
                             belowBarData: BarAreaData(show: false),
                             isStrokeCapRound: true,
                             barWidth: 6,
