@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:garbh/chatbot/chatbot.dart';
 import 'package:garbh/communityPage/homepage_community.dart';
 import 'package:garbh/pw_screens/home_pw.dart';
 import 'package:garbh/pw_screens/progress_pw.dart';
@@ -34,6 +35,7 @@ class _PregnantWDashboardState extends State<PregnantWDashboard> {
       const HomeScreenPW(),
       const ProgressPWScreen(),
       const CommunityHomePage(),
+      const ChatBotPage(),
       // const CommunityPW(),
     ];
 
@@ -103,6 +105,10 @@ class _PregnantWDashboardState extends State<PregnantWDashboard> {
               GButton(
                 icon: LineIcons.wiredNetwork,
                 text: 'Community',
+              ),
+              GButton(
+                icon: LineIcons.rocketChat,
+                text: 'GarbhBot',
               ),
             ],
             selectedIndex: _selectedIndex,

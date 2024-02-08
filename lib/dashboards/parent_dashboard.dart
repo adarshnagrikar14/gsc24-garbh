@@ -1,8 +1,8 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:garbh/chatbot/chatbot.dart';
 import 'package:garbh/communityPage/homepage_community.dart';
-import 'package:garbh/parent_screens/discover_parent.dart';
 import 'package:garbh/parent_screens/home_parent.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
@@ -33,7 +33,8 @@ class _ParentDashboardState extends State<ParentDashboard> {
     final List<Widget> widgetOptions = <Widget>[
       const HomeScreenParent(),
       const CommunityHomePage(),
-      const ParentDiscoverScreen(),
+      // const ParentDiscoverScreen(),
+      const ChatBotPage(),
     ];
 
     Color redColor = const Color.fromARGB(255, 249, 76, 102);
@@ -100,8 +101,8 @@ class _ParentDashboardState extends State<ParentDashboard> {
                 text: 'Community',
               ),
               GButton(
-                icon: LineIcons.starOfLife,
-                text: 'Discover',
+                icon: LineIcons.rocketChat,
+                text: 'GarbhBot',
               ),
             ],
             selectedIndex: _selectedIndex,
