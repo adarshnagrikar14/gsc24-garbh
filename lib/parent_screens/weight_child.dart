@@ -257,11 +257,13 @@ class _BoysWeightState extends State<BoysWeight> {
 
   @override
   Widget build(BuildContext context) {
+    Color redColor = const Color.fromARGB(255, 249, 76, 102);
+
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 235, 214, 219),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 253, 244, 244),
         title: const Text('Boy Baby Weight Chart'),
+        foregroundColor: Colors.white,
+        backgroundColor: redColor,
         actions: [
           DropdownButton<String>(
             value: selectedGender,
@@ -616,11 +618,13 @@ class _GirlsWeightState extends State<GirlsWeight> {
 
   @override
   Widget build(BuildContext context) {
+    Color redColor = const Color.fromARGB(255, 249, 76, 102);
+
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 235, 214, 219),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 253, 244, 244),
         title: const Text('Girl Baby Weight Chart'),
+        backgroundColor: redColor,
+        foregroundColor: Colors.white,
         actions: [
           DropdownButton<String>(
             value: 'Girl',
@@ -635,7 +639,12 @@ class _GirlsWeightState extends State<GirlsWeight> {
               (String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value),
+                  child: Text(
+                    value,
+                    style: const TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
                 );
               },
             ).toList(),

@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PostContainer extends StatefulWidget {
@@ -39,8 +40,10 @@ class _PostContainerState extends State<PostContainer> {
     _preferences = await SharedPreferences.getInstance();
     setState(() {
       _likes = _preferences.getInt("${widget.username}_likes") ?? 0;
-      _comments.addAll(
-          _preferences.getStringList("${widget.username}_comments") ?? []);
+      _comments.addAll(_preferences.getStringList(
+            "${widget.username}_comments",
+          ) ??
+          []);
       _isLiked = _preferences.getBool("${widget.username}_isLiked") ?? false;
     });
   }
@@ -55,7 +58,7 @@ class _PostContainerState extends State<PostContainer> {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
+            color: Colors.grey.withOpacity(0.3),
             spreadRadius: 2,
             blurRadius: 5,
             offset: const Offset(0, 3),
@@ -84,33 +87,44 @@ class _PostContainerState extends State<PostContainer> {
                       ),
                     ),
                     Text(
-                      "Posted ${widget.timeAgo}",
+                      "Posted ${getTime(widget.timeAgo)}",
                       style: const TextStyle(color: Colors.grey),
                     ),
                   ],
                 ),
               ),
-              IconButton(
-                icon: const Icon(Icons.more_vert),
-                onPressed: () {},
-              ),
             ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 20),
           Text(
             widget.caption,
             style: const TextStyle(fontSize: 16),
           ),
           const SizedBox(height: 10),
-          Image.network(
-            widget.imagePath,
-            height: 200,
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ),
-          const SizedBox(height: 10),
+          if (widget.imagePath.isNotEmpty)
+            Container(
+              margin: const EdgeInsets.only(
+                bottom: 10.0,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.0),
+                border: Border.all(
+                  color: Colors.black,
+                  width: 1.0,
+                ),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12.0),
+                child: Image.network(
+                  widget.imagePath,
+                  height: 200,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Row(
                 children: [
@@ -128,20 +142,23 @@ class _PostContainerState extends State<PostContainer> {
                   Text("$_likes likes"),
                 ],
               ),
-              IconButton(
-                icon: const Icon(Icons.share),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: const Icon(Icons.comment),
-                onPressed: () {
-                  _showCommentDialog();
-                },
+              const Gap(20.0),
+              Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.comment,
+                    ),
+                    onPressed: () {
+                      _showCommentDialog();
+                    },
+                  ),
+                  const Text("Comment"),
+                ],
               ),
             ],
           ),
           const SizedBox(height: 10),
-          // Display comments in a scrollable view
           const Text(
             'Comment Section:',
             style: TextStyle(
@@ -150,10 +167,11 @@ class _PostContainerState extends State<PostContainer> {
               color: Colors.black,
             ),
           ),
-          Divider(),
-          Container(
-            height: 150, // Adjust the height as needed
+          const Divider(),
+          SizedBox(
             child: ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: _comments.length,
               itemBuilder: (context, index) {
                 return _buildCommentTile(_comments[index], index);
@@ -166,9 +184,9 @@ class _PostContainerState extends State<PostContainer> {
   }
 
   Widget _buildCommentTile(String comment, int index) {
-    bool isCommentLiked =
-        _preferences.getBool("${widget.username}_comment_${index}_isLiked") ??
-            false;
+    // bool isCommentLiked =
+    //     _preferences.getBool("${widget.username}_comment_${index}_isLiked") ??
+    //         false;
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
@@ -189,17 +207,17 @@ class _PostContainerState extends State<PostContainer> {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            IconButton(
-              icon: isCommentLiked
-                  ? const Icon(
-                      Icons.favorite,
-                      color: Colors.red,
-                    )
-                  : const Icon(Icons.favorite_border),
-              onPressed: () {
-                _handleCommentLike(index);
-              },
-            ),
+            // IconButton(
+            //   icon: isCommentLiked
+            //       ? const Icon(
+            //           Icons.favorite,
+            //           color: Colors.red,
+            //         )
+            //       : const Icon(Icons.favorite_border),
+            //   onPressed: () {
+            //     _handleCommentLike(index);
+            //   },
+            // ),
             IconButton(
               icon: const Icon(Icons.delete),
               onPressed: () {
@@ -221,21 +239,21 @@ class _PostContainerState extends State<PostContainer> {
         _likes--;
       }
     });
-    _saveData(); // Save likes to SharedPreferences
+    _saveData();
   }
 
-  void _handleCommentLike(int index) {
-    bool isCommentLiked =
-        _preferences.getBool("${widget.username}_comment_${index}_isLiked") ??
-            false;
+  // void _handleCommentLike(int index) {
+  //   bool isCommentLiked =
+  //       _preferences.getBool("${widget.username}_comment_${index}_isLiked") ??
+  //           false;
 
-    setState(() {
-      isCommentLiked = !isCommentLiked;
-    });
+  //   setState(() {
+  //     isCommentLiked = !isCommentLiked;
+  //   });
 
-    _preferences.setBool(
-        "${widget.username}_comment_${index}_isLiked", isCommentLiked);
-  }
+  //   _preferences.setBool(
+  //       "${widget.username}_comment_${index}_isLiked", isCommentLiked);
+  // }
 
   void _showCommentDialog() {
     showDialog(
@@ -288,5 +306,22 @@ class _PostContainerState extends State<PostContainer> {
     _preferences.setInt("${widget.username}_likes", _likes);
     _preferences.setBool("${widget.username}_isLiked", _isLiked);
     _preferences.setStringList("${widget.username}_comments", _comments);
+  }
+
+  String getTime(String timeAgo) {
+    DateTime parsedTime = DateTime.parse(timeAgo);
+
+    DateTime currentTime = DateTime.now();
+
+    Duration difference = currentTime.difference(parsedTime);
+    int daysAgo = difference.inDays;
+
+    if (daysAgo == 0) {
+      return 'Today';
+    } else if (daysAgo == 1) {
+      return '1 day ago';
+    } else {
+      return '$daysAgo days ago';
+    }
   }
 }

@@ -252,11 +252,13 @@ class _BoysHeightState extends State<HeightChart> {
 
   @override
   Widget build(BuildContext context) {
+    Color redColor = const Color.fromARGB(255, 249, 76, 102);
+
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 235, 214, 219),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 253, 244, 244),
-        title: const Text('Boy Baby Height Chart'),
+        title: const Text('Baby Boy Height Chart'),
+        backgroundColor: redColor,
+        foregroundColor: Colors.white,
         actions: [
           DropdownButton<String>(
             value: selectedGender,
@@ -274,7 +276,12 @@ class _BoysHeightState extends State<HeightChart> {
               (String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value),
+                  child: Text(
+                    value,
+                    style: const TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
                 );
               },
             ).toList(),
@@ -612,11 +619,13 @@ class _GirlsHeightState extends State<GirlsHeight> {
 
   @override
   Widget build(BuildContext context) {
+    Color redColor = const Color.fromARGB(255, 249, 76, 102);
+
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 235, 214, 219),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 253, 244, 244),
-        title: const Text('Girl Baby Height Chart'),
+        backgroundColor: redColor,
+        title: const Text('Baby Girl Height Chart'),
+        foregroundColor: Colors.white,
         actions: [
           DropdownButton<String>(
             value: 'Girl',
@@ -631,7 +640,12 @@ class _GirlsHeightState extends State<GirlsHeight> {
               (String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value),
+                  child: Text(
+                    value,
+                    style: const TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
                 );
               },
             ).toList(),

@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 class CustomizablePieChart extends StatefulWidget {
   final String title1;
   final double progress1;
+  final double progress2;
 
   const CustomizablePieChart({
     required this.title1,
     required this.progress1,
+    required this.progress2,
     Key? key,
   }) : super(key: key);
 
@@ -46,14 +48,14 @@ class _CustomizablePieChartState extends State<CustomizablePieChart> {
   }
 
   List<PieChartSectionData> showingSections() {
-    final double progress2 = 100 - widget.progress1;
+    double p2 = widget.progress2 - widget.progress1;
 
     return [
       PieChartSectionData(
         color: Colors.red.shade400,
         value: widget.progress1,
         radius: 60,
-        title: "${widget.progress1}%",
+        title: "${widget.progress1} ${p2 > 1000 ? "Cal" : "gm"}",
         titlePositionPercentageOffset: 0.6,
         titleStyle: const TextStyle(
           fontSize: 12,
@@ -64,7 +66,7 @@ class _CustomizablePieChartState extends State<CustomizablePieChart> {
       ),
       PieChartSectionData(
         color: Colors.red.shade200,
-        value: progress2,
+        value: p2,
         radius: 48,
         title: "",
         titleStyle: const TextStyle(

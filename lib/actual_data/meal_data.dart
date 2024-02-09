@@ -6,9 +6,6 @@
 
 List<List<Map<String, List<String>>>> mealDatas = [
   // Breakfast Only
-
-  // 487 cal(food) + 267 cal(nuts , milk etc.(not necessary in first trimester))
-
   [
     {
       "Milk": [
@@ -69,8 +66,6 @@ List<List<Map<String, List<String>>>> mealDatas = [
   ],
 
   //Lunch Only
-
-// 481 cal
   [
     {
       "Multigrain Thalipeeth": [
@@ -131,8 +126,6 @@ List<List<Map<String, List<String>>>> mealDatas = [
   ],
 
   //Snacks Only
-
-// 277 cal
   [
     {
       "Chikkis": [
@@ -193,8 +186,6 @@ List<List<Map<String, List<String>>>> mealDatas = [
   ],
 
   // Dinner Only
-
-// 696 cal
   [
     {
       "Rice": [

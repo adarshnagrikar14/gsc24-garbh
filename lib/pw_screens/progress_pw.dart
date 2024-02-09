@@ -90,6 +90,92 @@ class _ProgressPWScreenState extends State<ProgressPWScreen> {
     print("$currentCalories  $selectedChipsString");
   }
 
+  List<List<Map<String, List<String>>>> mealData = mealDatas;
+
+  double calculateSum(List<int> values) {
+    return values
+        .map((value) => value.toDouble())
+        .reduce((value, element) => value + element);
+  }
+
+  double calculateTotalFats(List<List<String>> dietItemList) {
+    double totalFats = 0.0;
+
+    for (int i = 0; i < dietItemList.length; i++) {
+      for (int j = 0; j < dietItemList[i].length; j++) {
+        String itemName = dietItemList[i][j];
+
+        for (int k = 0; k < mealDatas[i].length; k++) {
+          Map<String, List<String>> mealData = mealDatas[i][k];
+          if (mealData.containsKey(itemName)) {
+            String nutritionalInfo = mealData[itemName]![2];
+            RegExp regex = RegExp(r'Fats: (\d+)gm');
+            RegExpMatch? match = regex.firstMatch(nutritionalInfo);
+
+            if (match != null) {
+              String? fatsValue = match.group(1);
+              totalFats += double.parse(fatsValue!);
+            }
+          }
+        }
+      }
+    }
+
+    return totalFats;
+  }
+
+  double calculateTotalProteins(List<List<String>> dietItemList) {
+    double totalProteins = 0.0;
+
+    for (int i = 0; i < dietItemList.length; i++) {
+      for (int j = 0; j < dietItemList[i].length; j++) {
+        String itemName = dietItemList[i][j];
+
+        for (int k = 0; k < mealDatas[i].length; k++) {
+          Map<String, List<String>> mealData = mealDatas[i][k];
+          if (mealData.containsKey(itemName)) {
+            String nutritionalInfo = mealData[itemName]![2];
+            RegExp regex = RegExp('Protien: (\\d+)gm');
+            RegExpMatch? match = regex.firstMatch(nutritionalInfo);
+
+            if (match != null) {
+              String? proteinValue = match.group(1);
+              totalProteins += double.parse(proteinValue!);
+            }
+          }
+        }
+      }
+    }
+
+    return totalProteins;
+  }
+
+  double calculateTotalCarbs(List<List<String>> dietItemList) {
+    double totalCarbs = 0.0;
+
+    for (int i = 0; i < dietItemList.length; i++) {
+      for (int j = 0; j < dietItemList[i].length; j++) {
+        String itemName = dietItemList[i][j];
+
+        for (int k = 0; k < mealDatas[i].length; k++) {
+          Map<String, List<String>> mealData = mealDatas[i][k];
+          if (mealData.containsKey(itemName)) {
+            String nutritionalInfo = mealData[itemName]![2];
+            RegExp regex = RegExp('Carbs: (\\d+)gm');
+            RegExpMatch? match = regex.firstMatch(nutritionalInfo);
+
+            if (match != null) {
+              String? carbsValue = match.group(1);
+              totalCarbs += double.parse(carbsValue!);
+            }
+          }
+        }
+      }
+    }
+
+    return totalCarbs;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -230,9 +316,14 @@ class _ProgressPWScreenState extends State<ProgressPWScreen> {
                                   },
                                 );
                               },
-                              child: const CustomizablePieChart(
+                              child: CustomizablePieChart(
                                 title1: "Fats",
-                                progress1: 20,
+                                progress1:
+                                    calculateTotalFats(selectedChips).ceil() ==
+                                            0
+                                        ? 1.0
+                                        : calculateTotalFats(selectedChips),
+                                progress2: 70,
                               ),
                             ),
                           ),
@@ -253,9 +344,14 @@ class _ProgressPWScreenState extends State<ProgressPWScreen> {
                                   },
                                 );
                               },
-                              child: const CustomizablePieChart(
+                              child: CustomizablePieChart(
                                 title1: "Protiens",
-                                progress1: 40,
+                                progress1: calculateTotalProteins(selectedChips)
+                                            .ceil() ==
+                                        0
+                                    ? 1.0
+                                    : calculateTotalProteins(selectedChips),
+                                progress2: 70,
                               ),
                             ),
                           ),
@@ -285,9 +381,14 @@ class _ProgressPWScreenState extends State<ProgressPWScreen> {
                                     },
                                   );
                                 },
-                                child: const CustomizablePieChart(
+                                child: CustomizablePieChart(
                                   title1: "Carbohydrates",
-                                  progress1: 25,
+                                  progress1: calculateTotalCarbs(selectedChips)
+                                              .ceil() ==
+                                          0
+                                      ? 1.0
+                                      : calculateTotalCarbs(selectedChips),
+                                  progress2: 210,
                                 ),
                               ),
                             ),
@@ -308,9 +409,13 @@ class _ProgressPWScreenState extends State<ProgressPWScreen> {
                                     },
                                   );
                                 },
-                                child: const CustomizablePieChart(
+                                child: CustomizablePieChart(
                                   title1: "Calories",
-                                  progress1: 55,
+                                  progress1:
+                                      calculateSum(currentCalories).ceil() == 0
+                                          ? 1
+                                          : calculateSum(currentCalories),
+                                  progress2: 2200,
                                 ),
                               ),
                             ),
@@ -485,7 +590,7 @@ class InfoDialogState extends State<InfoDialog> {
           ),
           const Gap(12.0),
           Text(
-            "2. You need to consume ${1000 - totalWeightOfContent} ${widget.mealOption == 3 ? "Cal." : "gm"} ${widget.title} to complete your diet.",
+            "2. You need to consume ${getvalue(widget.title) - totalWeightOfContent} ${widget.mealOption == 3 ? "Cal." : "gm"} ${widget.title} to complete your diet.",
             style: const TextStyle(
               fontSize: 17.0,
             ),
@@ -528,5 +633,17 @@ class InfoDialogState extends State<InfoDialog> {
         ],
       ),
     );
+  }
+
+  getvalue(String title) {
+    if (title == "Fats") {
+      return 70;
+    } else if (title == "Protiens") {
+      return 70;
+    } else if (title == "Carbohydrates") {
+      return 210;
+    } else {
+      return 2200;
+    }
   }
 }

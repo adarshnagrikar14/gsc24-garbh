@@ -1,8 +1,9 @@
-// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors
+// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, avoid_print, use_build_context_synchronously
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/services.dart';
+import 'package:gap/gap.dart';
 import 'package:garbh/communityPage/postcard.dart';
 
 class CommunityHomePage extends StatefulWidget {
@@ -16,46 +17,10 @@ class _HomePageState extends State<CommunityHomePage>
     with SingleTickerProviderStateMixin {
   late FirebaseFirestore _firestore;
   late CollectionReference _postCollection;
-  late AnimationController _shakeController;
-  late Animation<double> _shakeAnimation;
 
-  late List<String> imageUrls;
   late List<String> textInContainer;
 
-  final List<LinearGradient> containerGradients = [
-    const LinearGradient(
-      colors: [
-        Color.fromARGB(255, 249, 76, 102),
-        Color.fromARGB(255, 119, 86, 195),
-      ],
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-    ),
-    const LinearGradient(
-      colors: [
-        Color.fromARGB(255, 249, 76, 102),
-        Color.fromARGB(255, 119, 86, 195),
-      ],
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-    ),
-    const LinearGradient(
-      colors: [
-        Color.fromARGB(255, 249, 76, 102),
-        Color.fromARGB(255, 119, 86, 195),
-      ],
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-    ),
-    const LinearGradient(
-      colors: [
-        Color.fromARGB(255, 249, 76, 102),
-        Color.fromARGB(255, 119, 86, 195),
-      ],
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-    ),
-  ];
+  late User? _currentUser;
 
   @override
   void initState() {
@@ -63,29 +28,11 @@ class _HomePageState extends State<CommunityHomePage>
     _firestore = FirebaseFirestore.instance;
     _postCollection = _firestore.collection('posts');
 
-    imageUrls = List.generate(
-      containerGradients.length,
-      (index) => 'https://placehold.it/300x300',
-    );
-
     textInContainer = [];
 
-    _fetchImageUrls();
+    _currentUser = FirebaseAuth.instance.currentUser;
+
     _fetchTips();
-
-    _shakeController = AnimationController(
-      duration: Duration(milliseconds: 500),
-      vsync: this,
-    );
-
-    _shakeAnimation = Tween<double>(begin: -5, end: 5).animate(
-      CurvedAnimation(
-        parent: _shakeController,
-        curve: Curves.easeInOut,
-      ),
-    );
-
-    _shakeController.repeat(reverse: true);
   }
 
   void _fetchTips() async {
@@ -100,30 +47,6 @@ class _HomePageState extends State<CommunityHomePage>
     } catch (e) {
       print('Error fetching tips: $e');
     }
-  }
-
-  void _fetchImageUrls() async {
-    try {
-      QuerySnapshot snapshot = await _firestore.collection('images').get();
-      List<String> urls =
-          snapshot.docs.map((doc) => doc['imageUrl'] as String).toList();
-
-      setState(() {
-        imageUrls = urls;
-      });
-    } catch (e) {
-      print('Error fetching image URLs: $e');
-    }
-  }
-
-  void _startHapticFeedback() {
-    HapticFeedback.vibrate();
-  }
-
-  @override
-  void dispose() {
-    _shakeController.dispose();
-    super.dispose();
   }
 
   @override
@@ -147,79 +70,40 @@ class _HomePageState extends State<CommunityHomePage>
               SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 1.5,
-                      child: PageView.builder(
-                        itemCount: containerGradients.length,
-                        itemBuilder: (context, index) {
-                          if (index < textInContainer.length) {
-                            return Container(
-                              width: MediaQuery.of(context).size.width,
-                              margin: const EdgeInsets.only(
-                                  left: 10, right: 10, top: 20),
-                              decoration: BoxDecoration(
-                                gradient: containerGradients[index],
-                                borderRadius: BorderRadius.circular(20),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        elevation: 2.0,
+                        color: Colors.red.shade50,
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          padding: const EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Image.asset(
+                                "assets/images/community.jpg",
+                                width: 90.0,
+                                height: 90,
+                                fit: BoxFit.cover,
                               ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  const Text(
-                                    "Top Tips by the community",
-                                    style: TextStyle(
-                                      fontSize: 25,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    textAlign: TextAlign.center,
+                              const Gap(18.0),
+                              Expanded(
+                                child: Text(
+                                  "Find the helpful community posts and enjoy the way you want and share your joy to others...",
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.black,
                                   ),
-                                  const SizedBox(height: 10),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      textInContainer[index],
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.grey,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 150,
-                                    width: 150,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(20),
-                                      child: Image.network(
-                                        imageUrls[index],
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  ElevatedButton(
-                                    onPressed: () {},
-                                    style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 10,
-                                        horizontal: 20,
-                                      ),
-                                      primary: Colors.white,
-                                      onPrimary: Colors.black,
-                                    ),
-                                    child: const Text('Learn More'),
-                                  ),
-                                ],
+                                ),
                               ),
-                            );
-                          } else {
-                            return Container();
-                          }
-                        },
+                              const Gap(5.0),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                     for (var post in postData)
@@ -233,38 +117,66 @@ class _HomePageState extends State<CommunityHomePage>
                   ],
                 ),
               ),
-              Positioned(
-                bottom: 20,
-                right: 20,
-                child: GestureDetector(
-                  onLongPress: () {
-                    _startHapticFeedback();
-                  },
-                  onTap: () {
-                    _shakeController.stop();
-                    // Handle the action when the FAB is tapped
-                  },
-                  child: AnimatedBuilder(
-                    animation: _shakeController,
-                    builder: (context, child) {
-                      return Transform.translate(
-                        offset: Offset(_shakeAnimation.value, 0),
-                        child: FloatingActionButton(
-                          onPressed: () {
-                            _shakeController.stop();
-                            // Handle the action when the FAB is pressed
-                          },
-                          backgroundColor: Colors.pink,
-                          child: Icon(Icons.add),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
             ],
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print(DateTime.now());
+
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              TextEditingController captionController = TextEditingController();
+              // You can add more controllers for other fields if needed
+
+              return AlertDialog(
+                title: Text("Add Post"),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextField(
+                      controller: captionController,
+                      decoration: InputDecoration(labelText: 'Caption'),
+                    ),
+                  ],
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Cancel"),
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      String caption = captionController.text;
+                      try {
+                        await FirebaseFirestore.instance
+                            .collection('posts')
+                            .add({
+                          'profileImage': _currentUser?.photoURL,
+                          'username': _currentUser?.displayName,
+                          'timeAgo': "${DateTime.now()}",
+                          'caption': caption,
+                          'imagePath': "",
+                        });
+                        Navigator.of(context).pop();
+                      } catch (e) {
+                        print('Error uploading post: $e');
+                      }
+                    },
+                    child: Text("Add"),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+        backgroundColor: Colors.red.shade400,
+        child: Icon(Icons.add),
       ),
     );
   }

@@ -281,7 +281,7 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
                 bottom: 20.0,
               ),
               child: LinearProgressIndicator(
-                value: currentCalories[mealOption] / 400,
+                value: currentCalories[mealOption] / getcalories(mealType),
                 minHeight: 12.0,
                 backgroundColor: Colors.white,
                 borderRadius: BorderRadius.circular(12.0),
@@ -421,5 +421,17 @@ class _DietPagePregnantWomenState extends State<DietPagePregnantWomen> {
     saveSelectedChips();
     _pageController.dispose();
     super.dispose();
+  }
+
+  num getcalories(String mealType) {
+    if (mealType == "Breakfast") {
+      return 400;
+    } else if (mealType == "Lunch") {
+      return 600;
+    } else if (mealType == "Snacks") {
+      return 250;
+    } else {
+      return 600;
+    }
   }
 }

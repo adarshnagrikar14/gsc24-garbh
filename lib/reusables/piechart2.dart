@@ -98,7 +98,7 @@ class PieChart2State extends State<PieChartSample2> {
                       color: Colors.white,
                     ),
                     padding: const EdgeInsets.all(8.0),
-                    child: Text("${widget.title} 40%"),
+                    child: Text("${widget.title} 35%"),
                   )
                 : const Center(),
           );
@@ -119,7 +119,7 @@ class PieChart2State extends State<PieChartSample2> {
                       color: Colors.white,
                     ),
                     padding: const EdgeInsets.all(8.0),
-                    child: Text("${widget.title} 10%"),
+                    child: Text("${widget.title} 15%"),
                   )
                 : const Center(),
           );
