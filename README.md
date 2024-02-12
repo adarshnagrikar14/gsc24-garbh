@@ -7,28 +7,6 @@
 <br>
 <h1>Steps to Run the App</h1>
 <br>
-1. As we assume that flutter is properly installed on the machine, please do follow the below steps to test the App.
-```
-Note: The App is currently built for Android only.
-```
-2. Title Two
-```
-Note: The
-```
-<br>
-
-[<h1>Aashray</h1>](https://github.com/adarshnagrikar14/Aashray/)
-![Alt Text](https://github.com/adarshnagrikar14/Aashray/blob/main/assets/images/splash_logo.png)
----
-> <h3>An approach to provide a source of light to the needy people during any pandemic situation. Basically, Aashray is a sanskrit word which means a shelter. As the name suggests, our app aims to provide shelter and food for the needy people stucked in any pandemic situation. By getting real-time location of the user, the app locates a self offered Aashray or shelter or a food source provided by the volunteer who offered by their consent.
-</h3>
-<br>
-<h1>Download direct Apk from here</h1>
-
-https://drive.google.com/file/d/1JjdIfiEC3MVn1i6TeczWoadzSuVMHvcb/view?usp=share_link
-
-<h1>Steps to Run the App</h1>
-<br>
 
 1. As we assume that flutter is properly installed on the machine, please do follow the below steps to test the App.
 ```
