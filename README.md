@@ -14,7 +14,7 @@ Note: The App is currently built for Android only.
 ```
 2. Git clone the project into the directory of your choice.
 ```
-git clone [https://github.com/adarshnagrikar14/Aashray.git](https://github.com/adarshnagrikar14/gsc24-garbh.git)
+git clone https://github.com/adarshnagrikar14/gsc24-garbh.git
 ```
 3. Change directory to Garbh
 ```
