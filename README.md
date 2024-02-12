@@ -5,3 +5,11 @@
 <h1>Download direct Apk from here</h1>
 
 https://drive.google.com/file/d/1JjdIfiEC3MVn1i6TeczWoadzSuVMHvcb/view?usp=share_link
+
+<h1>Steps to Run the App</h1>
+<br>
+
+1. As we assume that flutter is properly installed on the machine, please do follow the below steps to test the App.
+```
+Note: The App is currently built for Android only.
+```
