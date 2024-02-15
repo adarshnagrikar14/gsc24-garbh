@@ -2,7 +2,7 @@
 > <h3>The Description</h3>
 <br>
 <h1>Download direct Apk from here</h1>
-<a href="#">Download from here.</a>
+<a href="https://drive.google.com/file/d/19AHvAhHLPgrh_943hari0rjfuY5Ffr89/view?usp=sharing" target="_blank">Download from here.</a>
 
 <br>
 <h1>Steps to Run the App</h1>
