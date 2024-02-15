@@ -1,5 +1,5 @@
 [<h1>Garbh: Empowering Parenthood</h1>](https://github.com/adarshnagrikar14/gsc24-garbh/)
-> <h3>The Description</h3>
+> <h3>Targeting the UN goal of Health and Wellbeing, we came up with Garbh, a mobile application designed to empower parents-to-be and new parents with essential resources and support throughout the journey of pregnancy. Derived from the Sanskrit word for "womb," it aims to offer guidance, information, and community for expectant mothers and fathers,It targets physical and mental wellbeing of the mother and the child, essentially providing mechanisms to improve the nutritional status of women.</h3>
 <br>
 <h1>Download direct Apk from here</h1>
 <a href="https://drive.google.com/file/d/19AHvAhHLPgrh_943hari0rjfuY5Ffr89/view?usp=sharing" target="_">Download from here.</a>
