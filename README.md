@@ -3,7 +3,7 @@
 </h3>
 <br>
 <h1>Download direct Apk from here</h1>
-<a href="https://drive.google.com/file/d/19AHvAhHLPgrh_943hari0rjfuY5Ffr89/view?usp=sharing" target="_">Download from here.</a>
+<a href="https://drive.google.com/drive/folders/18vvA7bRGPp3w2fD3rhPeQUtUz9sy_dmV?usp=sharing" target="_">Download from here.</a>
 
 <br>
 <h1>Steps to Run the App</h1>
