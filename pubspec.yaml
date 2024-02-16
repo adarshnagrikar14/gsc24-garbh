@@ -68,6 +68,8 @@ dependencies:
   webview_flutter: ^2.0.13
 
   image_picker: ^0.8.4+4
+  http: ^1.2.0
+  google_generative_ai: ^0.2.0
 
 dev_dependencies:
   flutter_test:

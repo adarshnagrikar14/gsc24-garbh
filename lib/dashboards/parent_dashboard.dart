@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:garbh/chatbot/chatbot.dart';
+import 'package:garbh/chatbot/chatbot_gemini.dart';
 import 'package:garbh/communityPage/homepage_community.dart';
 import 'package:garbh/parent_screens/home_parent.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
