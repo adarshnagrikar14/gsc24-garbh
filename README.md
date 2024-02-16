@@ -13,9 +13,6 @@
 ```
 Note: The App is currently built for Android and Firebase is used as Backend.
 ```
-```
-Get SHA-key using a. cd android b. ./gradlew signingReport and paste to firebase console after Firebase set-up.
-```
 2. Git clone the project into the directory of your choice.
 ```
 git clone https://github.com/adarshnagrikar14/gsc24-garbh.git
@@ -24,12 +21,16 @@ git clone https://github.com/adarshnagrikar14/gsc24-garbh.git
 ```
 cd ./gsc24-garbh
 ```
-4. Run the following commands to download all required dependancies.
+4. Initiate Firebase
+```
+Get SHA-key using a. cd android b. ./gradlew signingReport and paste to firebase console after Firebase set-up.
+```
+5. Run the following commands to download all required dependancies.
 ```
 flutter clean
 flutter pub get
 ```
-5. Now after doing all the necessary steps, you are ready to run the App. 
+6. Now after doing all the necessary steps, you are ready to run the App. 
 ```
 flutter run
 ```
