@@ -11,7 +11,7 @@
 
 1. As we assume that flutter is properly installed on the machine, please do follow the below steps to test the App.
 ```
-Note: The App is currently built for Android and Firebase is used as Backend. Get SHA-key using a. cd android b. ./gradlew signingReport and paste to firebase console after Firebase set-up
+Note: The App is currently built for Android and Firebase is used as Backend. Get SHA-key using a. cd android b. ./gradlew signingReport and paste to firebase console after Firebase set-up.
 ```
 2. Git clone the project into the directory of your choice.
 ```
