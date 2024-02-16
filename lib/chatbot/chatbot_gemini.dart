@@ -52,7 +52,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'GarbhBot: Built with Gemini-1.5 pro',
+          'GarbhBot: Built with Gemini-1.0 pro',
           style: TextStyle(
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
