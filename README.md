@@ -38,4 +38,9 @@ flutter run
 <h1>Feature Previews</h1>
 <br>
 
+Default Screen | Aashray Screen 
+-------------- | --------------
+In this default page, you can volunteer for Aashray <br> or Food | Here you can see and edit your entered aashray <br> details
+<img src="https://firebasestorage.googleapis.com/v0/b/app-aashray.appspot.com/o/AppScreenshots%2FScreen1.jpg?alt=media&token=7b085e23-0a36-44a8-8215-e41beefd22e3" alt = "One" width="243" height="500"> | <img src="https://firebasestorage.googleapis.com/v0/b/app-aashray.appspot.com/o/AppScreenshots%2FScreen%20Home.jpg?alt=media&token=0cdd3e65-c02a-40a5-90c4-8ae1110f5dd1" alt = "Two" width="243" height="500">
+
 
