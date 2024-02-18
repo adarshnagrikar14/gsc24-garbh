@@ -40,7 +40,7 @@ flutter run
 
 Diet Maintainer | Exercises 
 -------------- | --------------
-Note your diet Consumption and track it as well | Here you can see and edit your entered aashray <br> details
-<img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-00-27-547_com.app.ahara.jpg?alt=media&token=f91154fd-de94-42b8-96d7-864998686d7a" alt = "One" width="243" height="500"> | <img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-00-35-815_com.app.ahara.jpg?alt=media&token=e4c4f219-91fc-4b60-951f-c902b74c9465" alt = "Two" width="243" height="500">
+Note your diet Consumption and track it as well | Perform set of exercises in this section
+<img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-00-27-547_com.app.ahara.jpg?alt=media&token=f91154fd-de94-42b8-96d7-864998686d7a" alt = "One" width="300" height="550"> | <img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-00-35-815_com.app.ahara.jpg?alt=media&token=e4c4f219-91fc-4b60-951f-c902b74c9465" alt = "Two" width="300" height="550">
 
 
