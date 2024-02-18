@@ -46,11 +46,11 @@ flutter run
 |                   | - Select Conception Date                     |
 |                   | - Save and Proceed                           |
 |                   | - Now explore all the section and features, of which, some previews are listed below     |
-| Parent            | - Newborn care basics                        |
-|                   | - Sleep training tips                        |
-|                   | - Developmental milestones                   |
-|                   | - Childproofing your home checklist          |
-|                   | - Handling common childhood illnesses        |
+| Parent            | - Login using G-Auth                         |
+|                   | - Select I'am a "Parent"                     |
+|                   | - Add child's Date of birth                  |
+|                   | - Save and Proceed                           |
+|                   | - Now explore all the section and tabs, of which, some previews are listed below         |
 
 <br>
 <h1>Feature Previews (Pregnant Women Section)</h1>
