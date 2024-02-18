@@ -35,12 +35,17 @@ flutter pub get
 flutter run
 ```
 <br>
-<h1>Feature Previews</h1>
+<h1>Feature Previews (Pregnant Women Section)</h1>
 <br>
 
 Diet Maintainer | Exercises 
 -------------- | --------------
 Note your diet Consumption and track it as well | Perform set of exercises in this section
-<img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-00-27-547_com.app.ahara.jpg?alt=media&token=f91154fd-de94-42b8-96d7-864998686d7a" alt = "One" width="280" height="560"> | <img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-00-35-815_com.app.ahara.jpg?alt=media&token=e4c4f219-91fc-4b60-951f-c902b74c9465" alt = "Two" width="280" height="560">
+<img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-00-27-547_com.app.ahara.jpg?alt=media&token=f91154fd-de94-42b8-96d7-864998686d7a" alt = "One" width="260" height="520"> | <img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-00-35-815_com.app.ahara.jpg?alt=media&token=e4c4f219-91fc-4b60-951f-c902b74c9465" alt = "Two" width="260" height="520">
+
+Tracker Page | Self Notes 
+-------------- | --------------
+Track your consumptions and exercises you perform | Write and express whatever you want, live free.
+<img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-00-27-547_com.app.ahara.jpg?alt=media&token=f91154fd-de94-42b8-96d7-864998686d7a" alt = "One" width="260" height="520"> | <img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-00-35-815_com.app.ahara.jpg?alt=media&token=e4c4f219-91fc-4b60-951f-c902b74c9465" alt = "Two" width="260" height="520">
 
 
