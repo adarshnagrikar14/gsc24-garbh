@@ -66,3 +66,9 @@ Lullaby | Chatbot
 -------------- | --------------
 Relax and soothe with our lullaby collection. | User-friendly chatbot for a variety of needs.
 <img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-02-34-993_com.app.ahara.jpg?alt=media&token=6e1316f6-4ebe-493c-b5e7-967950ce60c1" alt = "One" width="260" height="520"> | <img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-18-10-42-49-761_com.app.ahara.jpg?alt=media&token=3eb1f7a2-94f0-4f7c-b4cb-5dc9a9707478" alt = "Two" width="260" height="520">
+
+<br>
+<h1>Attributions</h1>
+<br>
+> <h3>Flutter, Firebase, Freepik, IBM Watson Assistant, Bard (now Gemini) API, WHO</h3>
+<br>
