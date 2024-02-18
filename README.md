@@ -39,17 +39,17 @@ flutter run
 <h1>App Testing</h1>
 <br>
 
-| Category          | Content                                      |
+| Screens           | Steps                                        |
 |-------------------|----------------------------------------------|
-| Pregnant Women   | - Prenatal nutrition guidelines             |
-|                   | - Exercise recommendations                   |
-|                   | - Common discomforts and remedies            |
-|                   | - Prenatal appointments schedule            |
-|                   | - Mental health support during pregnancy    |
+| Pregnant Women    | - Login using G-Auth                         |
+|                   | - Select I'am a "Pregnant Woman"             |
+|                   | - Select Conception Date                     |
+|                   | - Save and Proceed                           |
+|                   | - Now explore all the section and features, of which, some previews are listed below     |
 | Parent            | - Newborn care basics                        |
 |                   | - Sleep training tips                        |
 |                   | - Developmental milestones                   |
-|                   | - Childproofing your home checklist         |
+|                   | - Childproofing your home checklist          |
 |                   | - Handling common childhood illnesses        |
 
 <br>
