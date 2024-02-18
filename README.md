@@ -34,6 +34,24 @@ flutter pub get
 ```
 flutter run
 ```
+
+<br>
+<h1>App Testing</h1>
+<br>
+
+| Category          | Content                                      |
+|-------------------|----------------------------------------------|
+| Pregnant Women   | - Prenatal nutrition guidelines             |
+|                   | - Exercise recommendations                   |
+|                   | - Common discomforts and remedies            |
+|                   | - Prenatal appointments schedule            |
+|                   | - Mental health support during pregnancy    |
+| Parent            | - Newborn care basics                        |
+|                   | - Sleep training tips                        |
+|                   | - Developmental milestones                   |
+|                   | - Childproofing your home checklist         |
+|                   | - Handling common childhood illnesses        |
+
 <br>
 <h1>Feature Previews (Pregnant Women Section)</h1>
 <br>
