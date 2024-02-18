@@ -69,6 +69,5 @@ Relax and soothe with our lullaby collection. | User-friendly chatbot for a vari
 
 <br>
 <h1>Attributions</h1>
-<br>
-> <h3>Flutter, Firebase, Freepik, IBM Watson Assistant, Bard (now Gemini) API, WHO</h3>
+<h2>Flutter, Firebase, Freepik, IBM Watson Assistant, Bard (now Gemini) API, WHO</h2>
 <br>
