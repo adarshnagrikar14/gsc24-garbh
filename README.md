@@ -40,12 +40,15 @@ flutter run
 
 Diet Maintainer | Exercises 
 -------------- | --------------
-Note your diet Consumption and track it as well | Perform set of exercises with a timer & the steps shown
+Monitor and record your dietary intake for effective management. | Complete a timed exercise routine with step-by-step instructions.
 <img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-00-27-547_com.app.ahara.jpg?alt=media&token=f91154fd-de94-42b8-96d7-864998686d7a" alt = "One" width="260" height="520"> | <img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-00-35-815_com.app.ahara.jpg?alt=media&token=e4c4f219-91fc-4b60-951f-c902b74c9465" alt = "Two" width="260" height="520">
 
 Tracker Page | Self Notes 
 -------------- | --------------
-Track your consumptions and exercises you perform | Write and express whatever you want, live free.
-<img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-00-27-547_com.app.ahara.jpg?alt=media&token=f91154fd-de94-42b8-96d7-864998686d7a" alt = "One" width="260" height="520"> | <img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-00-35-815_com.app.ahara.jpg?alt=media&token=e4c4f219-91fc-4b60-951f-c902b74c9465" alt = "Two" width="260" height="520">
+Use the tracker for noting meal consumption and exercises | Embrace freedom in self-notes. Express without limits.
+<img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-01-10-501_com.app.ahara.jpg?alt=media&token=46e8352d-397d-4d52-8e21-49a555ff8059" alt = "One" width="260" height="520"> | <img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-00-48-927_com.app.ahara.jpg?alt=media&token=2ccb40b3-9ec3-4a22-9cca-dc412a0b3100" alt = "Two" width="260" height="520">
 
-
+Community | Chatbot 
+-------------- | --------------
+Engage, post, interact, and learn in our vibrant community. | Your self-help chatbot: engaging and supportive companion.
+<img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-01-27-816_com.app.ahara.jpg?alt=media&token=289c61af-c644-4069-b47e-485daccb22a6" alt = "One" width="260" height="520"> | <img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-01-50-370_com.app.ahara.jpg?alt=media&token=af162d9d-96f7-4f38-bbbd-d2cfbc13b05b" alt = "Two" width="260" height="520">
