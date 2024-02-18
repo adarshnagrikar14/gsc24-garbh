@@ -48,7 +48,21 @@ Tracker Page | Self Notes
 Use the tracker for noting meal consumption and exercises | Embrace freedom in self-notes. Express without limits.
 <img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-01-10-501_com.app.ahara.jpg?alt=media&token=46e8352d-397d-4d52-8e21-49a555ff8059" alt = "One" width="260" height="520"> | <img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-00-48-927_com.app.ahara.jpg?alt=media&token=2ccb40b3-9ec3-4a22-9cca-dc412a0b3100" alt = "Two" width="260" height="520">
 
-Community | Chatbot 
+Community | Garbh bot
 -------------- | --------------
 Engage, post, interact, and learn in our vibrant community. | Your self-help chatbot: engaging and supportive companion.
 <img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-01-27-816_com.app.ahara.jpg?alt=media&token=289c61af-c644-4069-b47e-485daccb22a6" alt = "One" width="260" height="520"> | <img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-01-50-370_com.app.ahara.jpg?alt=media&token=af162d9d-96f7-4f38-bbbd-d2cfbc13b05b" alt = "Two" width="260" height="520">
+
+<br>
+<h1>Feature Previews (Parent Section)</h1>
+<br>
+
+Child Growth Track | Vaccine Reminder 
+-------------- | --------------
+Track your child's growth journey with ease. | Never miss a vaccine with our handy reminder.
+<img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-02-23-378_com.app.ahara.jpg?alt=media&token=e6ed8385-2dd8-4742-b53b-fcce2f1a5ae5" alt = "One" width="260" height="520"> | <img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-02-30-142_com.app.ahara.jpg?alt=media&token=92f43e89-8c21-4df5-bfd6-b936af8f9f7d" alt = "Two" width="260" height="520">
+
+Lullaby | Chatbot
+-------------- | --------------
+Relax and soothe with our lullaby collection. | User-friendly chatbot for a variety of needs.
+<img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-17-22-02-34-993_com.app.ahara.jpg?alt=media&token=6e1316f6-4ebe-493c-b5e7-967950ce60c1" alt = "One" width="260" height="520"> | <img src="https://firebasestorage.googleapis.com/v0/b/ahara-gsc.appspot.com/o/github%2FScreenshot_2024-02-18-10-42-49-761_com.app.ahara.jpg?alt=media&token=3eb1f7a2-94f0-4f7c-b4cb-5dc9a9707478" alt = "Two" width="260" height="520">
